@@ -16,6 +16,7 @@ import RegisterPage from '../RegisterPage/RegisterPage';
 import YarnInventory from '../YarnInventory/YarnInventory';
 import PatternInventory from '../PatternInventory/PatternInventory';
 import ProjectInventory from '../ProjectInventory/ProjectInventory';
+import HomePage from '../HomePage/HomePage';
 
 import './App.css';
 
@@ -55,6 +56,14 @@ function App() {
             path='/user'
           >
             <UserPage />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path='/home'
+          >
+            <HomePage />
           </ProtectedRoute>
 
           <ProtectedRoute

@@ -6,6 +6,7 @@ function* fetchAllYarns() {
   try {
     const yarnsResponse = yield axios.get('/api/yarn');
     yield put({ type: 'SET_YARNS', payload: yarnsResponse.data });
+    console.log('checking fetchyarns', yarnsResponse.data);
   } catch (error) {
     console.log('fetchAllYarns error', error);
   }
