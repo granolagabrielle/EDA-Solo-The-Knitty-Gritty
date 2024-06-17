@@ -13,16 +13,15 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // post new designer to list
 router.post('/', (req, res) => {
   console.log('in designer post, check req.body', req.body);
   const queryText = `INSERT INTO "designer_names" 
-  ("designer_name") 
+  ("name") 
   VALUES ($1);`;
   pool
-    .query(queryText, [req.body.designer_name])
+    .query(queryText, [req.body.name])
     .then((result) => {
       res.send(result.rows[0]);
     })
@@ -31,6 +30,5 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 module.exports = router;

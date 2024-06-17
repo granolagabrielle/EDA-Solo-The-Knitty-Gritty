@@ -4,7 +4,17 @@ const router = express.Router();
 
 // get project inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "project_tracking" WHERE "user_id"=$1;`;
+  console.log('in get, check req.body', req.body);
+  const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."title", "project_tracking"."notes", 
+    "project_tracking"."progress", "project_tracking"."project_image"
+  FROM "project_tracking"
+  JOIN "pattern_inventory"
+  ON "pattern_inventory"."id"="project_tracking"."pattern_id"
+  JOIN "yarn_inventory"
+  ON "yarn_inventory"."id"="project_tracking"."yarn_id"
+  JOIN "brands"
+  ON "brands"."id"="yarn_inventory"."brand"
+  WHERE "project_tracking"."user_id"=$1;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => res.send(result.rows))
@@ -13,12 +23,20 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // get project details for specific pattern of user -- pass in id of pattern that was clicked on
 router.get('/:id', (req, res) => {
   const queryText = `
-      SELECT * FROM "project_tracking" WHERE "project_id"=$1 AND "user_id"=$2;
+      SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."title", "project_tracking"."notes", 
+    "project_tracking"."progress", "project_tracking"."project_image"
+  FROM "project_tracking"
+  JOIN "pattern_inventory"
+  ON "pattern_inventory"."id"="project_tracking"."pattern_id"
+  JOIN "yarn_inventory"
+  ON "yarn_inventory"."id"="project_tracking"."yarn_id"
+  JOIN "brands"
+  ON "brands"."id"="yarn_inventory"."brand"
+  WHERE "project_tracking"."id"=$1 AND "project_tracking"."user_id"=$2;
       `;
   pool
     .query(queryText, [req.params.id, req.user.id])
@@ -30,7 +48,6 @@ router.get('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // post new project for user
 router.post('/', (req, res) => {
@@ -56,7 +73,6 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // put to update project details
 router.put('/:id', (req, res) => {
@@ -103,6 +119,5 @@ router.delete('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 module.exports = router;

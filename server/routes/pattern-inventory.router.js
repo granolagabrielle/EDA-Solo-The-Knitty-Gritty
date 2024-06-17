@@ -4,7 +4,18 @@ const router = express.Router();
 
 // get pattern inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "patterns_inventory" WHERE "user_id"=$1;`;
+  const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."pattern_image"
+    FROM "pattern_inventory"
+    JOIN "designer_names"
+    ON "designer_names"."id"="pattern_inventory"."designer_name"
+    JOIN "pattern_types"
+    ON "pattern_types"."id"="pattern_inventory"."pattern_type"
+    JOIN "weights"
+    ON "weights"."id"="pattern_inventory"."yarn_weight"
+    JOIN "difficulty"
+    ON "difficulty"."id"="pattern_inventory"."difficulty_level"
+    WHERE "user_id"=$1;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => res.send(result.rows))
@@ -13,12 +24,11 @@ router.get('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // get pattern details for specific user -- pass in id of pattern that was clicked on
 router.get('/:id', (req, res) => {
   const queryText = `
-    SELECT "pattern_inventory"."id", "pattern_inventory"."title", "designer_names"."name", "pattern_types"."type", 
+    SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
     "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."pattern_image"
     FROM "pattern_inventory"
     JOIN "designer_names"
@@ -41,22 +51,22 @@ router.get('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // post new pattern to inventory -- TO DO: ADD AUTHENTICATION
 router.post('/', (req, res) => {
   console.log('in pattern post, check req.body', req.body);
-  const queryText = `INSERT INTO "patterns_inventory" 
-    ("title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight_needed", "user_id", "pattern_image") 
-    VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+  const queryText = `INSERT INTO "pattern_inventory" 
+    ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "pattern_image") 
+    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   pool
     .query(queryText, [
       req.body.title,
       req.body.designer_name,
       req.body.pattern_type,
       req.body.difficulty_level,
-      req.body.yarn_weight_needed,
+      req.body.yarn_weight,
       req.user.id,
+      req.body.notes,
       req.body.pattern_image,
     ])
     .then((result) => {
@@ -67,21 +77,20 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // put to update pattern details
 router.put('/:id', (req, res) => {
   console.log('in pattern put, check req.body', req.body);
   const queryText = `
-      UPDATE "patterns_inventory"
-      SET "title" = $1, "designer_name" = $2, "pattern_type" = $3, "difficulty_level" = $4, "yarn_weight_needed" = $5, "pattern_image" = $6
-      WHERE "pattern_id"=$7 AND "user_id"=$8;`;
+      UPDATE "pattern_inventory"
+      SET "pattern_title" = $1, "designer_name" = $2, "pattern_type" = $3, "difficulty_level" = $4, "yarn_weight" = $5, "notes" = $6, "pattern_image" = $7
+      WHERE "id"=$8 AND "user_id"=$9;`;
   const values = [
     req.body.title,
     req.body.designer_name,
     req.body.pattern_type,
     req.body.difficulty_level,
-    req.body.yarn_weight_needed,
+    req.body.yarn_weight,
     req.body.pattern_image,
     req.params.id,
     req.user.id,
@@ -96,13 +105,12 @@ router.put('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 // delete pattern from inventory
 router.delete('/:id', (req, res) => {
   const queryText = `
-    DELETE FROM "patterns_inventory" 
-    WHERE "pattern_id"=$1 
+    DELETE FROM "pattern_inventory" 
+    WHERE "id"=$1 
     AND "user_id"=$2;
     `;
   pool
@@ -115,6 +123,5 @@ router.delete('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
-// WORKS IN POSTMAN
 
 module.exports = router;

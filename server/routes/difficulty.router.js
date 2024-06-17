@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get difficulty levels for dropdown list
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "difficulty_levels";`;
+  const queryText = `SELECT * FROM "difficulty";`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -17,11 +17,11 @@ router.get('/', (req, res) => {
 // add new difficulty level
 router.post('/', (req, res) => {
   console.log('in difficulty post, check req.body', req.body);
-  const queryText = `INSERT INTO "difficulty_levels" 
-  ("difficulty_level") 
+  const queryText = `INSERT INTO "difficulty" 
+  ("level") 
   VALUES ($1);`;
   pool
-    .query(queryText, [req.body.difficulty_level])
+    .query(queryText, [req.body.level])
     .then((result) => {
       res.send(result.rows[0]);
     })

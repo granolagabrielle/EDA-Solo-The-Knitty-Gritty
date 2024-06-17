@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get designer names for dropdown list
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "fiber_content";`;
+  const queryText = `SELECT * FROM "fibers";`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -17,11 +17,11 @@ router.get('/', (req, res) => {
 // add new fiber content
 router.post('/', (req, res) => {
   console.log('in fiber content post, check req.body', req.body);
-  const queryText = `INSERT INTO "fiber_content" 
-  ("fiber_content") 
+  const queryText = `INSERT INTO "fibers" 
+  ("fiber") 
   VALUES ($1);`;
   pool
-    .query(queryText, [req.body.fiber_content])
+    .query(queryText, [req.body.fiber])
     .then((result) => {
       res.send(result.rows[0]);
     })

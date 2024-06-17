@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get designer names for dropdown list
 router.get('/', (req, res) => {
-  const queryText = `SELECT * FROM "pattern_type";`;
+  const queryText = `SELECT * FROM "pattern_types";`;
   pool
     .query(queryText)
     .then((result) => res.send(result.rows))
@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 // add new pattern type
 router.post('/', (req, res) => {
   console.log('in pattern type post, check req.body', req.body);
-  const queryText = `INSERT INTO "pattern_type" 
+  const queryText = `INSERT INTO "pattern_types" 
   ("type") 
   VALUES ($1);`;
   pool
