@@ -32,6 +32,14 @@ function Nav() {
               Yarn
             </Link>
 
+            <Link className='navLink' to='/patterns'>
+              Patterns
+            </Link>
+
+            <Link className='navLink' to='/projects'>
+              Projects
+            </Link>
+
             <LogOutButton className='navLink' />
           </>
         )}

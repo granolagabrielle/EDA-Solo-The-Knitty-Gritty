@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // pattern reducer - store patterns from the server
-const patterns = (state = [], action) => {
+const patternInventory = (state = [], action) => {
   switch (action.type) {
     case 'SET_PATTERNS':
       return action.payload;
@@ -20,6 +20,6 @@ const patternDetails = (state = {}, action) => {
 };
 
 export default combineReducers({
-  patterns,
+  patternInventory,
   patternDetails,
 });

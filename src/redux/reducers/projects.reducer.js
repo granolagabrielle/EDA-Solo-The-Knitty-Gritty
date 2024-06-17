@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
 
 // project reducer - store projects from the server
-const projects = (state = [], action) => {
+const projectInventory = (state = [], action) => {
   switch (action.type) {
     case 'SET_PROJECTS':
       return action.payload;
@@ -20,6 +20,6 @@ const projectDetails = (state = [], action) => {
 };
 
 export default combineReducers({
-  projects,
+  projectInventory,
   projectDetails,
 });

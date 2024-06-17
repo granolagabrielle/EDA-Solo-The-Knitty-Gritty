@@ -10,11 +10,12 @@ import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 import AboutPage from '../AboutPage/AboutPage';
 import UserPage from '../UserPage/UserPage';
-import InfoPage from '../InfoPage/InfoPage';
 import LandingPage from '../LandingPage/LandingPage';
 import LoginPage from '../LoginPage/LoginPage';
 import RegisterPage from '../RegisterPage/RegisterPage';
 import YarnInventory from '../YarnInventory/YarnInventory';
+import PatternInventory from '../PatternInventory/PatternInventory';
+import ProjectInventory from '../ProjectInventory/ProjectInventory';
 
 import './App.css';
 
@@ -62,6 +63,22 @@ function App() {
             path='/yarn'
           >
             <YarnInventory />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/patterns'
+          >
+            <PatternInventory />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/projects'
+          >
+            <ProjectInventory />
           </ProtectedRoute>
 
           <Route exact path='/login'>
