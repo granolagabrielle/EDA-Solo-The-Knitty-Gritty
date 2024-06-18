@@ -57,7 +57,7 @@ router.post('/', (req, res) => {
   pool
     .query(queryText, [
       req.body.brand,
-      req.body.title,
+      req.body.yarn_title,
       req.body.skeins,
       req.body.fiber,
       req.body.weight,
