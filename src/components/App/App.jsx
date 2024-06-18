@@ -25,6 +25,7 @@ import ProjectDetails from '../ProjectDetails/ProjectDetails';
 import AddYarn from '../AddYarnForm/AddYarnForm';
 import AddPattern from '../AddPatternForm/AddPatternForm';
 import AddProject from '../AddProjectForm/AddProjectForm';
+import CloudinaryUpload from '../Cloudinary/Container';
 
 function App() {
   const dispatch = useDispatch();
@@ -63,6 +64,13 @@ function App() {
           >
             <UserPage />
           </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows UserPage else shows LoginPage
+            exact
+            path='/cloudinaryupload'
+            component={CloudinaryUpload}
+          ></ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage

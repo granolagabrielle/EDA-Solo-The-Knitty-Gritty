@@ -5,7 +5,7 @@ const router = express.Router();
 // get pattern inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."pattern_image"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const queryText = `
     SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."pattern_image"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -56,7 +56,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   console.log('in pattern post, check req.body', req.body);
   const queryText = `INSERT INTO "pattern_inventory" 
-    ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "pattern_image") 
+    ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "image") 
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   pool
     .query(queryText, [
@@ -67,7 +67,7 @@ router.post('/', (req, res) => {
       req.body.yarn_weight,
       req.user.id,
       req.body.notes,
-      req.body.pattern_image,
+      req.body.image,
     ])
     .then((result) => {
       res.send(result.rows[0]);
@@ -83,7 +83,7 @@ router.put('/:id', (req, res) => {
   console.log('in pattern put, check req.body', req.body);
   const queryText = `
       UPDATE "pattern_inventory"
-      SET "pattern_title" = $1, "designer_name" = $2, "pattern_type" = $3, "difficulty_level" = $4, "yarn_weight" = $5, "notes" = $6, "pattern_image" = $7
+      SET "pattern_title" = $1, "designer_name" = $2, "pattern_type" = $3, "difficulty_level" = $4, "yarn_weight" = $5, "notes" = $6, "image" = $7
       WHERE "id"=$8 AND "user_id"=$9;`;
   const values = [
     req.body.title,
@@ -91,7 +91,7 @@ router.put('/:id', (req, res) => {
     req.body.pattern_type,
     req.body.difficulty_level,
     req.body.yarn_weight,
-    req.body.pattern_image,
+    req.body.image,
     req.params.id,
     req.user.id,
   ];

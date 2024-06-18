@@ -5,7 +5,7 @@ const router = express.Router();
 // get project inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
   const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
-    "project_tracking"."progress", "project_tracking"."project_image"
+    "project_tracking"."progress", "project_tracking"."image"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -27,7 +27,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   const queryText = `
       SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
-    "project_tracking"."progress", "project_tracking"."project_image"
+    "project_tracking"."progress", "project_tracking"."image"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -52,7 +52,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
-      ("pattern_id", "date_started", "notes", "progress", "yarn_id", "user_id", "project_image") 
+      ("pattern_id", "date_started", "notes", "progress", "yarn_id", "user_id", "image") 
       VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   pool
     .query(queryText, [
@@ -62,7 +62,7 @@ router.post('/', (req, res) => {
       req.body.progress,
       req.body.yarn_id,
       req.user.id,
-      req.body.project_image,
+      req.body.image,
     ])
     .then((result) => {
       res.send(result.rows[0]);
@@ -78,7 +78,7 @@ router.put('/:id', (req, res) => {
   console.log('in project put, check req.body', req.body);
   const queryText = `
     UPDATE "project_tracking"
-    SET "pattern_id" = $1, "date_started" = $2, "notes" = $3, "progress" = $4, "yarn_id" = $5, "project_image" = $6
+    SET "pattern_id" = $1, "date_started" = $2, "notes" = $3, "progress" = $4, "yarn_id" = $5, "image" = $6
     WHERE "project_id"=$7 AND "user_id"=$8;`;
   const values = [
     req.body.pattern_id,
@@ -86,7 +86,7 @@ router.put('/:id', (req, res) => {
     req.body.notes,
     req.body.progress,
     req.body.yarn_id,
-    req.body.project_image,
+    req.body.image,
     req.params.id,
     req.user.id,
   ];

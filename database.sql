@@ -50,7 +50,7 @@ CREATE TABLE "yarn_inventory" (
 	"dye_lot" VARCHAR (100),
 	"user_id" INT REFERENCES "user" ("id"),
 	"notes" VARCHAR,
-    "yarn_image" varchar(300) NOT NULL
+    "image" INT REFERENCES "uploads" ("id")
 );
 
 CREATE TABLE "pattern_inventory" (
@@ -62,7 +62,7 @@ CREATE TABLE "pattern_inventory" (
 	"yarn_weight" INT REFERENCES "weights" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
 	"notes" VARCHAR,
-    "pattern_image" varchar(300) NOT NULL
+    "image" INT REFERENCES "uploads" ("id")
 );
 
 CREATE TABLE "project_tracking" (
@@ -73,7 +73,15 @@ CREATE TABLE "project_tracking" (
 	"progress" INT,
 	"yarn_id" INT REFERENCES "yarn_inventory" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
-    "project_image" varchar(300) NOT NULL
+    "image" INT REFERENCES "uploads" ("id")
+);
+
+CREATE TABLE "uploads" (
+    "id" SERIAL PRIMARY KEY,
+    "file_type" VARCHAR(250) NOT NULL,
+    "description" VARCHAR(250) NOT NULL,
+    "file_url" VARCHAR(250) NOT NULL,
+    "uploaded_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 
 -- Seed Data
