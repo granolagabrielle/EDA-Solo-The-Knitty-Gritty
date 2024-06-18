@@ -4,6 +4,7 @@ import user from './user.reducer';
 import patterns from './patterns.reducer';
 import yarns from './yarn.reducer';
 import projects from './projects.reducer';
+import fiber from './fiber.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   patterns,
   yarns,
   projects,
+  fiber,
 });
 
 export default rootReducer;

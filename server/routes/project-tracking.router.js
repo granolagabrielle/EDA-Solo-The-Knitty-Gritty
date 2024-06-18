@@ -4,7 +4,6 @@ const router = express.Router();
 
 // get project inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
-  console.log('in get, check req.body', req.body);
   const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
     "project_tracking"."progress", "project_tracking"."project_image"
   FROM "project_tracking"

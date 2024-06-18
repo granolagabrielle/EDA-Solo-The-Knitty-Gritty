@@ -5,6 +5,7 @@ import userSaga from './user.saga';
 import patternsSaga from './pattern-inventory.saga';
 import yarnsSaga from './yarn-inventory.saga';
 import projectsSaga from './project-tracking.saga';
+import fibersSaga from './fiber.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -21,5 +22,6 @@ export default function* rootSaga() {
     patternsSaga(),
     yarnsSaga(),
     projectsSaga(),
+    fibersSaga(),
   ]);
 }

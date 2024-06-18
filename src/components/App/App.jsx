@@ -22,6 +22,7 @@ import './App.css';
 import YarnDetails from '../YarnDetails/YarnDetails';
 import PatternDetails from '../PatternDetails/PatternDetails';
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
+import AddYarn from '../AddYarnForm/AddYarnForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -75,6 +76,14 @@ function App() {
             path='/yarn'
           >
             <YarnInventory />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/addyarn'
+          >
+            <AddYarn />
           </ProtectedRoute>
 
           <ProtectedRoute
