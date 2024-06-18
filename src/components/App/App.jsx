@@ -24,6 +24,7 @@ import PatternDetails from '../PatternDetails/PatternDetails';
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 import AddYarn from '../AddYarnForm/AddYarnForm';
 import AddPattern from '../AddPatternForm/AddPatternForm';
+import AddProject from '../AddProjectForm/AddProjectForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -125,6 +126,14 @@ function App() {
             path='/projects'
           >
             <ProjectInventory />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/addproject'
+          >
+            <AddProject />
           </ProtectedRoute>
 
           <ProtectedRoute
