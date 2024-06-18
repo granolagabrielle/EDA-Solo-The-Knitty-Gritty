@@ -7,6 +7,9 @@ import projects from './projects.reducer';
 import fiber from './fiber.reducer';
 import brands from './brands.reducer';
 import weights from './weights.reducer';
+import designers from './designers.reducer';
+import patternTypes from './pattern-types.reducer';
+import difficultys from './difficulty-levels.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -23,6 +26,9 @@ const rootReducer = combineReducers({
   fiber,
   brands,
   weights,
+  designers,
+  patternTypes,
+  difficultys,
 });
 
 export default rootReducer;

@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   pool
     .query(queryText, [
-      req.body.title,
+      req.body.pattern_title,
       req.body.designer_name,
       req.body.pattern_type,
       req.body.difficulty_level,

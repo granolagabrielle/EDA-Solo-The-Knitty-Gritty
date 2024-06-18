@@ -23,6 +23,7 @@ import YarnDetails from '../YarnDetails/YarnDetails';
 import PatternDetails from '../PatternDetails/PatternDetails';
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 import AddYarn from '../AddYarnForm/AddYarnForm';
+import AddPattern from '../AddPatternForm/AddPatternForm';
 
 function App() {
   const dispatch = useDispatch();
@@ -108,6 +109,14 @@ function App() {
             path='/patterns'
           >
             <PatternInventory />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/addpattern'
+          >
+            <AddPattern />
           </ProtectedRoute>
 
           <ProtectedRoute
