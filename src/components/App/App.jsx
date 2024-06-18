@@ -19,6 +19,9 @@ import ProjectInventory from '../ProjectInventory/ProjectInventory';
 import HomePage from '../HomePage/HomePage';
 
 import './App.css';
+import YarnDetails from '../YarnDetails/YarnDetails';
+import PatternDetails from '../PatternDetails/PatternDetails';
+import ProjectDetails from '../ProjectDetails/ProjectDetails';
 
 function App() {
   const dispatch = useDispatch();
@@ -77,6 +80,22 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
+            path='/yarn/:id'
+          >
+            <YarnDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/pattern/:id'
+          >
+            <PatternDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
             path='/patterns'
           >
             <PatternInventory />
@@ -88,6 +107,14 @@ function App() {
             path='/projects'
           >
             <ProjectInventory />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/project/:id'
+          >
+            <ProjectDetails />
           </ProtectedRoute>
 
           <Route exact path='/login'>

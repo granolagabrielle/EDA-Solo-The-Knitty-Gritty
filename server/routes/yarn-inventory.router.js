@@ -52,7 +52,7 @@ router.get('/:id', (req, res) => {
 router.post('/', (req, res) => {
   console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
-  ("brand", "title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "yarn_image") 
+  ("brand", "yarn_title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "yarn_image") 
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
   pool
     .query(queryText, [
@@ -98,7 +98,7 @@ router.put('/:id', (req, res) => {
   console.log('in yarn put, check req.body', req.body);
   const queryText = `
     UPDATE "yarn_inventory"
-    SET "brand" = $1, "title" = $2, "skeins" = $3, "fiber" = $4, "weight" = $5, "skein_grams" = $6, "dye_lot" = $7, "notes" = $8, yarn_image" = $9
+    SET "brand" = $1, "yarn_title" = $2, "skeins" = $3, "fiber" = $4, "weight" = $5, "skein_grams" = $6, "dye_lot" = $7, "notes" = $8, yarn_image" = $9
     WHERE "id"=$10 AND "user_id"=$11;`;
   const values = [
     req.body.brand,

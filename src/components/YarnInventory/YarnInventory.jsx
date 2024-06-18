@@ -12,13 +12,18 @@ function YarnInventory() {
     dispatch({ type: 'FETCH_YARNS' });
   }, []);
 
+  const viewDetails = (yarnId) => {
+    console.log('details button clicked');
+    history.push(`/yarn/${yarnId}`);
+  };
+
   return (
     <>
       <h1>Yarn Inventory</h1>
       <section>
         {yarns.map((yarn) => {
           return (
-            <div key={yarn.id}>
+            <div key={yarn.id} onClick={() => viewDetails(yarn.id)}>
               <p>{yarn.name}</p>
             </div>
           );

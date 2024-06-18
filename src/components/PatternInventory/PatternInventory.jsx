@@ -12,13 +12,17 @@ function PatternInventory() {
     dispatch({ type: 'FETCH_PATTERNS' });
   }, []);
 
+  const viewDetails = (patternId) => {
+    history.push(`/pattern/${patternId}`);
+  };
+
   return (
     <>
       <h1>Pattern Inventory</h1>
       <section>
         {patterns.map((pattern) => {
           return (
-            <div key={pattern.id}>
+            <div key={pattern.id} onClick={() => viewDetails(pattern.id)}>
               <p>{pattern.pattern_title}</p>
             </div>
           );

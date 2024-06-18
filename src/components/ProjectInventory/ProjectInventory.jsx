@@ -6,11 +6,14 @@ function ProjectInventory() {
   const history = useHistory();
   const dispatch = useDispatch();
   const projects = useSelector((store) => store.projects.projectInventory);
-  console.log('checking projects', projects);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECTS' });
   }, []);
+
+  const viewDetails = (projectId) => {
+    history.push(`/project/${projectId}`);
+  };
 
   return (
     <>
@@ -18,8 +21,8 @@ function ProjectInventory() {
       <section>
         {projects.map((project) => {
           return (
-            <div key={project.id}>
-              <p>{project.title}</p>
+            <div key={project.id} onClick={() => viewDetails(project.id)}>
+              <p>{project.pattern_title}</p>
             </div>
           );
         })}
