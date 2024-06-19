@@ -5,7 +5,7 @@ const router = express.Router();
 // get pattern inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -15,7 +15,7 @@ router.get('/', (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
-    WHERE "user_id"=$1;`;
+    WHERE "user_id"=$1 AND "pattern_inventory"."isdeleted"=FALSE;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => res.send(result.rows))
@@ -109,7 +109,8 @@ router.put('/:id', (req, res) => {
 // delete pattern from inventory
 router.delete('/:id', (req, res) => {
   const queryText = `
-    DELETE FROM "pattern_inventory" 
+    UPDATE "pattern_inventory" 
+    SET "isdeleted"=TRUE
     WHERE "id"=$1 
     AND "user_id"=$2;
     `;

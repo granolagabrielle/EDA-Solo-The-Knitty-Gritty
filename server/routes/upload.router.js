@@ -16,9 +16,9 @@ router.get('/', (req, res) => {
 
 router.post('/', (req, res) => {
   const { description, file_url, file_type } = req.body;
-  const queryText = 'INSERT INTO "uploads" (description, file_url, file_type) VALUES ($1, $2, $3);';
+  const queryText = 'INSERT INTO "uploads" (file_url) VALUES ($1);';
   pool
-    .query(queryText, [description, file_url, file_type])
+    .query(queryText, [file_url])
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log(err);

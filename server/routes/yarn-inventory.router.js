@@ -4,7 +4,7 @@ const router = express.Router();
 
 // get yarn inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."isdeleted"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -12,7 +12,9 @@ router.get('/', (req, res) => {
   ON "brands"."id"="yarn_inventory"."brand"
   JOIN "weights"
   ON "weights"."id"="yarn_inventory"."weight"
-  WHERE "yarn_inventory"."user_id"=$1
+  JOIN "uploads"
+  ON "uploads"."id"="yarn_inventory"."image"
+  WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isdeleted"=FALSE
 ;`;
   pool
     .query(queryText, [req.user.id])
@@ -79,7 +81,8 @@ router.post('/', (req, res) => {
 // delete yarn from inventory
 router.delete('/:id', (req, res) => {
   const queryText = `
-  DELETE FROM "yarn_inventory" 
+  UPDATE "yarn_inventory" 
+  SET "isdeleted"=TRUE
   WHERE "id"=$1 
   AND "user_id"=$2;
   `;
@@ -93,6 +96,7 @@ router.delete('/:id', (req, res) => {
       res.sendStatus(500);
     });
 });
+
 // put to update yarn details
 router.put('/:id', (req, res) => {
   console.log('in yarn put, check req.body', req.body);

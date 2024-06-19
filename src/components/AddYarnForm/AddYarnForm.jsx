@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+// import CloudinaryUpload from '../Cloudinary/Container'
 
 function AddYarn() {
   const history = useHistory();
@@ -31,7 +32,7 @@ function AddYarn() {
     dye_lot: '',
     user_id: '',
     notes: '',
-    yarn_image: '',
+    image: '',
   });
 
   const handleNewYarn = (event) => {
@@ -54,8 +55,8 @@ function AddYarn() {
       setNewYarn({ ...newYarn, dye_lot: event.target.value });
     } else if (event.target.id === 'notes') {
       setNewYarn({ ...newYarn, notes: event.target.value });
-    } else if (event.target.id === 'yarn_image') {
-      setNewYarn({ ...newYarn, yarn_image: event.target.value });
+    } else if (event.target.id === 'image') {
+      setNewYarn({ ...newYarn, image: event.target.value });
     } else {
       setNewYarn({ ...newYarn, user_id: event.target.user.id });
     }
@@ -65,6 +66,7 @@ function AddYarn() {
   const addYarn = () => {
     console.log('submit yarn was clicked');
     dispatch({ type: 'ADD_YARN', payload: newYarn });
+    console.log('check new yarn', newYarn);
     dispatch({ type: 'FETCH_YARNS' });
     history.push('/yarn');
   };
@@ -113,7 +115,7 @@ function AddYarn() {
           <input placeholder='Total skeins' id='skeins' value={newYarn.skeins} onChange={handleNewYarn} />
           <input placeholder='Grams in skein' id='skein_grams' value={newYarn.skein_grams} onChange={handleNewYarn} />
           <input placeholder='Yarn notes' id='notes' value={newYarn.notes} onChange={handleNewYarn} />
-          <input placeholder='Yarn image' id='yarn_image' value={newYarn.yarn_image} onChange={handleNewYarn} />
+          <input placeholder='Yarn image' id='image' value={newYarn.image} onChange={handleNewYarn} />
           <button type='submit'>Add Yarn</button>
           <button onClick={cancel}>Cancel</button>
         </form>

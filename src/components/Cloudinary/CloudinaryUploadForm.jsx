@@ -2,11 +2,9 @@ import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useScript } from '../../hooks/useScript';
 
-function CloudifyUploadForm(props) {
+function CloudifyUploadForm() {
   const [state, setState] = useState({
     file_url: null,
-    file_type: 'image',
-    description: '',
   });
 
   const dispatch = useDispatch();
@@ -50,8 +48,6 @@ function CloudifyUploadForm(props) {
 
       setState({
         file_url: null,
-        file_type: 'image',
-        description: '',
       });
     } else {
       dispatch({
@@ -72,11 +68,6 @@ function CloudifyUploadForm(props) {
           Pick File
         </button>
         <br />
-        File Type:
-        <select onChange={(e) => setState({ ...state, file_type: e.target.value })} value={state.file_type}>
-          <option value='image'>Image</option>
-          <option value='audio'>Audio</option>
-        </select>
         {state.file_url && (
           <p>
             Uploaded Image URL: {state.file_url} <br />
@@ -84,8 +75,6 @@ function CloudifyUploadForm(props) {
           </p>
         )}
         <br />
-        Description:{' '}
-        <input onChange={(e) => setState({ ...state, description: e.target.value })} value={state.description} />
         <div>
           <button type='submit'>Submit Image</button>
         </div>

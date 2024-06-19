@@ -25,7 +25,7 @@ function AddProject() {
     progress: '',
     yarn_id: '',
     user_id: '',
-    project_image: '',
+    image: '',
   });
 
   const handleNewProject = (event) => {
@@ -40,8 +40,8 @@ function AddProject() {
       setNewProject({ ...newProject, progress: event.target.value });
     } else if (event.target.id === 'yarn_id') {
       setNewProject({ ...newProject, yarn_id: event.target.value });
-    } else if (event.target.id === 'project_image') {
-      setNewProject({ ...newProject, project_image: event.target.value });
+    } else if (event.target.id === 'image') {
+      setNewProject({ ...newProject, image: event.target.value });
     } else {
       setNewProject({ ...newProject, user_id: event.target.user.id });
     }
@@ -92,8 +92,8 @@ function AddProject() {
           </select>
           <input
             placeholder='Project image'
-            id='project_image'
-            value={newProject.project_image}
+            id='image'
+            value={newProject.image}
             onChange={handleNewProject}
           />
           <button type='submit'>Add Project</button>

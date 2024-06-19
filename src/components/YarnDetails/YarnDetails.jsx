@@ -16,10 +16,25 @@ function YarnDetails() {
     dispatch({ type: 'FETCH_YARN_DETAILS', payload: params.id });
   }, []);
 
+  const deleteYarn = () => {
+    dispatch({ type: 'DELETE_YARN', payload: params.id });
+    console.log('check deleted id', params.id);
+    history.push('/yarn');
+  };
+
+  const returnToYarn = () => {
+    history.push('/yarn');
+  };
+
   return (
     <>
       <h1>Yarn Details Page</h1>
-      <p>{yarnDetails.yarn_title}</p>
+      <p>
+        {yarnDetails.name}
+        {yarnDetails.yarn_title}
+      </p>
+      <button onClick={() => deleteYarn(yarnDetails.id)}>Delete Yarn</button>
+      <button onClick={returnToYarn}>Back to Inventory</button>
     </>
   );
 }

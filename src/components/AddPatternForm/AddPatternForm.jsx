@@ -32,7 +32,7 @@ function AddPattern() {
     yarn_weight: '',
     user_id: '',
     notes: '',
-    pattern_image: '',
+    image: '',
   });
 
   const handleNewPattern = (event) => {
@@ -48,8 +48,8 @@ function AddPattern() {
       setNewPattern({ ...newPattern, yarn_weight: event.target.value });
     } else if (event.target.id === 'notes') {
       setNewPattern({ ...newPattern, notes: event.target.value });
-    } else if (event.target.id === 'pattern_image') {
-      setNewPattern({ ...newPattern, pattern_image: event.target.value });
+    } else if (event.target.id === 'image') {
+      setNewPattern({ ...newPattern, image: event.target.value });
     } else {
       setNewPattern({ ...newPattern, user_id: event.target.user.id });
     }
@@ -121,8 +121,8 @@ function AddPattern() {
           <input placeholder='Pattern notes' id='notes' value={newPattern.notes} onChange={handleNewPattern} />
           <input
             placeholder='Pattern image'
-            id='pattern_image'
-            value={newPattern.pattern_image}
+            id='image'
+            value={newPattern.image}
             onChange={handleNewPattern}
           />
           <button type='submit'>Add Pattern</button>

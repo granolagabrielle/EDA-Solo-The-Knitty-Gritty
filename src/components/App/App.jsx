@@ -69,8 +69,9 @@ function App() {
             // logged in shows UserPage else shows LoginPage
             exact
             path='/cloudinaryupload'
-            component={CloudinaryUpload}
-          ></ProtectedRoute>
+          >
+            <CloudinaryUpload />
+          </ProtectedRoute>
 
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage

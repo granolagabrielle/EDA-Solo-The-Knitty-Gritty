@@ -5,7 +5,7 @@ const router = express.Router();
 // get project inventory for specific user -- TO DO: ADD AUTHENTICATION
 router.get('/', (req, res) => {
   const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
-    "project_tracking"."progress", "project_tracking"."image"
+    "project_tracking"."progress", "project_tracking"."image", "project_tracking"."isdeleted"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
   ON "yarn_inventory"."id"="project_tracking"."yarn_id"
   JOIN "brands"
   ON "brands"."id"="yarn_inventory"."brand"
-  WHERE "project_tracking"."user_id"=$1;`;
+  WHERE "project_tracking"."user_id"=$1 AND "project_tracking"."isdeleted"=FALSE;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => res.send(result.rows))
@@ -104,9 +104,10 @@ router.put('/:id', (req, res) => {
 // delete project from inventory
 router.delete('/:id', (req, res) => {
   const queryText = `
-      DELETE FROM "project_tracking" 
-      WHERE "project_id"=$1 
-      AND "user_id"=$2;
+    UPDATE "project_tracking" 
+    SET "isdeleted"=TRUE
+    WHERE "id"=$1 
+    AND "user_id"=$2;
       `;
   pool
     .query(queryText, [req.params.id, req.user.id]) // $1, $2
