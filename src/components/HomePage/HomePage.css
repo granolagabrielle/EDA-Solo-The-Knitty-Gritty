@@ -8,7 +8,8 @@
   padding-left: 80px;
 }
 
-.yarn-card {
+.yarn-card,
+.pattern-card {
   display: flex;
   margin: 20px;
   align-content: center;

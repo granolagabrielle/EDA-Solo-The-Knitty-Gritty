@@ -50,7 +50,7 @@ CREATE TABLE "yarn_inventory" (
 	"dye_lot" VARCHAR (100),
 	"user_id" INT REFERENCES "user" ("id"),
 	"notes" VARCHAR,
-    "image" INT REFERENCES "uploads" ("id")
+    "image" VARCHAR
 );
 
 CREATE TABLE "pattern_inventory" (
@@ -62,7 +62,7 @@ CREATE TABLE "pattern_inventory" (
 	"yarn_weight" INT REFERENCES "weights" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
 	"notes" VARCHAR,
-    "image" INT REFERENCES "uploads" ("id")
+    "image" VARCHAR
 );
 
 CREATE TABLE "project_tracking" (
@@ -73,15 +73,7 @@ CREATE TABLE "project_tracking" (
 	"progress" INT,
 	"yarn_id" INT REFERENCES "yarn_inventory" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
-    "image" INT REFERENCES "uploads" ("id")
-);
-
-CREATE TABLE "uploads" (
-    "id" SERIAL PRIMARY KEY,
-    "file_type" VARCHAR(250) NOT NULL,
-    "description" VARCHAR(250) NOT NULL,
-    "file_url" VARCHAR(250) NOT NULL,
-    "uploaded_at" timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+    "image" VARCHAR
 );
 
 -- Seed Data
@@ -100,11 +92,11 @@ INSERT INTO "brands" ("name") VALUES ('Cascade Yarns'), ('Woolstok'), ('Isager')
 
 INSERT INTO "weights" ("weight") VALUES ('Lace'), ('Sock'), ('Sport'), ('Double Knit'), ('Worsted'), ('Bulky');
 
-INSERT INTO "yarn_inventory" ("id", "brand", "title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "yarn_image") VALUES (1, 1, 'test title', 1, 1, 1, 50, 'blue', 1, 'test notes', 'img.jpg');
+INSERT INTO "yarn_inventory" ("id", "brand", "title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "yarn_image") VALUES (1, 1, 'test title', 1, 1, 1, 50, 'blue', 1, 'test notes');
 
-INSERT INTO "pattern_inventory" ("id", "title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "pattern_image") VALUES (1, 'Sophie Scarf', 1, 2, 2, 4, 1, 'test notes', 'pattern.jpg');
+INSERT INTO "pattern_inventory" ("id", "title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "pattern_image") VALUES (1, 'Sophie Scarf', 1, 2, 2, 4, 1, 'test notes');
 
-INSERT INTO "project_tracking" ("id", "pattern_id", "date_started", "notes", "progress", "yarn_id", "user_id", "project_image") VALUES (1, 1, '01-01-2024', 'test notes', 25, 1, 1, 'project.jpg');
+INSERT INTO "project_tracking" ("id", "pattern_id", "date_started", "notes", "progress", "yarn_id", "user_id", "project_image") VALUES (1, 1, '01-01-2024', 'test notes', 25, 1, 1);
 
 
 

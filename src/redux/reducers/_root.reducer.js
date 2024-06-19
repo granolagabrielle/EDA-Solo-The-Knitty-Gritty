@@ -10,8 +10,6 @@ import weights from './weights.reducer';
 import designers from './designers.reducer';
 import patternTypes from './pattern-types.reducer';
 import difficultys from './difficulty-levels.reducer';
-import upload from './upload.reducer';
-import alert from './alert.reducer';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -31,8 +29,6 @@ const rootReducer = combineReducers({
   designers,
   patternTypes,
   difficultys,
-  upload,
-  alert,
 });
 
 export default rootReducer;

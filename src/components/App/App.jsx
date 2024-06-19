@@ -25,7 +25,7 @@ import ProjectDetails from '../ProjectDetails/ProjectDetails';
 import AddYarn from '../AddYarnForm/AddYarnForm';
 import AddPattern from '../AddPatternForm/AddPatternForm';
 import AddProject from '../AddProjectForm/AddProjectForm';
-import CloudinaryUpload from '../Cloudinary/Container';
+import EditYarn from '../YarnInventory/EditYarn';
 
 function App() {
   const dispatch = useDispatch();
@@ -68,14 +68,6 @@ function App() {
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
-            path='/cloudinaryupload'
-          >
-            <CloudinaryUpload />
-          </ProtectedRoute>
-
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
             path='/home'
           >
             <HomePage />
@@ -95,6 +87,14 @@ function App() {
             path='/addyarn'
           >
             <AddYarn />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/edit-yarn/:id'
+          >
+            <EditYarn />
           </ProtectedRoute>
 
           <ProtectedRoute

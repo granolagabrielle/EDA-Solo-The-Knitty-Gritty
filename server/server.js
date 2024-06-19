@@ -18,7 +18,6 @@ const fiberRouter = require('./routes/fiber.router');
 const patternTypeRouter = require('./routes/pattern-type.router');
 const yarnBrandRouter = require('./routes/brands.router');
 const yarnWeightRouter = require('./routes/weights.router');
-const uploadRouter = require('./routes/upload.router');
 
 // Express Middleware
 app.use(express.json());
@@ -43,7 +42,6 @@ app.use('/api/fiber', fiberRouter);
 app.use('/api/types', patternTypeRouter);
 app.use('/api/brands', yarnBrandRouter);
 app.use('/api/weights', yarnWeightRouter);
-app.use('/api/upload', uploadRouter);
 
 // Listen Server & Port
 app.listen(PORT, () => {

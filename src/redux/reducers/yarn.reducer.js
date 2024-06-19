@@ -14,6 +14,10 @@ const yarnDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_YARN_DETAILS':
       return action.payload;
+    case 'CLEAR_YARN_DETAILS':
+      return {};
+    case 'EDIT_YARN_DETAILS':
+      return { ...state, ...action.payload };
     default:
       return state;
   }

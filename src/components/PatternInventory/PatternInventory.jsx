@@ -1,6 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import './PatternInventory.css';
 
 function PatternInventory() {
   const history = useHistory();
@@ -19,12 +23,24 @@ function PatternInventory() {
   return (
     <>
       <h1>Pattern Inventory</h1>
-      <section>
+      <section className='pattern-container'>
         {patterns.map((pattern) => {
           return (
-            <div key={pattern.id} onClick={() => viewDetails(pattern.id)}>
-              <p>{pattern.pattern_title}</p>
-            </div>
+            <Card
+              className='pattern-card'
+              variant='outlined'
+              sx={{ minWidth: 275 }}
+              style={{ backgroundColor: 'blanchedalmond' }}
+              key={pattern.id}
+              onClick={() => viewDetails(pattern.id)}
+            >
+              <CardContent className='card-content'>
+                <img style={{ width: '15rem', height: '20rem' }} src={pattern.image} alt={pattern.pattern_title} />
+                <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
+                  {pattern.name}: {pattern.pattern_title}
+                </Typography>
+              </CardContent>
+            </Card>
           );
         })}
       </section>

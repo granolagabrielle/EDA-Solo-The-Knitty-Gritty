@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
 // get yarn details for specific user -- pass in id of yarn that was clicked on
 router.get('/:id', (req, res) => {
   const queryText = `
-  SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image"
+  SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."notes"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -112,21 +112,9 @@ router.put('/:id', (req, res) => {
   console.log('in yarn put, check req.body', req.body);
   const queryText = `
     UPDATE "yarn_inventory"
-    SET "brand" = $1, "yarn_title" = $2, "skeins" = $3, "fiber" = $4, "weight" = $5, "skein_grams" = $6, "dye_lot" = $7, "notes" = $8, image" = $9
-    WHERE "id"=$10 AND "user_id"=$11;`;
-  const values = [
-    req.body.brand,
-    req.body.title,
-    req.body.skeins,
-    req.body.fiber,
-    req.body.weight,
-    req.body.skein_grams,
-    req.body.dye_lot,
-    req.body.notes,
-    req.body.image,
-    req.params.id,
-    req.user.id,
-  ];
+    SET "notes" = $1
+    WHERE "id"=$2 AND "user_id"=$3;`;
+  const values = [req.body.notes, req.params.id, req.user.id];
   pool
     .query(queryText, values)
     .then((result) => {

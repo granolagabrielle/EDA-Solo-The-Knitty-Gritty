@@ -43,11 +43,23 @@ function* deleteYarn(action) {
   }
 }
 
+// saga to edit yarn
+function* editYarn(action) {
+  try {
+    yield axios.put(`/api/yarn/${action.payload.yarnId}`, action.payload.details);
+    yield put({ type: 'FETCH_YARN_DETAILS', payload: action.payload.yarnId });
+    yield put({ type: 'CLEAR_YARN_DETAILS' });
+  } catch (error) {
+    console.log('error editing yarn', error);
+  }
+}
+
 function* yarnsSaga() {
   yield takeLatest('FETCH_YARNS', fetchAllYarns);
   yield takeLatest('FETCH_YARN_DETAILS', fetchYarnDetails);
   yield takeLatest('ADD_YARN', addYarn);
   yield takeLatest('DELETE_YARN', deleteYarn);
+  yield takeLatest('EDIT_YARN', editYarn);
 }
 
 export default yarnsSaga;

@@ -56,7 +56,7 @@ function HomePage() {
         {patterns.map((pattern) => {
           return (
             <Card
-              className='yarn-card'
+              className='pattern-card'
               variant='outlined'
               sx={{ minWidth: 275 }}
               style={{ backgroundColor: 'blanchedalmond' }}
