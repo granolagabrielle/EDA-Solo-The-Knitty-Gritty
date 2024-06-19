@@ -16,10 +16,22 @@ function PatternDetails() {
     dispatch({ type: 'FETCH_PATTERN_DETAILS', payload: params.id });
   }, []);
 
+  const deletePattern = () => {
+    dispatch({ type: 'DELETE_PATTERN', payload: params.id });
+    console.log('check deleted id', params.id);
+    history.push('/patterns');
+  };
+
+  const returnToPatterns = () => {
+    history.push('/patterns');
+  };
+
   return (
     <>
       <h1>Pattern Details Page</h1>
       <p>{patternDetails.pattern_title}</p>
+      <button onClick={() => deletePattern(patternDetails.id)}>Delete Pattern</button>
+      <button onClick={returnToPatterns}>Back to Inventory</button>
     </>
   );
 }

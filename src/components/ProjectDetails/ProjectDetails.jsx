@@ -16,10 +16,21 @@ function ProjectDetails() {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
   }, []);
 
+  const deleteProject = () => {
+    dispatch({ type: 'DELETE_PROJECT', payload: params.id });
+    console.log('check deleted id', params.id);
+    history.push('/projects');
+  };
+
+  const returnToProjects = () => {
+    history.push('/projects');
+  };
+
   return (
     <>
       <h1>Project Details Page</h1>
       <p>{projectDetails.pattern_title}</p>
+      <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
     </>
   );
 }
