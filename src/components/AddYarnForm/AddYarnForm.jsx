@@ -3,7 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
-// import CloudinaryUpload from '../Cloudinary/Container'
+import { useScript } from '../../hooks/useScript';
 
 function AddYarn() {
   const history = useHistory();
@@ -11,10 +11,6 @@ function AddYarn() {
   const fibers = useSelector((store) => store.fiber);
   const brands = useSelector((store) => store.brands);
   const weights = useSelector((store) => store.weights);
-
-  console.log('check fiber store', fibers);
-  console.log('check brands store', brands);
-  console.log('check weights store', weights);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_FIBERS' });
@@ -55,15 +51,14 @@ function AddYarn() {
       setNewYarn({ ...newYarn, dye_lot: event.target.value });
     } else if (event.target.id === 'notes') {
       setNewYarn({ ...newYarn, notes: event.target.value });
-    } else if (event.target.id === 'image') {
-      setNewYarn({ ...newYarn, image: event.target.value });
     } else {
       setNewYarn({ ...newYarn, user_id: event.target.user.id });
     }
     return newYarn;
   };
 
-  const addYarn = () => {
+  const addYarn = (e) => {
+    e.preventDefault();
     console.log('submit yarn was clicked');
     dispatch({ type: 'ADD_YARN', payload: newYarn });
     console.log('check new yarn', newYarn);
@@ -73,6 +68,29 @@ function AddYarn() {
 
   const cancel = () => {
     history.push('/yarn');
+  };
+
+  const openWidget = () => {
+    !!window.cloudinary &&
+      window.cloudinary
+        .createUploadWidget(
+          {
+            sources: ['local', 'url', 'camera'],
+            // cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            cloudName: 'dhh2vptsp',
+            // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            uploadPreset: 'cvg0hnyy',
+          },
+          (error, result) => {
+            if (!error && result && result.event === 'success') {
+              setNewYarn({
+                ...newYarn,
+                image: result.info.secure_url,
+              });
+            }
+          }
+        )
+        .open();
   };
 
   return (
@@ -115,7 +133,11 @@ function AddYarn() {
           <input placeholder='Total skeins' id='skeins' value={newYarn.skeins} onChange={handleNewYarn} />
           <input placeholder='Grams in skein' id='skein_grams' value={newYarn.skein_grams} onChange={handleNewYarn} />
           <input placeholder='Yarn notes' id='notes' value={newYarn.notes} onChange={handleNewYarn} />
-          <input placeholder='Yarn image' id='image' value={newYarn.image} onChange={handleNewYarn} />
+          <h2>Upload Image</h2>
+          {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+          <button type='button' onClick={openWidget}>
+            Pick File
+          </button>
           <button type='submit'>Add Yarn</button>
           <button onClick={cancel}>Cancel</button>
         </form>

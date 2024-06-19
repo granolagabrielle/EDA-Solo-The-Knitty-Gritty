@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useScript } from '../../hooks/useScript';
 
 function AddProject() {
   const history = useHistory();
@@ -40,8 +41,6 @@ function AddProject() {
       setNewProject({ ...newProject, progress: event.target.value });
     } else if (event.target.id === 'yarn_id') {
       setNewProject({ ...newProject, yarn_id: event.target.value });
-    } else if (event.target.id === 'image') {
-      setNewProject({ ...newProject, image: event.target.value });
     } else {
       setNewProject({ ...newProject, user_id: event.target.user.id });
     }
@@ -59,6 +58,29 @@ function AddProject() {
 
   const cancel = () => {
     history.push('/projects');
+  };
+
+  const openWidget = () => {
+    !!window.cloudinary &&
+      window.cloudinary
+        .createUploadWidget(
+          {
+            sources: ['local', 'url', 'camera'],
+            // cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            cloudName: 'dhh2vptsp',
+            // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            uploadPreset: 'cvg0hnyy',
+          },
+          (error, result) => {
+            if (!error && result && result.event === 'success') {
+              setNewProject({
+                ...newProject,
+                image: result.info.secure_url,
+              });
+            }
+          }
+        )
+        .open();
   };
 
   return (
@@ -90,15 +112,14 @@ function AddProject() {
               );
             })}
           </select>
-          <input
-            placeholder='Project image'
-            id='image'
-            value={newProject.image}
-            onChange={handleNewProject}
-          />
+          <h2>Upload Image</h2>
+          {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+          <button type='button' onClick={openWidget}>
+            Pick File
+          </button>
           <button type='submit'>Add Project</button>
+          <button onClick={cancel}>Cancel</button>
         </form>
-        <button onClick={cancel}>Cancel</button>
       </div>
     </>
   );

@@ -12,8 +12,6 @@ router.get('/', (req, res) => {
   ON "brands"."id"="yarn_inventory"."brand"
   JOIN "weights"
   ON "weights"."id"="yarn_inventory"."weight"
-  JOIN "uploads"
-  ON "uploads"."id"="yarn_inventory"."image"
   WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isdeleted"=FALSE
 ;`;
   pool
@@ -77,6 +75,18 @@ router.post('/', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// router.post('/', (req, res) => {
+//   const { file_url } = req.body;
+//   const queryText = 'INSERT INTO "uploads" (file_url) VALUES ($1);';
+//   pool
+//     .query(queryText, [file_url])
+//     .then(() => res.sendStatus(201))
+//     .catch((err) => {
+//       console.log(err);
+//       res.sendStatus(500);
+//     });
+// });
 
 // delete yarn from inventory
 router.delete('/:id', (req, res) => {

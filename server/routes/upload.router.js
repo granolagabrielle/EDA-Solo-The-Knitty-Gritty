@@ -14,17 +14,17 @@ router.get('/', (req, res) => {
     });
 });
 
-router.post('/', (req, res) => {
-  const { description, file_url, file_type } = req.body;
-  const queryText = 'INSERT INTO "uploads" (file_url) VALUES ($1);';
-  pool
-    .query(queryText, [file_url])
-    .then(() => res.sendStatus(201))
-    .catch((err) => {
-      console.log(err);
-      res.sendStatus(500);
-    });
-});
+// router.post('/', (req, res) => {
+//   const { file_url } = req.body;
+//   const queryText = 'INSERT INTO "uploads" (file_url) VALUES ($1);';
+//   pool
+//     .query(queryText, [file_url])
+//     .then(() => res.sendStatus(201))
+//     .catch((err) => {
+//       console.log(err);
+//       res.sendStatus(500);
+//     });
+// });
 
 router.delete('/:id', (req, res) => {
   const queryText = 'DELETE FROM "uploads" WHERE id=$1;';

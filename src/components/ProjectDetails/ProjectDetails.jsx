@@ -31,6 +31,7 @@ function ProjectDetails() {
       <h1>Project Details Page</h1>
       <p>{projectDetails.pattern_title}</p>
       <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
+      <button onClick={returnToProjects}>Back to Inventory</button>
     </>
   );
 }

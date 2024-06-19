@@ -3,6 +3,7 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
+import { useScript } from '../../hooks/useScript';
 
 function AddPattern() {
   const history = useHistory();
@@ -48,8 +49,6 @@ function AddPattern() {
       setNewPattern({ ...newPattern, yarn_weight: event.target.value });
     } else if (event.target.id === 'notes') {
       setNewPattern({ ...newPattern, notes: event.target.value });
-    } else if (event.target.id === 'image') {
-      setNewPattern({ ...newPattern, image: event.target.value });
     } else {
       setNewPattern({ ...newPattern, user_id: event.target.user.id });
     }
@@ -65,6 +64,29 @@ function AddPattern() {
 
   const cancel = () => {
     history.push('/patterns');
+  };
+
+  const openWidget = () => {
+    !!window.cloudinary &&
+      window.cloudinary
+        .createUploadWidget(
+          {
+            sources: ['local', 'url', 'camera'],
+            // cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            cloudName: 'dhh2vptsp',
+            // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            uploadPreset: 'cvg0hnyy',
+          },
+          (error, result) => {
+            if (!error && result && result.event === 'success') {
+              setNewPattern({
+                ...newPattern,
+                image: result.info.secure_url,
+              });
+            }
+          }
+        )
+        .open();
   };
 
   return (
@@ -119,12 +141,11 @@ function AddPattern() {
             })}
           </select>
           <input placeholder='Pattern notes' id='notes' value={newPattern.notes} onChange={handleNewPattern} />
-          <input
-            placeholder='Pattern image'
-            id='image'
-            value={newPattern.image}
-            onChange={handleNewPattern}
-          />
+          <h2>Upload Image</h2>
+          {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+          <button type='button' onClick={openWidget}>
+            Pick File
+          </button>
           <button type='submit'>Add Pattern</button>
           <button onClick={cancel}>Cancel</button>
         </form>
