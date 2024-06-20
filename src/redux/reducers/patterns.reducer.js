@@ -14,6 +14,10 @@ const patternDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_PATTERN_DETAILS':
       return action.payload;
+    case 'CLEAR_PATTERN_DETAILS':
+      return {};
+    case 'EDIT_PATTERN_DETAILS':
+      return { ...state, ...action.payload };
     default:
       return state;
   }

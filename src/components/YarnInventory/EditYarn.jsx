@@ -13,36 +13,44 @@ function EditYarn() {
     dispatch({ type: 'FETCH_YARN_DETAILS', payload: params.id });
   }, []);
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
+  const handleSubmit = (yarnId) => {
     console.log('check changes', yarnDetails);
-    const modifiedYarnDetails = {
-      //   name: yarnDetails.name,
-      //   yarn_title: yarnDetails.yarn_title,
-      //   skeins: yarnDetails.skeins,
-      //   fiber: yarnDetails.fiber,
-      //   weight: yarnDetails.weight,
-      //   skein_grams: yarnDetails.skein_grams,
-      //   dye_lot: yarnDetails.dye_lot,
-      notes: yarnDetails.notes,
-      //   image: yarnDetails.image,
-    };
-    dispatch({ type: 'EDIT_YARN', payload: { yarnId: yarnDetails.id, details: modifiedYarnDetails } });
-    history.push('/yarn');
+    dispatch({ type: 'EDIT_YARN', payload: { yarnId: yarnDetails.id, details: yarnDetails } });
+    history.push(`/yarn/${yarnId}`);
   };
 
   return (
     <div>
       <h1>Edit {yarnDetails?.yarn_title}</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          id='yarn-notes'
-          placeholder='Yarn Notes'
-          type='text'
-          value={yarnDetails?.notes}
-          onChange={(event) => dispatch({ type: 'EDIT_YARN_DETAILS', payload: { notes: event.target.value } })}
-        />
-        <button type='submit'>Submit Changes</button>
+        <label>
+          Total Skeins:
+          <input
+            id='skeins'
+            value={yarnDetails?.skeins}
+            onChange={(event) => dispatch({ type: 'EDIT_YARN_DETAILS', payload: { skeins: event.target.value } })}
+          />
+        </label>
+        <label>
+          Grams in Skein:
+          <input
+            id='skein_grams'
+            value={yarnDetails?.skein_grams}
+            onChange={(event) => dispatch({ type: 'EDIT_YARN_DETAILS', payload: { skein_grams: event.target.value } })}
+          />
+        </label>
+        <label>
+          Notes:
+          <input
+            id='yarn-notes'
+            type='text'
+            value={yarnDetails?.notes}
+            onChange={(event) => dispatch({ type: 'EDIT_YARN_DETAILS', payload: { notes: event.target.value } })}
+          />
+        </label>
+        <button type='submit' onClick={() => handleSubmit(yarnDetails.id)}>
+          Submit Changes
+        </button>
       </form>
     </div>
   );

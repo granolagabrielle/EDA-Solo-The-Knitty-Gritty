@@ -78,18 +78,9 @@ router.put('/:id', (req, res) => {
   console.log('in project put, check req.body', req.body);
   const queryText = `
     UPDATE "project_tracking"
-    SET "pattern_id" = $1, "date_started" = $2, "notes" = $3, "progress" = $4, "yarn_id" = $5, "image" = $6
-    WHERE "project_id"=$7 AND "user_id"=$8;`;
-  const values = [
-    req.body.pattern_id,
-    req.body.date_started,
-    req.body.notes,
-    req.body.progress,
-    req.body.yarn_id,
-    req.body.image,
-    req.params.id,
-    req.user.id,
-  ];
+    SET "notes" = $1, "progress" = $2
+    WHERE "project_id"=$3 AND "user_id"=$4;`;
+  const values = [req.body.notes, req.body.progress, req.params.id, req.user.id];
   pool
     .query(queryText, values)
     .then((result) => {

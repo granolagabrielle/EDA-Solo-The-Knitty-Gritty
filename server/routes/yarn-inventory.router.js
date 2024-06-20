@@ -76,18 +76,6 @@ router.post('/', (req, res) => {
     });
 });
 
-// router.post('/', (req, res) => {
-//   const { file_url } = req.body;
-//   const queryText = 'INSERT INTO "uploads" (file_url) VALUES ($1);';
-//   pool
-//     .query(queryText, [file_url])
-//     .then(() => res.sendStatus(201))
-//     .catch((err) => {
-//       console.log(err);
-//       res.sendStatus(500);
-//     });
-// });
-
 // delete yarn from inventory
 router.delete('/:id', (req, res) => {
   const queryText = `
@@ -112,16 +100,16 @@ router.put('/:id', (req, res) => {
   console.log('in yarn put, check req.body', req.body);
   const queryText = `
     UPDATE "yarn_inventory"
-    SET "notes" = $1
-    WHERE "id"=$2 AND "user_id"=$3;`;
-  const values = [req.body.notes, req.params.id, req.user.id];
+    SET "skeins" = $1, "skein_grams" = $2, "notes" = $3
+    WHERE "id"=$4 AND "user_id"=$5;`;
+  const values = [req.body.skeins, req.body.skein_grams, req.body.notes, req.params.id, req.user.id];
   pool
     .query(queryText, values)
     .then((result) => {
       res.sendStatus(201);
     })
     .catch((error) => {
-      console.log('error updating project', error);
+      console.log('error updating yarn inventory', error);
       res.sendStatus(500);
     });
 });

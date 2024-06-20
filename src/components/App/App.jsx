@@ -26,6 +26,8 @@ import AddYarn from '../AddYarnForm/AddYarnForm';
 import AddPattern from '../AddPatternForm/AddPatternForm';
 import AddProject from '../AddProjectForm/AddProjectForm';
 import EditYarn from '../YarnInventory/EditYarn';
+import EditPattern from '../PatternInventory/EditPattern';
+import EditProject from '../ProjectDetails/EditProject';
 
 function App() {
   const dispatch = useDispatch();
@@ -116,6 +118,14 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
+            path='/edit-pattern/:id'
+          >
+            <EditPattern />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
             path='/patterns'
           >
             <PatternInventory />
@@ -151,6 +161,14 @@ function App() {
             path='/project/:id'
           >
             <ProjectDetails />
+          </ProtectedRoute>
+
+          <ProtectedRoute
+            // logged in shows InfoPage else shows LoginPage
+            exact
+            path='/edit-project/:id'
+          >
+            <EditProject />
           </ProtectedRoute>
 
           <Route exact path='/login'>

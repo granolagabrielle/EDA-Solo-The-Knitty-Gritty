@@ -43,11 +43,23 @@ function* deleteProject(action) {
   }
 }
 
+// saga to edit project
+function* editProject(action) {
+  try {
+    yield axios.put(`/api/project/${action.payload.projectId}`, action.payload.details);
+    yield put({ type: 'FETCH_PROJECT_DETAILS', payload: action.payload.projectId });
+    yield put({ type: 'CLEAR_PROJECT_DETAILS' });
+  } catch (error) {
+    console.log('error editing project', error);
+  }
+}
+
 function* projectsSaga() {
   yield takeLatest('FETCH_PROJECTS', fetchAllProjects);
   yield takeLatest('FETCH_PROJECT_DETAILS', fetchProjectDetails);
   yield takeLatest('ADD_PROJECT', addProject);
   yield takeLatest('DELETE_PROJECT', deleteProject);
+  yield takeLatest('EDIT_PROJECT', editProject);
 }
 
 export default projectsSaga;

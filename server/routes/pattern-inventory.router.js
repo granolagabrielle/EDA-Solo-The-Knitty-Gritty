@@ -83,18 +83,9 @@ router.put('/:id', (req, res) => {
   console.log('in pattern put, check req.body', req.body);
   const queryText = `
       UPDATE "pattern_inventory"
-      SET "pattern_title" = $1, "designer_name" = $2, "pattern_type" = $3, "difficulty_level" = $4, "yarn_weight" = $5, "notes" = $6, "image" = $7
-      WHERE "id"=$8 AND "user_id"=$9;`;
-  const values = [
-    req.body.title,
-    req.body.designer_name,
-    req.body.pattern_type,
-    req.body.difficulty_level,
-    req.body.yarn_weight,
-    req.body.image,
-    req.params.id,
-    req.user.id,
-  ];
+      SET "notes" = $1
+      WHERE "id"=$2 AND "user_id"=$3;`;
+  const values = [req.body.notes, req.params.id, req.user.id];
   pool
     .query(queryText, values)
     .then((result) => {

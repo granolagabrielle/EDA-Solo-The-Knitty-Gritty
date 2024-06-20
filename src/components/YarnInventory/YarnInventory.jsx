@@ -4,8 +4,7 @@ import { useHistory } from 'react-router-dom/';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-import EditIcon from '@mui/icons-material/Edit';
-import IconButton from '@mui/material/IconButton';
+
 import './YarnInventory.css';
 
 function YarnInventory() {
@@ -19,13 +18,7 @@ function YarnInventory() {
   }, []);
 
   const viewDetails = (yarnId) => {
-    console.log('details button clicked');
     history.push(`/yarn/${yarnId}`);
-  };
-
-  const editDetails = (yarnId) => {
-    console.log('edit button clicked');
-    history.push(`/edit-yarn/${yarnId}`);
   };
 
   return (
@@ -40,12 +33,9 @@ function YarnInventory() {
               sx={{ minWidth: 275 }}
               style={{ backgroundColor: 'blanchedalmond' }}
               key={yarn.id}
-              // onClick={() => viewDetails(yarn.id)}
+              onClick={() => viewDetails(yarn.id)}
             >
               <CardContent className='card-content'>
-                <IconButton onClick={() => editDetails(yarn.id)}>
-                  <EditIcon />
-                </IconButton>
                 <img style={{ width: '15rem', height: '20rem' }} src={yarn.image} alt={yarn.yarn_title} />
                 <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
                   {yarn.name}: {yarn.yarn_title}

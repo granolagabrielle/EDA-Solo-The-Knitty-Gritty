@@ -43,11 +43,23 @@ function* deletePattern(action) {
   }
 }
 
+// saga to edit pattern
+function* editPattern(action) {
+  try {
+    yield axios.put(`/api/patterns/${action.payload.patternId}`, action.payload.details);
+    yield put({ type: 'FETCH_PATTERN_DETAILS', payload: action.payload.patternId });
+    yield put({ type: 'CLEAR_PATTERN_DETAILS' });
+  } catch (error) {
+    console.log('error editing pattern', error);
+  }
+}
+
 function* patternsSaga() {
   yield takeLatest('FETCH_PATTERNS', fetchAllPatterns);
   yield takeLatest('FETCH_PATTERN_DETAILS', fetchPatternDetails);
   yield takeLatest('ADD_PATTERN', addPattern);
   yield takeLatest('DELETE_PATTERN', deletePattern);
+  yield takeLatest('EDIT_PATTERN', editPattern);
 }
 
 export default patternsSaga;

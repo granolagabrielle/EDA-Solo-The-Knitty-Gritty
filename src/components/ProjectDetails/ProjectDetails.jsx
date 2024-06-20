@@ -1,15 +1,14 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom/';
+import EditIcon from '@mui/icons-material/Edit';
+import IconButton from '@mui/material/IconButton';
 
 function ProjectDetails() {
   const history = useHistory();
   const dispatch = useDispatch();
   const params = useParams();
-  const projects = useSelector((store) => store.projects.projectInventory);
   const projectDetails = useSelector((store) => store.projects.projectDetails);
-
-  console.log('checking yarns', projects);
 
   useEffect(() => {
     console.log(`GET params.id ${params.id}`);
@@ -26,10 +25,17 @@ function ProjectDetails() {
     history.push('/projects');
   };
 
+  const editDetails = (projectId) => {
+    history.push(`/edit-project/${projectId}`);
+  };
+
   return (
     <>
       <h1>Project Details Page</h1>
       <p>{projectDetails.pattern_title}</p>
+      <IconButton onClick={() => editDetails(projectDetails.id)}>
+        <EditIcon />
+      </IconButton>
       <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
       <button onClick={returnToProjects}>Back to Inventory</button>
     </>

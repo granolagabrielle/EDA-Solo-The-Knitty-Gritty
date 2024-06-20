@@ -13,10 +13,10 @@ function AddPattern() {
   const difficultys = useSelector((store) => store.difficultys);
   const weights = useSelector((store) => store.weights);
 
-  console.log('check designers', designers);
-  console.log('check types', types);
-  console.log('check difficultys', difficultys);
-  console.log('check weights store', weights);
+  // console.log('check designers', designers);
+  // console.log('check types', types);
+  // console.log('check difficultys', difficultys);
+  // console.log('check weights store', weights);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_DESIGNERS' });
