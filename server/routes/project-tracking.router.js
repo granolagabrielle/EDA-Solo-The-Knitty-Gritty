@@ -101,7 +101,7 @@ router.delete('/:id', (req, res) => {
     AND "user_id"=$2;
       `;
   pool
-    .query(queryText, [req.params.id, req.user.id]) // $1, $2
+    .query(queryText, [req.params.id, req.user.id])
     .then(() => {
       res.sendStatus(201);
     })

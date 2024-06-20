@@ -3,7 +3,7 @@ import { HashRouter as Router, Redirect, Route, Switch } from 'react-router-dom'
 
 import { useDispatch, useSelector } from 'react-redux';
 
-import Nav from '../Nav/Nav';
+// import Nav from '../Nav/Nav';
 import Footer from '../Footer/Footer';
 
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
@@ -28,6 +28,8 @@ import AddProject from '../AddProjectForm/AddProjectForm';
 import EditYarn from '../YarnInventory/EditYarn';
 import EditPattern from '../PatternInventory/EditPattern';
 import EditProject from '../ProjectDetails/EditProject';
+import PersistentDrawerLeft from '../MuiDrawer/MuiDrawer';
+// import ResponsiveAppBar from '../MuiNav/MuiNav';
 
 function App() {
   const dispatch = useDispatch();
@@ -41,7 +43,9 @@ function App() {
   return (
     <Router>
       <div>
-        <Nav />
+        <PersistentDrawerLeft />
+        {/* <ResponsiveAppBar /> */}
+        {/* <Nav /> */}
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
           <Redirect exact from='/' to='/home' />
