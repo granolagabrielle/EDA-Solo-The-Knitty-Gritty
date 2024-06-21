@@ -23,6 +23,21 @@ router.get('/', (req, res) => {
     });
 });
 
+// router.get('/search', (req, res) => {
+//   const searchTerm = req.query.search || '';
+//   const queryText = `
+//   SELECT * FROM yarn_inventory
+//   WHERE (yarn_title ILIKE '%%');`;
+//   const values = [`%${searchTerm}%`];
+//   pool
+//     .query(queryText, values)
+//     .then((result) => res.send(result.rows))
+//     .catch((error) => {
+//       console.log(error);
+//       res.sendStatus(500);
+//     });
+// });
+
 // get yarn details for specific user -- pass in id of yarn that was clicked on
 router.get('/:id', (req, res) => {
   const queryText = `

@@ -5,6 +5,10 @@ import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import './PatternInventory.css';
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
 
 function PatternInventory() {
   const history = useHistory();
@@ -23,6 +27,30 @@ function PatternInventory() {
   return (
     <>
       <h1>Pattern Inventory</h1>
+      <Stack spacing={2} sx={{ width: 300 }}>
+        <Autocomplete
+          freeSolo
+          id='free-solo-2-demo'
+          disableClearable
+          options={patterns}
+          getOptionLabel={(option) => option.pattern_title}
+          renderInput={(params) => (
+            <TextField
+              {...params}
+              label='Search pattern by title'
+              InputProps={{
+                ...params.InputProps,
+                type: 'search',
+              }}
+            />
+          )}
+          onChange={(event, value) => {
+            if (value) {
+              history.push(`/pattern/${value.id}`);
+            }
+          }}
+        />
+      </Stack>
       <section className='pattern-container'>
         {patterns.map((pattern) => {
           return (

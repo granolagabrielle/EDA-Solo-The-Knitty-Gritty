@@ -22,6 +22,17 @@ function* fetchYarnDetails(action) {
   }
 }
 
+// saga to search yarn inventory
+// function* searchYarn() {
+//   try {
+//     const response = yield axios.get(`/api/yarn/search`);
+//     yield put({ type: 'SET_YARNS', payload: response.data });
+//     console.log('checking search', response.data);
+//   } catch (error) {
+//     console.log('error searching yarn', error);
+//   }
+// }
+
 // saga to add yarn
 function* addYarn(action) {
   try {
@@ -60,6 +71,7 @@ function* yarnsSaga() {
   yield takeLatest('ADD_YARN', addYarn);
   yield takeLatest('DELETE_YARN', deleteYarn);
   yield takeLatest('EDIT_YARN', editYarn);
+  // yield takeLatest('SEARCH_YARN', searchYarn);
 }
 
 export default yarnsSaga;
