@@ -7,14 +7,12 @@ function EditYarn() {
   const dispatch = useDispatch();
   const params = useParams();
   const yarnDetails = useSelector((store) => store.yarns.yarnDetails);
-  console.log('checking yarn details', yarnDetails);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_YARN_DETAILS', payload: params.id });
   }, []);
 
   const handleSubmit = (yarnId) => {
-    console.log('check changes', yarnDetails);
     dispatch({ type: 'EDIT_YARN', payload: { yarnId: yarnDetails.id, details: yarnDetails } });
     history.push(`/yarn/${yarnId}`);
   };

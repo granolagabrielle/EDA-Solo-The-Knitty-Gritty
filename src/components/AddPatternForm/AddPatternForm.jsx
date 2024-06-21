@@ -13,11 +13,6 @@ function AddPattern() {
   const difficultys = useSelector((store) => store.difficultys);
   const weights = useSelector((store) => store.weights);
 
-  // console.log('check designers', designers);
-  // console.log('check types', types);
-  // console.log('check difficultys', difficultys);
-  // console.log('check weights store', weights);
-
   useEffect(() => {
     dispatch({ type: 'FETCH_DESIGNERS' });
     dispatch({ type: 'FETCH_PATTERN_TYPES' });
@@ -55,8 +50,8 @@ function AddPattern() {
     return newPattern;
   };
 
-  const addPattern = () => {
-    console.log('submit pattern was clicked');
+  const addPattern = (event) => {
+    event.preventDefault();
     dispatch({ type: 'ADD_PATTERN', payload: newPattern });
     dispatch({ type: 'FETCH_PATTERNS' });
     history.push('/patterns');

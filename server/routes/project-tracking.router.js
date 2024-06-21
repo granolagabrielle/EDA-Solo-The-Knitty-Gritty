@@ -3,7 +3,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// get project inventory for specific user -- TO DO: ADD AUTHENTICATION
+// get project inventory for specific user 
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
     "project_tracking"."progress", "project_tracking"."image", "project_tracking"."isdeleted"
@@ -51,7 +51,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // post new project for user
 router.post('/', (req, res) => {
-  console.log('in project post, check req.body', req.body);
+  // console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
       ("pattern_id", "date_started", "notes", "progress", "yarn_id", "user_id", "image") 
       VALUES ($1, $2, $3, $4, $5, $6, $7);`;
@@ -76,7 +76,7 @@ router.post('/', (req, res) => {
 
 // put to update project details
 router.put('/:id', (req, res) => {
-  console.log('in project put, check req.body', req.body);
+  // console.log('in project put, check req.body', req.body);
   const queryText = `
     UPDATE "project_tracking"
     SET "notes" = $1, "progress" = $2

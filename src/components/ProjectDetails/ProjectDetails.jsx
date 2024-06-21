@@ -11,13 +11,11 @@ function ProjectDetails() {
   const projectDetails = useSelector((store) => store.projects.projectDetails);
 
   useEffect(() => {
-    console.log(`GET params.id ${params.id}`);
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
   }, []);
 
   const deleteProject = () => {
     dispatch({ type: 'DELETE_PROJECT', payload: params.id });
-    console.log('check deleted id', params.id);
     history.push('/projects');
   };
 

@@ -10,16 +10,12 @@ function PatternDetails() {
   const params = useParams();
   const patternDetails = useSelector((store) => store.patterns.patternDetails);
 
-  console.log('checking patternDetails', patternDetails);
-
   useEffect(() => {
-    console.log(`GET params.id ${params.id}`);
     dispatch({ type: 'FETCH_PATTERN_DETAILS', payload: params.id });
   }, []);
 
   const deletePattern = () => {
     dispatch({ type: 'DELETE_PATTERN', payload: params.id });
-    console.log('check deleted id', params.id);
     history.push('/patterns');
   };
 

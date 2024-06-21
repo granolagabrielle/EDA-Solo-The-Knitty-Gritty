@@ -7,14 +7,12 @@ function EditProject() {
   const dispatch = useDispatch();
   const params = useParams();
   const projectDetails = useSelector((store) => store.projects.projectDetails);
-  console.log('checking yarn details', projectDetails);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
   }, []);
 
   const handleSubmit = (projectId) => {
-    console.log('check changes', projectDetails);
     dispatch({ type: 'EDIT_PROJECT', payload: { projectId: projectDetails.id, details: projectDetails } });
     history.push(`/project/${projectId}`);
   };

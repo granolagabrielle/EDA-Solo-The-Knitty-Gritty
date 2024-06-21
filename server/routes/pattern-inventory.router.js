@@ -3,7 +3,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// get pattern inventory for specific user -- TO DO: ADD AUTHENTICATION
+// get pattern inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
     "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted"
@@ -53,9 +53,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// post new pattern to inventory -- TO DO: ADD AUTHENTICATION
+// post new pattern to inventory
 router.post('/', (req, res) => {
-  console.log('in pattern post, check req.body', req.body);
+  // console.log('in pattern post,check req.body', req.body);
   const queryText = `INSERT INTO "pattern_inventory" 
     ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "image") 
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
@@ -81,7 +81,7 @@ router.post('/', (req, res) => {
 
 // put to update pattern details
 router.put('/:id', (req, res) => {
-  console.log('in pattern put, check req.body', req.body);
+  // console.log('in pattern put, check req.body', req.body);
   const queryText = `
       UPDATE "pattern_inventory"
       SET "notes" = $1

@@ -7,14 +7,12 @@ function EditPattern() {
   const dispatch = useDispatch();
   const params = useParams();
   const patternDetails = useSelector((store) => store.patterns.patternDetails);
-  console.log('checking patternDetails', patternDetails);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PATTERN_DETAILS', payload: params.id });
   }, []);
 
   const handleSubmit = (patternId) => {
-    console.log('check changes', patternDetails);
     dispatch({ type: 'EDIT_PATTERN', payload: { patternId: patternDetails.id, details: patternDetails } });
     history.push(`/pattern/${patternId}`);
   };

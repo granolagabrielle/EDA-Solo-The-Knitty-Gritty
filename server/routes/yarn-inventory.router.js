@@ -3,7 +3,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// get yarn inventory for specific user -- TO DO: ADD AUTHENTICATION
+// get yarn inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."isdeleted"
   FROM "yarn_inventory" 
@@ -49,9 +49,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// post new yarn to inventory -- TO DO: ADD AUTHENTICATION
+// post new yarn to inventory
 router.post('/', (req, res) => {
-  console.log('in yarn post, check req.body', req.body);
+  // console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
   ("brand", "yarn_title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "image") 
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
@@ -98,7 +98,7 @@ router.delete('/:id', (req, res) => {
 
 // put to update yarn details
 router.put('/:id', (req, res) => {
-  console.log('in yarn put, check req.body', req.body);
+  // console.log('in yarn put, check req.body', req.body);
   const queryText = `
     UPDATE "yarn_inventory"
     SET "skeins" = $1, "skein_grams" = $2, "notes" = $3

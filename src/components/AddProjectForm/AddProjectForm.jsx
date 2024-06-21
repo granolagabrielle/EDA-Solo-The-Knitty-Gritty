@@ -11,9 +11,6 @@ function AddProject() {
   const yarns = useSelector((store) => store.yarns.yarnInventory);
   const patterns = useSelector((store) => store.patterns.patternInventory);
 
-  //   console.log('check yarns store', yarns);
-  //   console.log('check patterns store', patterns);
-
   useEffect(() => {
     dispatch({ type: 'FETCH_YARNS' });
     dispatch({ type: 'FETCH_PATTERNS' });
@@ -47,8 +44,8 @@ function AddProject() {
     return newProject;
   };
 
-  const AddProject = (e) => {
-    e.preventDefault();
+  const AddProject = (event) => {
+    event.preventDefault();
     console.log('submit project was clicked');
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
     dispatch({ type: 'FETCH_PROJECTS' });

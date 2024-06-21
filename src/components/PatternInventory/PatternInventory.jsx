@@ -14,7 +14,6 @@ function PatternInventory() {
   const history = useHistory();
   const dispatch = useDispatch();
   const patterns = useSelector((store) => store.patterns.patternInventory);
-  console.log('checking patterns', patterns);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PATTERNS' });

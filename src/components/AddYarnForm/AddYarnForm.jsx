@@ -34,17 +34,14 @@ function AddYarn() {
   const handleNewYarn = (event) => {
     if (event.target.id === 'brand') {
       setNewYarn({ ...newYarn, brand: event.target.value });
-      console.log('check brand', event.target.value);
     } else if (event.target.id === 'fiber') {
       setNewYarn({ ...newYarn, fiber: event.target.value });
-      console.log('check fiber', event.target.value);
     } else if (event.target.id === 'yarn_title') {
       setNewYarn({ ...newYarn, yarn_title: event.target.value });
     } else if (event.target.id === 'skeins') {
       setNewYarn({ ...newYarn, skeins: event.target.value });
     } else if (event.target.id === 'weight') {
       setNewYarn({ ...newYarn, weight: event.target.value });
-      console.log('check weight', event.target.value);
     } else if (event.target.id === 'skein_grams') {
       setNewYarn({ ...newYarn, skein_grams: event.target.value });
     } else if (event.target.id === 'dye_lot') {
@@ -57,11 +54,9 @@ function AddYarn() {
     return newYarn;
   };
 
-  const addYarn = (e) => {
-    e.preventDefault();
-    console.log('submit yarn was clicked');
+  const addYarn = (event) => {
+    event.preventDefault();
     dispatch({ type: 'ADD_YARN', payload: newYarn });
-    console.log('check new yarn', newYarn);
     dispatch({ type: 'FETCH_YARNS' });
     history.push('/yarn');
   };

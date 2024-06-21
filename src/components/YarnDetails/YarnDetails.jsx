@@ -11,13 +11,11 @@ function YarnDetails() {
   const yarnDetails = useSelector((store) => store.yarns.yarnDetails);
 
   useEffect(() => {
-    console.log(`GET params.id ${params.id}`);
     dispatch({ type: 'FETCH_YARN_DETAILS', payload: params.id });
   }, []);
 
   const deleteYarn = () => {
     dispatch({ type: 'DELETE_YARN', payload: params.id });
-    console.log('check deleted id', params.id);
     history.push('/yarn');
   };
 

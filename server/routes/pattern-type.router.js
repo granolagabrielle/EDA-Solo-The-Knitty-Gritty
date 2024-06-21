@@ -17,7 +17,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // add new pattern type
 router.post('/', (req, res) => {
-  console.log('in pattern type post, check req.body', req.body);
+  // console.log('in pattern type post, check req.body', req.body);
   const queryText = `INSERT INTO "pattern_types" 
   ("type") 
   VALUES ($1);`;
