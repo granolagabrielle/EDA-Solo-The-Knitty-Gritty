@@ -1,9 +1,10 @@
 const express = require('express');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 // get pattern inventory for specific user -- TO DO: ADD AUTHENTICATION
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
     "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted"
     FROM "pattern_inventory"
@@ -26,7 +27,7 @@ router.get('/', (req, res) => {
 });
 
 // get pattern details for specific user -- pass in id of pattern that was clicked on
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
     "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image"

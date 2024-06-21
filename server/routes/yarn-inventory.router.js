@@ -1,9 +1,10 @@
 const express = require('express');
+const { rejectUnauthenticated } = require('../modules/authentication-middleware');
 const pool = require('../modules/pool');
 const router = express.Router();
 
 // get yarn inventory for specific user -- TO DO: ADD AUTHENTICATION
-router.get('/', (req, res) => {
+router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."isdeleted"
   FROM "yarn_inventory" 
   JOIN "fibers"
@@ -23,23 +24,8 @@ router.get('/', (req, res) => {
     });
 });
 
-// router.get('/search', (req, res) => {
-//   const searchTerm = req.query.search || '';
-//   const queryText = `
-//   SELECT * FROM yarn_inventory
-//   WHERE (yarn_title ILIKE '%%');`;
-//   const values = [`%${searchTerm}%`];
-//   pool
-//     .query(queryText, values)
-//     .then((result) => res.send(result.rows))
-//     .catch((error) => {
-//       console.log(error);
-//       res.sendStatus(500);
-//     });
-// });
-
 // get yarn details for specific user -- pass in id of yarn that was clicked on
-router.get('/:id', (req, res) => {
+router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
   SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."notes"
   FROM "yarn_inventory" 
