@@ -9,9 +9,13 @@ function ProjectDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const projectDetails = useSelector((store) => store.projects.projectDetails);
+  const projectNotes = useSelector((store) => store.notes);
+
+  console.log('check projectNotes', projectNotes);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
+    dispatch({ type: 'FETCH_NOTES', payload: params.id });
   }, []);
 
   const deleteProject = () => {

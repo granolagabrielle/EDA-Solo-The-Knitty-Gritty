@@ -19,12 +19,20 @@ function AddProject() {
   let [newProject, setNewProject] = useState({
     pattern_id: '',
     date_started: '',
-    notes: '',
-    progress: '',
+    // notes: '',
+    // progress: '',
     yarn_id: '',
     user_id: '',
     image: '',
   });
+
+  // else if (event.target.id === 'notes') {
+  //   setNewProject({ ...newProject, notes: event.target.value });
+  // }
+
+  // else if (event.target.id === 'progress') {
+  //   setNewProject({ ...newProject, progress: event.target.value });
+  // }
 
   const handleNewProject = (event) => {
     if (event.target.id === 'pattern_id') {
@@ -32,10 +40,6 @@ function AddProject() {
       console.log('check pattern selection', event.target.value);
     } else if (event.target.id === 'date_started') {
       setNewProject({ ...newProject, date_started: event.target.value });
-    } else if (event.target.id === 'notes') {
-      setNewProject({ ...newProject, notes: event.target.value });
-    } else if (event.target.id === 'progress') {
-      setNewProject({ ...newProject, progress: event.target.value });
     } else if (event.target.id === 'yarn_id') {
       setNewProject({ ...newProject, yarn_id: event.target.value });
     } else {
@@ -96,8 +100,8 @@ function AddProject() {
             })}
           </select>
           <input type='date' id='date_started' value={newProject.date_started} onChange={handleNewProject} />
-          <input placeholder='Project notes' id='notes' value={newProject.notes} onChange={handleNewProject} />
-          <input placeholder='Progress' id='progress' value={newProject.progress} onChange={handleNewProject} />
+          {/* <input placeholder='Project notes' id='notes' value={newProject.notes} onChange={handleNewProject} /> */}
+          {/* <input placeholder='Progress' id='progress' value={newProject.progress} onChange={handleNewProject} /> */}
           <select id='yarn_id' value={newProject.yarn_id} onChange={handleNewProject}>
             <option defaultValue>Select project yarn</option>
             {yarns.map((yarn) => {

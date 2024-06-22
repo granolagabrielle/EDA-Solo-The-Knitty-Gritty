@@ -11,6 +11,7 @@ import weightsSaga from './weight.saga';
 import designersSaga from './designers.saga';
 import patternTypesSaga from './pattern-types.saga';
 import difficultyLevelsSaga from './difficulty-levels.saga';
+import notesSaga from './notes.saga';
 
 // rootSaga is the primary saga.
 // It bundles up all of the other sagas so our project can use them.
@@ -33,5 +34,6 @@ export default function* rootSaga() {
     designersSaga(),
     patternTypesSaga(),
     difficultyLevelsSaga(),
+    notesSaga(),
   ]);
 }

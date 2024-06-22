@@ -3,10 +3,10 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// get project inventory for specific user 
+// get project inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
-    "project_tracking"."progress", "project_tracking"."image", "project_tracking"."isdeleted"
+  const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title",
+     "project_tracking"."image", "project_tracking"."isdeleted"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -15,6 +15,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   JOIN "brands"
   ON "brands"."id"="yarn_inventory"."brand"
   WHERE "project_tracking"."user_id"=$1 AND "project_tracking"."isdeleted"=FALSE;`;
+  // "project_tracking"."progress",
   pool
     .query(queryText, [req.user.id])
     .then((result) => res.send(result.rows))
@@ -27,8 +28,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // get project details for specific pattern of user -- pass in id of pattern that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-      SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", "project_tracking"."notes", 
-    "project_tracking"."progress", "project_tracking"."image"
+      SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", 
+     "project_tracking"."image"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -37,7 +38,11 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
   JOIN "brands"
   ON "brands"."id"="yarn_inventory"."brand"
   WHERE "project_tracking"."id"=$1 AND "project_tracking"."user_id"=$2;
-      `;
+  `;
+  // JOIN "project_notes"
+  // ON "project_notes"."id"="project_tracking"."notes"
+  // , "project_notes"."notes"
+  // "project_tracking"."progress",
   pool
     .query(queryText, [req.params.id, req.user.id])
     .then((result) => {
@@ -53,14 +58,14 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', (req, res) => {
   // console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
-      ("pattern_id", "date_started", "notes", "progress", "yarn_id", "user_id", "image") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+      ("pattern_id", "date_started", "yarn_id", "user_id", "image") 
+      VALUES ($1, $2, $3, $4, $5, $6);`;
   pool
     .query(queryText, [
       req.body.pattern_id,
       req.body.date_started,
-      req.body.notes,
-      req.body.progress,
+      // req.body.notes,
+      // req.body.progress,
       req.body.yarn_id,
       req.user.id,
       req.body.image,
