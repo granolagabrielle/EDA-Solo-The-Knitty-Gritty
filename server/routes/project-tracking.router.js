@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
   // console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
       ("pattern_id", "date_started", "yarn_id", "user_id", "image") 
-      VALUES ($1, $2, $3, $4, $5, $6);`;
+      VALUES ($1, $2, $3, $4, $5);`;
   pool
     .query(queryText, [
       req.body.pattern_id,
@@ -79,24 +79,24 @@ router.post('/', (req, res) => {
     });
 });
 
-// put to update project details
-router.put('/:id', (req, res) => {
-  // console.log('in project put, check req.body', req.body);
-  const queryText = `
-    UPDATE "project_tracking"
-    SET "notes" = $1, "progress" = $2
-    WHERE "project_id"=$3 AND "user_id"=$4;`;
-  const values = [req.body.notes, req.body.progress, req.params.id, req.user.id];
-  pool
-    .query(queryText, values)
-    .then((result) => {
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log('error updating project', error);
-      res.sendStatus(500);
-    });
-});
+// // put to update project details
+// router.put('/:id', (req, res) => {
+//   // console.log('in project put, check req.body', req.body);
+//   const queryText = `
+//     UPDATE "project_tracking"
+//     SET "notes" = $1, "progress" = $2
+//     WHERE "project_id"=$3 AND "user_id"=$4;`;
+//   const values = [req.body.notes, req.body.progress, req.params.id, req.user.id];
+//   pool
+//     .query(queryText, values)
+//     .then((result) => {
+//       res.sendStatus(201);
+//     })
+//     .catch((error) => {
+//       console.log('error updating project', error);
+//       res.sendStatus(500);
+//     });
+// });
 
 // delete project from inventory
 router.delete('/:id', (req, res) => {

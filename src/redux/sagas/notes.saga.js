@@ -15,9 +15,9 @@ function* fetchNotes(action) {
 // add note
 function* addNote(action) {
   try {
-    yield axios.post(`/api/notes`, action.payload);
-    console.log('check add project action.payload', action.payload);
-    yield put({ type: 'FETCH_NOTES' });
+    yield axios.post(`/api/notes/${action.payload.projectId}`, action.payload);
+    console.log('check add project action.payload.projectId', action.payload.projectId);
+    yield put({ type: 'FETCH_NOTES', payload: action.payload.projectId });
   } catch (error) {
     console.log(`error adding note`, error);
   }
