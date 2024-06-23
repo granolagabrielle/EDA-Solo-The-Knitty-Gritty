@@ -10,6 +10,16 @@ const yarnInventory = (state = [], action) => {
   }
 };
 
+// store favorite yarns
+const yarnFavorites = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_FAVORITE_YARNS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const yarnDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_YARN_DETAILS':
@@ -26,4 +36,5 @@ const yarnDetails = (state = {}, action) => {
 export default combineReducers({
   yarnInventory,
   yarnDetails,
+  yarnFavorites,
 });

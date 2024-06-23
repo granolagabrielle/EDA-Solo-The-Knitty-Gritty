@@ -24,6 +24,26 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// get favorite yarns for specific user
+router.get('/favorites', (req, res) => {
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "brands"."name", "yarn_inventory"."image"
+  FROM "yarn_inventory" 
+  JOIN "brands"
+  ON "brands"."id"="yarn_inventory"."brand"
+  WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isFavorite"=TRUE;
+;`;
+  pool
+    .query(queryText, [req.user.id])
+    .then((result) => {
+      res.send(result.rows);
+      console.log('check fav router', result.rows);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
 // get yarn details for specific user -- pass in id of yarn that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
@@ -48,6 +68,35 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// get yarn inventory with search params
+// router.get('/search', (req, res) => {
+//   const searchQuery = `%${req.query.search}%`;
+//   const queryText = `
+//   SELECT "yarn_inventory".*, "brands"."name", "fibers"."fiber", "weights"."weight"
+// FROM "yarn_inventory"
+// JOIN "fibers"
+//  ON "fibers"."id"="yarn_inventory"."fiber"
+//  JOIN "brands"
+//  ON "brands"."id"="yarn_inventory"."brand"
+//  JOIN "weights"
+//  ON "weights"."id"="yarn_inventory"."weight"
+//  WHERE ("yarn_inventory"."yarn_title" ILIKE $1
+//  OR "brands"."name" ILIKE $1
+//  OR "fibers"."fiber" ILIKE $1
+//  OR "weights"."weight" ILIKE $1)
+//  AND "yarn_inventory"."user_id"=$2
+// ;`;
+//   pool
+//     .query(queryText, [searchQuery, req.user.id])
+//     .then((result) => {
+//       res.send(result.rows);
+//     })
+//     .catch((error) => {
+//       console.log('error searching yarn inventory', error);
+//       res.sendStatus(500);
+//     });
+// });
 
 // post new yarn to inventory
 router.post('/', (req, res) => {

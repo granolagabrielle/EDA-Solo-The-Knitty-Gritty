@@ -20,6 +20,10 @@ function YarnInventory() {
     dispatch({ type: 'FETCH_YARNS' });
   }, []);
 
+  const viewDetails = (yarnId) => {
+    history.push(`/yarn/${yarnId}`);
+  };
+
   return (
     <>
       <h1>Yarn Inventory</h1>

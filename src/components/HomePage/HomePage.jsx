@@ -8,13 +8,13 @@ import Typography from '@mui/material/Typography';
 import './HomePage.css';
 
 function HomePage() {
-  const yarns = useSelector((store) => store.yarns.yarnInventory);
+  const yarns = useSelector((store) => store.yarns.yarnFavorites);
   const patterns = useSelector((store) => store.patterns.patternInventory);
   const dispatch = useDispatch();
   const history = useHistory();
 
   useEffect(() => {
-    dispatch({ type: 'FETCH_YARNS' });
+    dispatch({ type: 'FETCH_FAVORITE_YARNS' });
     dispatch({ type: 'FETCH_PATTERNS' });
   }, []);
 
@@ -28,8 +28,7 @@ function HomePage() {
 
   return (
     <>
-      <h1>Home</h1>
-      <h2>Recent Yarns</h2>
+      <h2>Favorite Yarns</h2>
       <section className='yarn-container'>
         {yarns.map((yarn) => {
           return (
@@ -51,7 +50,7 @@ function HomePage() {
           );
         })}
       </section>
-      <h2>Recent Patterns</h2>
+      <h2>Favorite Patterns</h2>
       <section className='pattern-container'>
         {patterns.map((pattern) => {
           return (

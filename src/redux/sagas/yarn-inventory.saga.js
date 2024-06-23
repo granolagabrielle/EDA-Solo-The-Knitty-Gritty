@@ -12,6 +12,17 @@ function* fetchAllYarns() {
   }
 }
 
+// saga to fetch fav yarns
+function* fetchFavoriteYarns() {
+  try {
+    const response = yield axios.get('/api/yarn/favorites');
+    yield put({ type: 'SET_FAVORITE_YARNS', payload: response.data });
+    console.log('check fetch fav yarns', response);
+  } catch (error) {
+    console.log('fetch fav yarns error', error);
+  }
+}
+
 // saga to fetch yarn details
 function* fetchYarnDetails(action) {
   try {
@@ -71,6 +82,7 @@ function* yarnsSaga() {
   yield takeLatest('ADD_YARN', addYarn);
   yield takeLatest('DELETE_YARN', deleteYarn);
   yield takeLatest('EDIT_YARN', editYarn);
+  yield takeLatest('FETCH_FAVORITE_YARNS', fetchFavoriteYarns);
   // yield takeLatest('SEARCH_YARN', searchYarn);
 }
 
