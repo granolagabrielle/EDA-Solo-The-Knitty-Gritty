@@ -2,9 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
+import YarnItem from '../YarnItem/YarnItem';
 import './HomePage.css';
 
 function HomePage() {
@@ -18,10 +16,6 @@ function HomePage() {
     dispatch({ type: 'FETCH_PATTERNS' });
   }, []);
 
-  const viewYarnDetails = (yarnId) => {
-    history.push(`/yarn/${yarnId}`);
-  };
-
   const viewPatternDetails = (patternId) => {
     history.push(`/pattern/${patternId}`);
   };
@@ -30,29 +24,13 @@ function HomePage() {
     <>
       <h2>Favorite Yarns</h2>
       <section className='yarn-container'>
-        {yarns.map((yarn) => {
-          return (
-            <Card
-              className='yarn-card'
-              variant='outlined'
-              sx={{ minWidth: 275 }}
-              style={{ backgroundColor: 'blanchedalmond' }}
-              key={yarn.id}
-              onClick={() => viewYarnDetails(yarn.id)}
-            >
-              <CardContent className='card-content'>
-                <img style={{ width: '15rem', height: '20rem' }} src={yarn.image} alt={yarn.yarn_title} />
-                <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-                  {yarn.name}: {yarn.yarn_title}
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })}
+        {yarns.map((yarn) => (
+          <YarnItem key={yarn.id} yarn={yarn} />
+        ))}
       </section>
       <h2>Favorite Patterns</h2>
       <section className='pattern-container'>
-        {patterns.map((pattern) => {
+        {/* {patterns.map((pattern) => {
           return (
             <Card
               className='pattern-card'
@@ -70,7 +48,7 @@ function HomePage() {
               </CardContent>
             </Card>
           );
-        })}
+        })} */}
       </section>
     </>
   );

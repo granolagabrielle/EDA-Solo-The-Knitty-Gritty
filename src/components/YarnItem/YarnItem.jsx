@@ -8,8 +8,9 @@ import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
-import { Button } from '@mui/material';
+import Button from '@mui/joy/Button';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import './YarnItem.css';
 
 function YarnItem({ yarn }) {
   const history = useHistory();
@@ -33,7 +34,10 @@ function YarnItem({ yarn }) {
 
   return (
     <>
-      <Box key={yarn.id} sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
+      <Box
+        key={yarn.id}
+        sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
+      >
         <Card
           variant='outlined'
           sx={(theme) => ({
@@ -99,7 +103,13 @@ function YarnItem({ yarn }) {
               </Typography>
               <Typography level='body-sm'>{yarn.skein_grams * yarn.skeins} grams in stash</Typography>
             </div>
-            <Button onClick={() => viewDetails(yarn.id)}>View deets</Button>
+            <Button
+              sx={{ ml: 'auto' }}
+              style={{ backgroundColor: 'darkslategray' }}
+              onClick={() => viewDetails(yarn.id)}
+            >
+              Details
+            </Button>
           </Box>
         </Card>
       </Box>
