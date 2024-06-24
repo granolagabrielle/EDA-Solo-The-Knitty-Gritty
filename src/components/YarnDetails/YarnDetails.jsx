@@ -31,9 +31,15 @@ function YarnDetails() {
   };
 
   const markFavorite = (yarnId) => {
-    // console.log('check yarnId', yarnId);
-    dispatch({ type: 'FAVORITE_YARN', payload: { yarnId } });
-    dispatch({ type: 'FETCH_YARN_DETAILS', payload: yarnId });
+    console.log('check yarnId', yarnId);
+    if (yarnDetails.isFavorite === false) {
+      dispatch({ type: 'FAVORITE_YARN', payload: { yarnId } });
+      dispatch({ type: 'FETCH_YARN_DETAILS', payload: yarnId });
+    } else if (yarnDetails.isFavorite === true) {
+      dispatch({ type: 'REMOVE_FAVORITE_YARN', payload: { yarnId } });
+      dispatch({ type: 'FETCH_YARN_DETAILS', payload: yarnId });
+    }
+    return yarnDetails.isFavorite;
   };
 
   return (

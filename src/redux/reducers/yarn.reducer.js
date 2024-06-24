@@ -30,6 +30,8 @@ const yarnDetails = (state = {}, action) => {
       return { ...state, ...action.payload };
     case 'MARK_YARN_AS_FAVORITE':
       return { ...state, isFavorite: true };
+    case 'MARK_YARN_AS_NOT_FAVORITE':
+      return { ...state, isFavorite: false };
     default:
       return state;
   }

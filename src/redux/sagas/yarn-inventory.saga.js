@@ -26,13 +26,26 @@ function* fetchFavoriteYarns() {
 // saga to mark as favorite
 function* favoriteYarn(action) {
   try {
-    // console.log('check favoriteYarn action', action.payload.yarnId);
+    console.log('check favoriteYarn action', action.payload.yarnId);
     const response = yield axios.put(`/api/yarn/favorite-yarn/${action.payload.yarnId}`);
-    // console.log('check fav yarn response', response);
+    console.log('check fav yarn response', response);
     yield put({ type: 'MARK_YARN_AS_FAVORITE' });
     yield put({ type: 'FETCH_YARN_DETAILS', payload: action.payload.yarnId });
   } catch (error) {
     console.log('error marking as fav', error);
+  }
+}
+
+// saga to remove yarn from favorites
+function* removeFavoriteYarn(action) {
+  try {
+    console.log('check removeFavoriteYarn action', action.payload.yarnId);
+    const response = yield axios.put(`/api/yarn/unfavorite-yarn/${action.payload.yarnId}`);
+    console.log('check removeFavoriteYarn response', response);
+    yield put({ type: 'MARK_YARN_AS_NOT_FAVORITE' });
+    yield put({ type: 'FETCH_YARN_DETAILS', payload: action.payload.yarnId });
+  } catch (error) {
+    console.log('error removing yarn as fav', error);
   }
 }
 
@@ -97,6 +110,7 @@ function* yarnsSaga() {
   yield takeLatest('EDIT_YARN', editYarn);
   yield takeLatest('FETCH_FAVORITE_YARNS', fetchFavoriteYarns);
   yield takeLatest('FAVORITE_YARN', favoriteYarn);
+  yield takeLatest('REMOVE_FAVORITE_YARN', removeFavoriteYarn);
   // yield takeLatest('SEARCH_YARN', searchYarn);
 }
 

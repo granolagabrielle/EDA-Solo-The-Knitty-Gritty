@@ -61,6 +61,23 @@ router.put('/favorite-yarn/:id', (req, res) => {
     });
 });
 
+// remove yarn as favorite
+router.put('/unfavorite-yarn/:id', (req, res) => {
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "isFavorite" = FALSE
+    WHERE "id"=$1 AND "user_id"=$2;`;
+  pool
+    .query(queryText, [req.params.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error removing yarn from favorites list', error);
+      res.sendStatus(500);
+    });
+});
+
 // get yarn details for specific user -- pass in id of yarn that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   console.log('in yarn deets GET, check req.params.id', req.params.id);
