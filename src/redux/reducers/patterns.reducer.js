@@ -10,6 +10,16 @@ const patternInventory = (state = [], action) => {
   }
 };
 
+// store favorite patterns
+const patternFavorites = (state = [], action) => {
+  switch (action.type) {
+    case 'SET_FAVORITE_PATTERNS':
+      return action.payload;
+    default:
+      return state;
+  }
+};
+
 const patternDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_PATTERN_DETAILS':
@@ -18,6 +28,10 @@ const patternDetails = (state = {}, action) => {
       return {};
     case 'EDIT_PATTERN_DETAILS':
       return { ...state, ...action.payload };
+    case 'MARK_PATTERN_AS_FAVORITE':
+      return { ...state, isFavorite: true };
+    case 'MARK_PATTERN_AS_NOT_FAVORITE':
+      return { ...state, isFavorite: false };
     default:
       return state;
   }
@@ -26,4 +40,5 @@ const patternDetails = (state = {}, action) => {
 export default combineReducers({
   patternInventory,
   patternDetails,
+  patternFavorites,
 });

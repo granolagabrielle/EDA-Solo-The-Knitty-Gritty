@@ -6,7 +6,7 @@ const router = express.Router();
 // get pattern inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -26,11 +26,63 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
+// get favorite patterns for specific user
+router.get('/favorites', (req, res) => {
+  const queryText = `SELECT *
+  FROM "pattern_inventory" 
+  WHERE "pattern_inventory"."user_id"=$1 AND "pattern_inventory"."isFavorite"=TRUE;
+;`;
+  pool
+    .query(queryText, [req.user.id])
+    .then((result) => {
+      res.send(result.rows);
+      console.log('check fav pattern router', result.rows);
+    })
+    .catch((error) => {
+      console.log(error);
+      res.sendStatus(500);
+    });
+});
+
+// update pattern as favorite
+router.put('/favorite-pattern/:id', (req, res) => {
+  const queryText = `
+  UPDATE "pattern_inventory"
+    SET "isFavorite" = TRUE
+    WHERE "id"=$1 AND "user_id"=$2;`;
+  pool
+    .query(queryText, [req.params.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error marking pattern as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// remove pattern as favorite
+router.put('/unfavorite-pattern/:id', (req, res) => {
+  const queryText = `
+  UPDATE "pattern_inventory"
+    SET "isFavorite" = FALSE
+    WHERE "id"=$1 AND "user_id"=$2;`;
+  pool
+    .query(queryText, [req.params.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error removing pattern from favorites list', error);
+      res.sendStatus(500);
+    });
+});
+
 // get pattern details for specific user -- pass in id of pattern that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isFavorite"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
