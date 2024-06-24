@@ -14,6 +14,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   JOIN "weights"
   ON "weights"."id"="yarn_inventory"."weight"
   WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isdeleted"=FALSE
+  ORDER BY "id" ASC
 ;`;
   pool
     .query(queryText, [req.user.id])
@@ -26,11 +27,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite yarns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "brands"."name", "yarn_inventory"."image", "yarn_inventory"."location"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "brands"."name", "yarn_inventory"."image", "yarn_inventory"."location", "yarn_inventory"."isFavorite"
   FROM "yarn_inventory" 
   JOIN "brands"
   ON "brands"."id"="yarn_inventory"."brand"
-  WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isFavorite"=TRUE;
+  WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isFavorite"=TRUE
+  ORDER BY "id" ASC;
 ;`;
   pool
     .query(queryText, [req.user.id])
@@ -44,7 +46,7 @@ router.get('/favorites', (req, res) => {
     });
 });
 
-// update yarn as favorite
+// update yarn as favorite on details page
 router.put('/favorite-yarn/:id', (req, res) => {
   const queryText = `
   UPDATE "yarn_inventory"
@@ -52,6 +54,43 @@ router.put('/favorite-yarn/:id', (req, res) => {
     WHERE "id"=$1 AND "user_id"=$2;`;
   pool
     .query(queryText, [req.params.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error marking as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// update yarn as favorite in inventory
+router.put('/inventory-fav', (req, res) => {
+  console.log('in inventory favorite put, check req.body.id', req.body.id);
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "isFavorite" = TRUE
+    WHERE "id"=$1 AND "user_id"=$2
+    ;`;
+  pool
+    .query(queryText, [req.body.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error marking as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// remove yarn as favorite in inventory
+router.put('/remove-inventory-fav', (req, res) => {
+  console.log('in inventory favorite put, check req.body.id', req.body.id);
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "isFavorite" = FALSE
+    WHERE "id"=$1 AND "user_id"=$2;`;
+  pool
+    .query(queryText, [req.body.id, req.user.id])
     .then(() => {
       res.sendStatus(201);
     })

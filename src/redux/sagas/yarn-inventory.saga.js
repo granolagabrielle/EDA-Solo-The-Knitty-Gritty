@@ -23,7 +23,7 @@ function* fetchFavoriteYarns() {
   }
 }
 
-// saga to mark as favorite
+// saga to mark as favorite in details page
 function* favoriteYarn(action) {
   try {
     console.log('check favoriteYarn action', action.payload.yarnId);
@@ -36,7 +36,7 @@ function* favoriteYarn(action) {
   }
 }
 
-// saga to remove yarn from favorites
+// saga to remove yarn from favorites in details page
 function* removeFavoriteYarn(action) {
   try {
     console.log('check removeFavoriteYarn action', action.payload.yarnId);
@@ -46,6 +46,32 @@ function* removeFavoriteYarn(action) {
     yield put({ type: 'FETCH_YARN_DETAILS', payload: action.payload.yarnId });
   } catch (error) {
     console.log('error removing yarn as fav', error);
+  }
+}
+
+// saga to mark as favorite in inventory view
+function* favoriteYarnInventory(action) {
+  try {
+    console.log('check favoriteYarnInventory action', action.payload);
+    const response = yield axios.put(`/api/yarn/inventory-fav`, { id: action.payload });
+    console.log('check fav yarn response', response);
+    // yield put({ type: 'MARK_YARN_AS_FAVORITE' });
+    yield put({ type: 'FETCH_YARNS' });
+  } catch (error) {
+    console.log('error marking as fav', error);
+  }
+}
+
+// saga to remove as favorite in inventory view
+function* removeFavoriteYarnInventory(action) {
+  try {
+    console.log('check favoriteYarnInventory action', action.payload);
+    const response = yield axios.put(`/api/yarn/remove-inventory-fav`, { id: action.payload });
+    console.log('check fav yarn response', response);
+    // yield put({ type: 'MARK_YARN_AS_NOT_FAVORITE' });
+    yield put({ type: 'FETCH_YARNS' });
+  } catch (error) {
+    console.log('error marking as fav', error);
   }
 }
 
@@ -111,6 +137,9 @@ function* yarnsSaga() {
   yield takeLatest('FETCH_FAVORITE_YARNS', fetchFavoriteYarns);
   yield takeLatest('FAVORITE_YARN', favoriteYarn);
   yield takeLatest('REMOVE_FAVORITE_YARN', removeFavoriteYarn);
+  yield takeLatest('FAVORITE_YARN_INVENTORY', favoriteYarnInventory);
+  yield takeLatest('REMOVE_FAVORITE_YARN_INVENTORY', removeFavoriteYarnInventory);
+
   // yield takeLatest('SEARCH_YARN', searchYarn);
 }
 

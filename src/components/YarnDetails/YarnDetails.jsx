@@ -2,8 +2,8 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom/';
 import EditIcon from '@mui/icons-material/Edit';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import IconButton from '@mui/material/IconButton';
+import IconButton from '@mui/joy/IconButton';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 
 function YarnDetails() {
   const history = useHistory();
@@ -52,9 +52,30 @@ function YarnDetails() {
       <IconButton onClick={() => editDetails(yarnDetails.id)}>
         <EditIcon />
       </IconButton>
-      <IconButton onClick={() => markFavorite(yarnDetails.id)}>
+      {/* <IconButton onClick={() => markFavorite(yarnDetails.id)}>
         <FavoriteIcon />
-      </IconButton>
+      </IconButton> */}
+      {yarnDetails.isFavorite ? (
+        <IconButton
+          size='sm'
+          variant='soft'
+          color='danger'
+          sx={{ ml: 'auto' }}
+          onClick={() => markFavorite(yarnDetails.id)}
+        >
+          <FavoriteBorderRoundedIcon color='danger' />
+        </IconButton>
+      ) : (
+        <IconButton
+          size='sm'
+          variant='soft'
+          color='neutral'
+          sx={{ ml: 'auto' }}
+          onClick={() => markFavorite(yarnDetails.id)}
+        >
+          <FavoriteBorderRoundedIcon color='danger' />
+        </IconButton>
+      )}
       <button onClick={() => deleteYarn(yarnDetails.id)}>Delete Yarn</button>
       <button onClick={returnToYarn}>Back to Inventory</button>
     </>
