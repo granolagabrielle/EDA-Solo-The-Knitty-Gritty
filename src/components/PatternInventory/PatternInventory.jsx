@@ -32,11 +32,11 @@ function PatternInventory() {
           id='free-solo-2-demo'
           disableClearable
           options={patterns}
-          getOptionLabel={(option) => option.pattern_title}
+          getOptionLabel={(option) => `${option.name}: ${option.pattern_title}`}
           renderInput={(params) => (
             <TextField
               {...params}
-              label='Search pattern by title'
+              label='Search pattern by designer or title'
               InputProps={{
                 ...params.InputProps,
                 type: 'search',

@@ -33,11 +33,11 @@ function YarnInventory() {
           id='free-solo-2-demo'
           disableClearable
           options={yarns}
-          getOptionLabel={(option) => option.name}
+          getOptionLabel={(option) => `${option.name}: ${option.yarn_title}`}
           renderInput={(params) => (
             <TextField
               {...params}
-              label='Search yarn by brand'
+              label='Search yarn by brand or title'
               InputProps={{
                 ...params.InputProps,
                 type: 'search',
