@@ -14,7 +14,7 @@ function ProjectDetails() {
   const params = useParams();
   const projectDetails = useSelector((store) => store.projects.projectDetails);
   const projectNotes = useSelector((store) => store.notes);
-
+  console.log('check projectDetails', projectDetails);
   console.log('check projectNotes', projectNotes);
 
   useEffect(() => {

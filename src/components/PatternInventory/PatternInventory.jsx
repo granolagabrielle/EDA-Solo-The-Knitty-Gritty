@@ -23,9 +23,20 @@ function PatternInventory() {
     history.push(`/pattern/${patternId}`);
   };
 
+  const addPattern = () => {
+    history.push(`/addpattern`);
+  };
+
   return (
     <>
       <h1>Pattern Inventory</h1>
+      {patterns.length === 0 ? (
+        <h4>
+          Your pattern library is empty. <strong onClick={addPattern}>Add a pattern now?</strong>
+        </h4>
+      ) : (
+        ''
+      )}
       <Stack spacing={2} sx={{ width: 300 }}>
         <Autocomplete
           freeSolo
