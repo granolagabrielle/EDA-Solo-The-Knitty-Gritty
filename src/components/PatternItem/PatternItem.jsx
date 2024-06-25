@@ -25,6 +25,7 @@ function PatternItem({ pattern }) {
       dispatch({ type: 'FAVORITE_PATTERN_INVENTORY', payload: pattern.id });
     } else if (pattern.isFavorite === true) {
       dispatch({ type: 'REMOVE_FAVORITE_PATTERN_INVENTORY', payload: pattern.id });
+      dispatch({ type: 'FETCH_FAVORITE_PATTERNS' });
     }
     return pattern.isFavorite;
   };

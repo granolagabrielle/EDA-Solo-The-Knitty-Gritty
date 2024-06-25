@@ -9,6 +9,7 @@ import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/joy/Box';
+import ListItemDecorator from '@mui/joy/ListItemDecorator';
 
 import './YarnInventory.css';
 import YarnItem from '../YarnItem/YarnItem';
@@ -31,6 +32,13 @@ function YarnInventory() {
     <>
       <Box className='header' height={50} display='flex' alignItems='center' gap={4} p={12}>
         <h1>Yarn Inventory</h1>
+        {yarns.length === 0 ? (
+          <h4>
+            Your yarn stash is empty. <strong onClick={addYarn}>Add yarn now?</strong>
+          </h4>
+        ) : (
+          ''
+        )}
         <Stack spacing={2} sx={{ width: 300 }}>
           <Autocomplete
             freeSolo
@@ -56,13 +64,6 @@ function YarnInventory() {
           />
         </Stack>
       </Box>
-      {yarns.length === 0 ? (
-        <h4>
-          Your yarn stash is empty. <strong onClick={addYarn}>Add yarn now?</strong>
-        </h4>
-      ) : (
-        ''
-      )}
       <section className='yarn-container'>
         {yarns.map((yarn) => (
           <YarnItem key={yarn.id} yarn={yarn} />

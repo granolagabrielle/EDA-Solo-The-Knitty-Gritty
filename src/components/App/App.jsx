@@ -29,6 +29,8 @@ import EditPattern from '../PatternInventory/EditPattern';
 import EditProject from '../ProjectDetails/EditProject';
 import PersistentDrawerLeft from '../MuiDrawer/MuiDrawer';
 
+import 'bootstrap/dist/css/bootstrap.min.css';
+
 function App() {
   const dispatch = useDispatch();
 

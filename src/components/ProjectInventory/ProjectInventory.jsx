@@ -6,6 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import { Link } from 'react-router-dom';
 import './ProjectInventory.css';
+import Box from '@mui/joy/Box';
 
 function ProjectInventory() {
   const history = useHistory();
@@ -28,35 +29,37 @@ function ProjectInventory() {
 
   return (
     <>
-      <h1>Project Tracking</h1>
-      {projects.length === 0 ? (
-        <h4>
-          No projects yet. <strong onClick={addProject}>Add one now?</strong>
-        </h4>
-      ) : (
-        ''
-      )}
-      <section className='project-container'>
-        {projects.map((project) => {
-          return (
-            <Card
-              className='project-card'
-              variant='outlined'
-              sx={{ minWidth: 275 }}
-              style={{ backgroundColor: 'blanchedalmond' }}
-              key={project.id}
-              onClick={() => viewDetails(project.id)}
-            >
-              <CardContent className='card-content'>
-                <img style={{ width: '15rem', height: '20rem' }} src={project.image} alt={project.pattern_title} />
-                <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-                  {project.pattern_title}
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })}
-      </section>
+      <Box className='header' height={50} display='flex' alignItems='center' gap={4} p={12}>
+        <h1>Project Tracking</h1>
+        {projects.length === 0 ? (
+          <h4>
+            No projects yet. <strong onClick={addProject}>Add one now?</strong>
+          </h4>
+        ) : (
+          ''
+        )}
+        <section className='project-container'>
+          {projects.map((project) => {
+            return (
+              <Card
+                className='project-card'
+                variant='outlined'
+                sx={{ minWidth: 275 }}
+                style={{ backgroundColor: 'blanchedalmond' }}
+                key={project.id}
+                onClick={() => viewDetails(project.id)}
+              >
+                <CardContent className='card-content'>
+                  <img style={{ width: '15rem', height: '20rem' }} src={project.image} alt={project.pattern_title} />
+                  <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
+                    {project.pattern_title}
+                  </Typography>
+                </CardContent>
+              </Card>
+            );
+          })}
+        </section>
+      </Box>
     </>
   );
 }

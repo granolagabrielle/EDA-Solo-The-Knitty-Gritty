@@ -17,17 +17,16 @@ function YarnItem({ yarn }) {
   const dispatch = useDispatch();
 
   const viewDetails = (yarnId) => {
-    // console.log('check id on viewDetails', yarnId);
     history.push(`/yarn/${yarnId}`);
   };
 
   const markFavorite = () => {
-    // console.log('markFavorite clicked');
     console.log('check yarnId', yarn.id);
     if (yarn.isFavorite === false) {
       dispatch({ type: 'FAVORITE_YARN_INVENTORY', payload: yarn.id });
     } else if (yarn.isFavorite === true) {
       dispatch({ type: 'REMOVE_FAVORITE_YARN_INVENTORY', payload: yarn.id });
+      dispatch({ type: 'FETCH_FAVORITE_YARNS' });
     }
     return yarn.isFavorite;
   };

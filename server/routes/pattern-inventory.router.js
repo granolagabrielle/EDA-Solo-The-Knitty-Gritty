@@ -28,8 +28,17 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite patterns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT *
-  FROM "pattern_inventory" 
+  const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
+    FROM "pattern_inventory"
+    JOIN "designer_names"
+    ON "designer_names"."id"="pattern_inventory"."designer_name"
+    JOIN "pattern_types"
+    ON "pattern_types"."id"="pattern_inventory"."pattern_type"
+    JOIN "weights"
+    ON "weights"."id"="pattern_inventory"."yarn_weight"
+    JOIN "difficulty"
+    ON "difficulty"."id"="pattern_inventory"."difficulty_level"
   WHERE "pattern_inventory"."user_id"=$1 AND "pattern_inventory"."isFavorite"=TRUE;
 ;`;
   pool

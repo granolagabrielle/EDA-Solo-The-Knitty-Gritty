@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom/';
 import { useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { useScript } from '../../hooks/useScript';
+import './AddYarnForm.css';
 
 function AddYarn() {
   const history = useHistory();
@@ -90,53 +91,146 @@ function AddYarn() {
 
   return (
     <>
-      <h1>Add Yarn</h1>
-      <div className='yarn-form'>
-        <form onSubmit={addYarn}>
-          <select id='brand' value={newYarn.brand} onChange={handleNewYarn}>
-            <option defaultValue>Select yarn brand</option>
-            {brands.map((brand) => {
-              return (
-                <option key={brand.id} value={brand.id}>
-                  {brand.name}
-                </option>
-              );
-            })}
-          </select>
-          <input placeholder='Title' id='yarn_title' value={newYarn.yarn_title} onChange={handleNewYarn} />
-          <select id='fiber' value={newYarn.fiber} onChange={handleNewYarn}>
-            <option defaultValue>Select fiber content</option>
-            {fibers.map((fiber) => {
-              return (
-                <option key={fiber.id} value={fiber.id}>
-                  {fiber.fiber}
-                </option>
-              );
-            })}
-          </select>
-          <select id='weight' value={newYarn.weight} onChange={handleNewYarn}>
-            <option defaultValue>Select yarn weight</option>
-            {weights.map((weight) => {
-              return (
-                <option key={weight.id} value={weight.id}>
-                  {weight.weight}
-                </option>
-              );
-            })}
-          </select>
-          <input placeholder='Dye lot' id='dye_lot' value={newYarn.dye_lot} onChange={handleNewYarn} />
-          <input placeholder='Total skeins' id='skeins' value={newYarn.skeins} onChange={handleNewYarn} />
-          <input placeholder='Grams in skein' id='skein_grams' value={newYarn.skein_grams} onChange={handleNewYarn} />
-          <input placeholder='Yarn notes' id='notes' value={newYarn.notes} onChange={handleNewYarn} />
-          <h2>Upload Image</h2>
-          {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-          <button type='button' onClick={openWidget}>
-            Pick File
-          </button>
-          <button type='submit'>Add Yarn</button>
-          <button onClick={cancel}>Cancel</button>
-        </form>
-      </div>
+      <form onSubmit={addYarn}>
+        <div className='container'>
+          <div className='mb-3 col-lg-6'>
+            <h1>Add Yarn</h1>
+          </div>
+          <div className='row'>
+            <div className='mb-3 col-lg-6'>
+              <label for='select' className='form-label'>
+                Select yarn brand
+              </label>
+              <select className='form-select' id='brand' value={newYarn.brand} onChange={handleNewYarn}>
+                {brands.map((brand) => {
+                  return (
+                    <option key={brand.id} value={brand.id}>
+                      {brand.name}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className='mb-3 col-lg-6'>
+              <label for='input' className='form-label'>
+                Yarn title
+              </label>
+              <input
+                className='form-control'
+                placeholder='Title'
+                id='yarn_title'
+                value={newYarn.yarn_title}
+                onChange={handleNewYarn}
+              />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='mb-3 col-lg-6'>
+              <label for='select' className='form-label'>
+                Select fiber content
+              </label>
+              <select className='form-select' id='fiber' value={newYarn.fiber} onChange={handleNewYarn}>
+                {fibers.map((fiber) => {
+                  return (
+                    <option key={fiber.id} value={fiber.id}>
+                      {fiber.fiber}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+            <div className='mb-3 col-lg-6'>
+              <label for='select' className='form-label'>
+                Select yarn weight
+              </label>
+              <select className='form-select' id='weight' value={newYarn.weight} onChange={handleNewYarn}>
+                {weights.map((weight) => {
+                  return (
+                    <option key={weight.id} value={weight.id}>
+                      {weight.weight}
+                    </option>
+                  );
+                })}
+              </select>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='mb-3 col-lg-4'>
+              <label for='input' className='form-label'>
+                Yarn Dye Lot
+              </label>
+              <input
+                className='form-control'
+                placeholder='Dye lot'
+                id='dye_lot'
+                value={newYarn.dye_lot}
+                onChange={handleNewYarn}
+              />
+            </div>
+            <div className='mb-3 col-lg-4'>
+              <label for='input' className='form-label'>
+                Total Skeins in Stash
+              </label>
+              <input
+                className='form-control'
+                placeholder='Total skeins'
+                id='skeins'
+                value={newYarn.skeins}
+                onChange={handleNewYarn}
+              />
+            </div>
+            <div className='mb-3 col-lg-4'>
+              <label for='input' className='form-label'>
+                Grams in Each Skein
+              </label>
+              <input
+                className='form-control'
+                placeholder='Grams in skein'
+                id='skein_grams'
+                value={newYarn.skein_grams}
+                onChange={handleNewYarn}
+              />
+            </div>
+          </div>
+          <div className='row'>
+            <div className='mb-3 col-lg-6'>
+              <label for='input' className='form-label'>
+                Yarn Notes
+              </label>
+              <input
+                type='text'
+                className='form-control'
+                placeholder='Yarn notes'
+                id='notes'
+                value={newYarn.notes}
+                onChange={handleNewYarn}
+              />
+            </div>
+            <div className='col-lg-6 mb-3'></div>
+          </div>
+
+          <div className='row'>
+            <div className='mb-3 col-lg-6'>
+              <div class='col-auto'>
+                {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+                <button onClick={openWidget} type='button' class='btn btn-secondary'>
+                  Choose photo
+                </button>
+              </div>
+            </div>
+          </div>
+          <div className='row'>
+            <div className='mb-3 col-lg-6'>
+              <button type='submit' class='btn btn-secondary' id='submit-btn'>
+                Add Yarn
+              </button>
+              <button onClick={cancel} class='btn btn-secondary'>
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
     </>
   );
 }
