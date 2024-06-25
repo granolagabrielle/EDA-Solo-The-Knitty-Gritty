@@ -41,8 +41,8 @@ function YarnItem({ yarn }) {
         <Card
           variant='outlined'
           sx={(theme) => ({
-            width: 300,
-            height: 500, // Set the fixed height here
+            width: 270,
+            height: 465, // Set the fixed height here
             flexDirection: 'column',
             overflow: 'hidden',
             transition: 'transform 0.3s, border 0.3s',
