@@ -56,7 +56,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // post new project for user
 router.post('/', (req, res) => {
-  // console.log('in project post, check req.body', req.body);
+  console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
       ("pattern_id", "date_started", "yarn_id", "user_id", "image") 
       VALUES ($1, $2, $3, $4, $5);`;

@@ -86,8 +86,8 @@ function* fetchPatternDetails(action) {
 // saga to add pattern
 function* addPattern(action) {
   try {
-    yield axios.post('/api/patterns', action.payload);
     console.log('checking addPattern action.payload', action.payload);
+    yield axios.post('/api/patterns', action.payload);
     yield put({ type: 'FETCH_PATTERNS' });
   } catch (error) {
     console.log('error adding new pattern', error);

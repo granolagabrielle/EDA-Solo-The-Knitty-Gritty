@@ -50,7 +50,7 @@ function AddProject() {
 
   const AddProject = (event) => {
     event.preventDefault();
-    console.log('submit project was clicked');
+    console.log('check new project', newProject);
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
     dispatch({ type: 'FETCH_PROJECTS' });
     history.push('/projects');
@@ -86,40 +86,77 @@ function AddProject() {
 
   return (
     <>
-      <h1>Add Project</h1>
       <div className='project-form'>
         <form onSubmit={AddProject}>
-          <select id='pattern_id' value={newProject.pattern_id} onChange={handleNewProject}>
-            <option defaultValue>Select project pattern</option>
-            {patterns.map((pattern) => {
-              return (
-                <option key={pattern.id} value={pattern.id}>
-                  {pattern.pattern_title}
-                </option>
-              );
-            })}
-          </select>
-          <input type='date' id='date_started' value={newProject.date_started} onChange={handleNewProject} />
-          {/* <input placeholder='Project notes' id='notes' value={newProject.notes} onChange={handleNewProject} /> */}
-          {/* <input placeholder='Progress' id='progress' value={newProject.progress} onChange={handleNewProject} /> */}
-          <select id='yarn_id' value={newProject.yarn_id} onChange={handleNewProject}>
-            <option defaultValue>Select project yarn</option>
-            {yarns.map((yarn) => {
-              return (
-                <option key={yarn.id} value={yarn.id}>
-                  {yarn.name}
-                  {yarn.yarn_title}
-                </option>
-              );
-            })}
-          </select>
-          <h2>Upload Image</h2>
-          {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-          <button type='button' onClick={openWidget}>
-            Pick File
-          </button>
-          <button type='submit'>Add Project</button>
-          <button onClick={cancel}>Cancel</button>
+          <div className='container'>
+            <h1>Add Project</h1>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Select pattern</label>
+                <select
+                  className='form-select'
+                  id='pattern_id'
+                  value={newProject.pattern_id}
+                  onChange={handleNewProject}
+                >
+                  {patterns.map((pattern) => {
+                    return (
+                      <option key={pattern.id} value={pattern.id}>
+                        {pattern.pattern_title}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Date started</label>
+                <input
+                  className='form-control'
+                  type='date'
+                  id='date_started'
+                  value={newProject.date_started}
+                  onChange={handleNewProject}
+                />
+              </div>
+            </div>
+            {/* <input placeholder='Project notes' id='notes' value={newProject.notes} onChange={handleNewProject} /> */}
+            {/* <input placeholder='Progress' id='progress' value={newProject.progress} onChange={handleNewProject} /> */}
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Select project yarn</label>
+                <select className='form-select' id='yarn_id' value={newProject.yarn_id} onChange={handleNewProject}>
+                  <option defaultValue>Select project yarn</option>
+                  {yarns.map((yarn) => {
+                    return (
+                      <option key={yarn.id} value={yarn.id}>
+                        {yarn.name}:{yarn.yarn_title}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <div className='col-auto'>
+                  {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+                  <button onClick={openWidget} type='button' className='btn btn-secondary'>
+                    Choose photo
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <button type='submit' className='btn btn-secondary' id='submit-btn'>
+                  Add Project
+                </button>
+                <button onClick={cancel} className='btn btn-secondary'>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </>

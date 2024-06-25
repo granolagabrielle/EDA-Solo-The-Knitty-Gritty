@@ -52,6 +52,7 @@ function AddPattern() {
 
   const addPattern = (event) => {
     event.preventDefault();
+    console.log('check newPattern', newPattern);
     dispatch({ type: 'ADD_PATTERN', payload: newPattern });
     dispatch({ type: 'FETCH_PATTERNS' });
     history.push('/patterns');
@@ -86,63 +87,126 @@ function AddPattern() {
 
   return (
     <>
-      <h1>Add Pattern</h1>
       <div className='pattern-form'>
         <form onSubmit={addPattern}>
-          <input
-            placeholder='Pattern title'
-            id='pattern_title'
-            value={newPattern.pattern_title}
-            onChange={handleNewPattern}
-          />
-          <select id='designer_name' value={newPattern.designer_name} onChange={handleNewPattern}>
-            <option defaultValue>Select designer</option>
-            {designers.map((designer) => {
-              return (
-                <option key={designer.id} value={designer.id}>
-                  {designer.name}
-                </option>
-              );
-            })}
-          </select>
-          <select id='pattern_type' value={newPattern.pattern_type} onChange={handleNewPattern}>
-            <option defaultValue>Select pattern type</option>
-            {types.map((type) => {
-              return (
-                <option key={type.id} value={type.id}>
-                  {type.type}
-                </option>
-              );
-            })}
-          </select>
-          <select id='difficulty_level' value={newPattern.difficulty_level} onChange={handleNewPattern}>
-            <option defaultValue>Select difficulty level</option>
-            {difficultys.map((difficulty) => {
-              return (
-                <option key={difficulty.id} value={difficulty.id}>
-                  {difficulty.level}
-                </option>
-              );
-            })}
-          </select>
-          <select id='yarn_weight' value={newPattern.yarn_weight} onChange={handleNewPattern}>
-            <option defaultValue>Recommended yarn weight</option>
-            {weights.map((weight) => {
-              return (
-                <option key={weight.id} value={weight.id}>
-                  {weight.weight}
-                </option>
-              );
-            })}
-          </select>
-          <input placeholder='Pattern notes' id='notes' value={newPattern.notes} onChange={handleNewPattern} />
-          <h2>Upload Image</h2>
-          {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
-          <button type='button' onClick={openWidget}>
-            Pick File
-          </button>
-          <button type='submit'>Add Pattern</button>
-          <button onClick={cancel}>Cancel</button>
+          <div className='container'>
+            <h1>Add Pattern</h1>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Pattern title</label>
+                <input
+                  className='form-control'
+                  placeholder='Title'
+                  id='pattern_title'
+                  value={newPattern.pattern_title}
+                  onChange={handleNewPattern}
+                />
+              </div>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Select pattern designer</label>
+                <select
+                  className='form-select'
+                  id='designer_name'
+                  value={newPattern.designer_name}
+                  onChange={handleNewPattern}
+                >
+                  {designers.map((designer) => {
+                    return (
+                      <option key={designer.id} value={designer.id}>
+                        {designer.name}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Select pattern type</label>
+                <select
+                  className='form-select'
+                  id='pattern_type'
+                  value={newPattern.pattern_type}
+                  onChange={handleNewPattern}
+                >
+                  {types.map((type) => {
+                    return (
+                      <option key={type.id} value={type.id}>
+                        {type.type}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className='mb-3 col-lg-6'>
+                <label className='form-label'>Select difficulty level</label>
+                <select
+                  className='form-select'
+                  id='difficulty_level'
+                  value={newPattern.difficulty_level}
+                  onChange={handleNewPattern}
+                >
+                  {difficultys.map((difficulty) => {
+                    return (
+                      <option key={difficulty.id} value={difficulty.id}>
+                        {difficulty.level}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='mb-3 col-lg-4'>
+                <label className='form-label'>Recommended yarn weight</label>
+                <select
+                  className='form-control'
+                  id='yarn_weight'
+                  value={newPattern.yarn_weight}
+                  onChange={handleNewPattern}
+                >
+                  {weights.map((weight) => {
+                    return (
+                      <option key={weight.id} value={weight.id}>
+                        {weight.weight}
+                      </option>
+                    );
+                  })}
+                </select>
+              </div>
+              <div className='mb-3 col-lg-8'>
+                <label className='form-label'>Pattern Notes</label>
+                <input
+                  type='text'
+                  className='form-control'
+                  placeholder='Pattern notes'
+                  id='notes'
+                  value={newPattern.notes}
+                  onChange={handleNewPattern}
+                />
+              </div>
+            </div>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <div className='col-auto'>
+                  {useScript('https://widget.cloudinary.com/v2.0/global/all.js')}
+                  <button onClick={openWidget} type='button' className='btn btn-secondary'>
+                    Choose photo
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div className='row'>
+              <div className='mb-3 col-lg-6'>
+                <button type='submit' className='btn btn-secondary' id='submit-btn'>
+                  Add Pattern
+                </button>
+                <button onClick={cancel} className='btn btn-secondary'>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
         </form>
       </div>
     </>

@@ -30,6 +30,7 @@ function AddYarn() {
     user_id: '',
     notes: '',
     image: '',
+    location: '',
   });
 
   const handleNewYarn = (event) => {
@@ -49,6 +50,8 @@ function AddYarn() {
       setNewYarn({ ...newYarn, dye_lot: event.target.value });
     } else if (event.target.id === 'notes') {
       setNewYarn({ ...newYarn, notes: event.target.value });
+    } else if (event.target.id === 'location') {
+      setNewYarn({ ...newYarn, location: event.target.value });
     } else {
       setNewYarn({ ...newYarn, user_id: event.target.user.id });
     }
@@ -193,7 +196,20 @@ function AddYarn() {
             </div>
           </div>
           <div className='row'>
-            <div className='mb-3 col-lg-6'>
+            <div className='mb-3 col-lg-4'>
+              <label for='input' className='form-label'>
+                Location
+              </label>
+              <input
+                type='text'
+                className='form-control'
+                placeholder='Location of origin or purchase'
+                id='location'
+                value={newYarn.location}
+                onChange={handleNewYarn}
+              />
+            </div>
+            <div className='mb-3 col-lg-8'>
               <label for='input' className='form-label'>
                 Yarn Notes
               </label>
@@ -206,9 +222,7 @@ function AddYarn() {
                 onChange={handleNewYarn}
               />
             </div>
-            <div className='col-lg-6 mb-3'></div>
           </div>
-
           <div className='row'>
             <div className='mb-3 col-lg-6'>
               <div class='col-auto'>

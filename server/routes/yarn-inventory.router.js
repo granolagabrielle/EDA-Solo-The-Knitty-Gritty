@@ -179,10 +179,10 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // post new yarn to inventory
 router.post('/', (req, res) => {
-  // console.log('in yarn post, check req.body', req.body);
+  console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
-  ("brand", "yarn_title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "image") 
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+  ("brand", "yarn_title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id", "notes", "image", "location") 
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
   pool
     .query(queryText, [
       req.body.brand,
@@ -195,6 +195,7 @@ router.post('/', (req, res) => {
       req.user.id,
       req.body.notes,
       req.body.image,
+      req.body.location,
     ])
     .then((result) => {
       res.send(result.rows[0]);
