@@ -22,7 +22,7 @@ function* fetchFavoritePatterns() {
   }
 }
 
-// saga to mark as favorite
+// saga to mark as favorite in details page
 function* favoritePattern(action) {
   try {
     console.log('check favoritePattern action', action.payload.patternId);
@@ -35,7 +35,7 @@ function* favoritePattern(action) {
   }
 }
 
-// saga to remove pattern from favorites
+// saga to remove pattern from favorites in details page
 function* removeFavoritePattern(action) {
   try {
     console.log('check removeFavoritePattern action', action.payload.patternId);
@@ -45,6 +45,30 @@ function* removeFavoritePattern(action) {
     yield put({ type: 'FETCH_PATTERN_DETAILS', payload: action.payload.patternId });
   } catch (error) {
     console.log('error removing pattern as fav', error);
+  }
+}
+
+// saga to mark as favorite in inventory view
+function* favoritePatternInventory(action) {
+  try {
+    console.log('check favoritePatternInventory action', action.payload);
+    const response = yield axios.put(`/api/patterns/inventory-fav`, { id: action.payload });
+    console.log('check fav pattern response', response);
+    yield put({ type: 'FETCH_PATTERNS' });
+  } catch (error) {
+    console.log('error marking as fav', error);
+  }
+}
+
+// saga to remove as favorite in inventory view
+function* removeFavoritePatternInventory(action) {
+  try {
+    console.log('check removeFavoritePatternInventory action', action.payload);
+    const response = yield axios.put(`/api/patterns/remove-inventory-fav`, { id: action.payload });
+    console.log('check fav pattern response', response);
+    yield put({ type: 'FETCH_PATTERNS' });
+  } catch (error) {
+    console.log('error marking as fav', error);
   }
 }
 
@@ -100,6 +124,8 @@ function* patternsSaga() {
   yield takeLatest('FETCH_FAVORITE_PATTERNS', fetchFavoritePatterns);
   yield takeLatest('FAVORITE_PATTERN', favoritePattern);
   yield takeLatest('REMOVE_FAVORITE_PATTERN', removeFavoritePattern);
+  yield takeLatest('FAVORITE_PATTERN_INVENTORY', favoritePatternInventory);
+  yield takeLatest('REMOVE_FAVORITE_PATTERN_INVENTORY', removeFavoritePatternInventory);
 }
 
 export default patternsSaga;

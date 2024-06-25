@@ -1,14 +1,12 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
 import './PatternInventory.css';
 import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
+import PatternItem from '../PatternItem/PatternItem';
 
 function PatternInventory() {
   const history = useHistory();
@@ -18,10 +16,6 @@ function PatternInventory() {
   useEffect(() => {
     dispatch({ type: 'FETCH_PATTERNS' });
   }, []);
-
-  const viewDetails = (patternId) => {
-    history.push(`/pattern/${patternId}`);
-  };
 
   const addPattern = () => {
     history.push(`/addpattern`);
@@ -62,25 +56,9 @@ function PatternInventory() {
         />
       </Stack>
       <section className='pattern-container'>
-        {patterns.map((pattern) => {
-          return (
-            <Card
-              className='pattern-card'
-              variant='outlined'
-              sx={{ minWidth: 275 }}
-              style={{ backgroundColor: 'blanchedalmond' }}
-              key={pattern.id}
-              onClick={() => viewDetails(pattern.id)}
-            >
-              <CardContent className='card-content'>
-                <img style={{ width: '15rem', height: '20rem' }} src={pattern.image} alt={pattern.pattern_title} />
-                <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-                  {pattern.name}: {pattern.pattern_title}
-                </Typography>
-              </CardContent>
-            </Card>
-          );
-        })}
+        {patterns.map((pattern) => (
+          <PatternItem key={pattern.id} pattern={pattern} />
+        ))}
       </section>
     </>
   );

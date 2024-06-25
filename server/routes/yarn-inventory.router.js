@@ -27,10 +27,14 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite yarns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "brands"."name", "yarn_inventory"."image", "yarn_inventory"."location", "yarn_inventory"."isFavorite"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."skeins", "yarn_inventory"."skein_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
   FROM "yarn_inventory" 
+  JOIN "fibers"
+  ON "fibers"."id"="yarn_inventory"."fiber"
   JOIN "brands"
   ON "brands"."id"="yarn_inventory"."brand"
+  JOIN "weights"
+  ON "weights"."id"="yarn_inventory"."weight"
   WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isFavorite"=TRUE
   ORDER BY "id" ASC;
 ;`;
@@ -59,6 +63,23 @@ router.put('/favorite-yarn/:id', (req, res) => {
     })
     .catch((error) => {
       console.log('error marking as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// remove yarn as favorite
+router.put('/unfavorite-yarn/:id', (req, res) => {
+  const queryText = `
+  UPDATE "yarn_inventory"
+    SET "isFavorite" = FALSE
+    WHERE "id"=$1 AND "user_id"=$2;`;
+  pool
+    .query(queryText, [req.params.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error removing yarn from favorites list', error);
       res.sendStatus(500);
     });
 });
@@ -96,23 +117,6 @@ router.put('/remove-inventory-fav', (req, res) => {
     })
     .catch((error) => {
       console.log('error marking as favorite', error);
-      res.sendStatus(500);
-    });
-});
-
-// remove yarn as favorite
-router.put('/unfavorite-yarn/:id', (req, res) => {
-  const queryText = `
-  UPDATE "yarn_inventory"
-    SET "isFavorite" = FALSE
-    WHERE "id"=$1 AND "user_id"=$2;`;
-  pool
-    .query(queryText, [req.params.id, req.user.id])
-    .then(() => {
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log('error removing yarn from favorites list', error);
       res.sendStatus(500);
     });
 });

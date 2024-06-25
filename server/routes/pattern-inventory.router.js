@@ -44,7 +44,7 @@ router.get('/favorites', (req, res) => {
     });
 });
 
-// update pattern as favorite
+// update pattern as favorite on details page
 router.put('/favorite-pattern/:id', (req, res) => {
   const queryText = `
   UPDATE "pattern_inventory"
@@ -74,6 +74,43 @@ router.put('/unfavorite-pattern/:id', (req, res) => {
     })
     .catch((error) => {
       console.log('error removing pattern from favorites list', error);
+      res.sendStatus(500);
+    });
+});
+
+// update pattern as favorite in inventory
+router.put('/inventory-fav', (req, res) => {
+  console.log('in inventory favorite put, check req.body.id', req.body.id);
+  const queryText = `
+  UPDATE "pattern_inventory"
+    SET "isFavorite" = TRUE
+    WHERE "id"=$1 AND "user_id"=$2
+    ;`;
+  pool
+    .query(queryText, [req.body.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error marking as favorite', error);
+      res.sendStatus(500);
+    });
+});
+
+// remove pattern as favorite in inventory
+router.put('/remove-inventory-fav', (req, res) => {
+  console.log('in inventory favorite put, check req.body.id', req.body.id);
+  const queryText = `
+  UPDATE "pattern_inventory"
+    SET "isFavorite" = FALSE
+    WHERE "id"=$1 AND "user_id"=$2;`;
+  pool
+    .query(queryText, [req.body.id, req.user.id])
+    .then(() => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error marking as favorite', error);
       res.sendStatus(500);
     });
 });
