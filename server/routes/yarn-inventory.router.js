@@ -194,7 +194,7 @@ router.post('/', (req, res) => {
       req.body.dye_lot,
       req.user.id,
       req.body.notes,
-      req.body.image,
+      JSON.stringify(req.body.image),
       req.body.location,
     ])
     .then((result) => {

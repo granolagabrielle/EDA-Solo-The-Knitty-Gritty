@@ -29,7 +29,7 @@ function AddYarn() {
     dye_lot: '',
     user_id: '',
     notes: '',
-    image: '',
+    image: [],
     location: '',
   });
 
@@ -79,18 +79,27 @@ function AddYarn() {
             cloudName: 'dhh2vptsp',
             // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
             uploadPreset: 'cvg0hnyy',
+            multiple: 'true',
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {
-              setNewYarn({
-                ...newYarn,
-                image: result.info.secure_url,
-              });
+              console.log('check url', result.info.secure_url);
+              // setImages((previousImg) => [...previousImg, result.info.secure_url]);
+              let myYarnCopy = { ...newYarn };
+              myYarnCopy.image.push(result.info.secure_url);
+              setNewYarn(myYarnCopy);
+              // console.log('check setImages', setImages);
             }
+            // setNewYarn({
+            //   ...newYarn,
+            //   image: images,
+            // });
           }
         )
         .open();
   };
+
+  // console.log('check images', images);
 
   return (
     <>
