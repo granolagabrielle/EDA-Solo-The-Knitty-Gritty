@@ -28,7 +28,7 @@ function AddPattern() {
     yarn_weight: '',
     user_id: '',
     notes: '',
-    image: '',
+    image: [],
   });
 
   const handleNewPattern = (event) => {
@@ -75,10 +75,14 @@ function AddPattern() {
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {
-              setNewPattern({
-                ...newPattern,
-                image: result.info.secure_url,
-              });
+              console.log('check url', result.info.secure_url);
+              // setNewPattern({
+              //   ...newPattern,
+              //   image: result.info.secure_url,
+              // });
+              let myPatterncopy = { ...newPattern };
+              myPatterncopy.image.push(result.info.secure_url);
+              setNewPattern(myPatterncopy);
             }
           }
         )

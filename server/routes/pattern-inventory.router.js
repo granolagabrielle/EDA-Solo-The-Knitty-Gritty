@@ -166,7 +166,7 @@ router.post('/', (req, res) => {
       req.body.yarn_weight,
       req.user.id,
       req.body.notes,
-      req.body.image,
+      JSON.stringify(req.body.image),
     ])
     .then((result) => {
       res.send(result.rows[0]);

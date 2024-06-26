@@ -68,7 +68,7 @@ router.post('/', (req, res) => {
       // req.body.progress,
       req.body.yarn_id,
       req.user.id,
-      req.body.image,
+      JSON.stringify(req.body.image),
     ])
     .then((result) => {
       res.send(result.rows[0]);

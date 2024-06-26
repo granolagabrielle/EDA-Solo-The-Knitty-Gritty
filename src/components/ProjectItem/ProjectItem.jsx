@@ -10,25 +10,12 @@ import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import './YarnItem.css';
 
-function YarnItem({ yarn }) {
+function ProjectItem({ project }) {
   const history = useHistory();
-  const dispatch = useDispatch();
 
-  const viewDetails = (yarnId) => {
-    history.push(`/yarn/${yarnId}`);
-  };
-
-  const markFavorite = () => {
-    console.log('check yarnId', yarn.id);
-    if (yarn.isFavorite === false) {
-      dispatch({ type: 'FAVORITE_YARN_INVENTORY', payload: yarn.id });
-    } else if (yarn.isFavorite === true) {
-      dispatch({ type: 'REMOVE_FAVORITE_YARN_INVENTORY', payload: yarn.id });
-      dispatch({ type: 'FETCH_FAVORITE_YARNS' });
-    }
-    return yarn.isFavorite;
+  const viewDetails = (projectId) => {
+    history.push(`/projects/${projectId}`);
   };
 
   const imageClean = (images) => {
@@ -73,7 +60,7 @@ function YarnItem({ yarn }) {
   return (
     <>
       <Box
-        key={yarn.id}
+        key={project.id}
         sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
       >
         <Card
@@ -101,18 +88,12 @@ function YarnItem({ yarn }) {
                     '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                   }}
                 >
-                  {yarn.name}
+                  some text
                 </Link>
               </Typography>
-              <Typography level='body-sm'>{yarn.location}</Typography>
+              <Typography level='body-sm'>some text</Typography>
             </div>
-            <IconButton
-              size='sm'
-              variant='soft'
-              color={yarn.isFavorite ? 'danger' : 'neutral'}
-              sx={{ ml: 'auto', zIndex: 2 }}
-              onClick={markFavorite}
-            >
+            <IconButton size='sm' variant='soft' color={'neutral'} sx={{ ml: 'auto', zIndex: 2 }}>
               <FavoriteBorderRoundedIcon color='danger' />
             </IconButton>
           </Box>
@@ -124,7 +105,7 @@ function YarnItem({ yarn }) {
               height: 'auto',
             }}
           >
-            <img src={imageClean(yarn)} loading='lazy' alt='' />
+            <img src={imageClean(project)} loading='lazy' alt='' />
           </AspectRatio>
 
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -138,15 +119,15 @@ function YarnItem({ yarn }) {
                     '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                   }}
                 >
-                  {yarn.weight} weight
+                  some text
                 </Link>
               </Typography>
-              <Typography level='body-sm'>{yarn.skein_grams * yarn.skeins} grams in stash</Typography>
+              <Typography level='body-sm'>some text</Typography>
             </div>
             <Button
               sx={{ ml: 'auto' }}
               style={{ backgroundColor: 'darkslategray' }}
-              onClick={() => viewDetails(yarn.id)}
+              onClick={() => viewDetails(project.id)}
             >
               Details
             </Button>
@@ -157,4 +138,4 @@ function YarnItem({ yarn }) {
   );
 }
 
-export default YarnItem;
+export default ProjectItem;

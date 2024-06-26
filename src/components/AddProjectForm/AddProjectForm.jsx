@@ -23,7 +23,7 @@ function AddProject() {
     // progress: '',
     yarn_id: '',
     user_id: '',
-    image: '',
+    image: [],
   });
 
   // else if (event.target.id === 'notes') {
@@ -74,10 +74,14 @@ function AddProject() {
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {
-              setNewProject({
-                ...newProject,
-                image: result.info.secure_url,
-              });
+              // setNewProject({
+              //   ...newProject,
+              //   image: result.info.secure_url,
+              // });
+              console.log('check url', result.info.secure_url);
+              let myProjectCopy = { ...newProject };
+              myProjectCopy.image.push(result.info.secure_url);
+              setNewProject(myProjectCopy);
             }
           }
         )

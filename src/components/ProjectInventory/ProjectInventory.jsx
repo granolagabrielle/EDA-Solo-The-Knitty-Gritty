@@ -1,12 +1,13 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-import { Link } from 'react-router-dom';
+import TextField from '@mui/material/TextField';
+import Stack from '@mui/material/Stack';
+import Autocomplete from '@mui/material/Autocomplete';
 import './ProjectInventory.css';
 import Box from '@mui/joy/Box';
+import ProjectItem from '../ProjectItem/ProjectItem';
+import './ProjectInventory.css';
 
 function ProjectInventory() {
   const history = useHistory();
@@ -18,10 +19,6 @@ function ProjectInventory() {
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECTS' });
   }, []);
-
-  const viewDetails = (projectId) => {
-    history.push(`/project/${projectId}`);
-  };
 
   const addProject = () => {
     history.push(`/addproject`);
@@ -38,28 +35,36 @@ function ProjectInventory() {
         ) : (
           ''
         )}
-        <section className='project-container'>
-          {projects.map((project) => {
-            return (
-              <Card
-                className='project-card'
-                variant='outlined'
-                sx={{ minWidth: 275 }}
-                style={{ backgroundColor: 'blanchedalmond' }}
-                key={project.id}
-                onClick={() => viewDetails(project.id)}
-              >
-                <CardContent className='card-content'>
-                  <img style={{ width: '15rem', height: '20rem' }} src={project.image} alt={project.pattern_title} />
-                  <Typography sx={{ fontSize: 14 }} color='text.secondary' gutterBottom>
-                    {project.pattern_title}
-                  </Typography>
-                </CardContent>
-              </Card>
-            );
-          })}
-        </section>
+        <Stack spacing={2} sx={{ width: 300 }}>
+          <Autocomplete
+            freeSolo
+            id='free-solo-2-demo'
+            disableClearable
+            options={projects}
+            getOptionLabel={(option) => `${option.project_title}`}
+            renderInput={(params) => (
+              <TextField
+                {...params}
+                label='Search projects by pattern'
+                InputProps={{
+                  ...params.InputProps,
+                  type: 'search',
+                }}
+              />
+            )}
+            onChange={(event, value) => {
+              if (value) {
+                history.push(`/projects/${value.id}`);
+              }
+            }}
+          />
+        </Stack>
       </Box>
+      <section className='project-container'>
+        {projects.map((project) => (
+          <ProjectItem key={project.id} project={project} />
+        ))}
+      </section>
     </>
   );
 }

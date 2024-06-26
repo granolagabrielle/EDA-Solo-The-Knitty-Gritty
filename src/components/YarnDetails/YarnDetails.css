@@ -1,0 +1,12 @@
+.yarn-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  padding-left: 80px;
+}
+
+.container-card {
+  margin: 20px;
+}

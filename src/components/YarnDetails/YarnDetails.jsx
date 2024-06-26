@@ -3,7 +3,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom/';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/joy/IconButton';
+// import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import { Box } from '@mui/joy';
+import Button from '@mui/joy/Button';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Link from '@mui/joy/Link';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import AspectRatio from '@mui/joy/AspectRatio';
+import './YarnDetails.css';
 
 function YarnDetails() {
   const history = useHistory();
@@ -16,6 +25,7 @@ function YarnDetails() {
 
   useEffect(() => {
     dispatch({ type: 'FETCH_YARN_DETAILS', payload: params.id });
+    dispatch({ type: 'CLEAR_YARN_DETAILS' });
   }, []);
 
   const deleteYarn = () => {
@@ -53,19 +63,19 @@ function YarnDetails() {
 
       if (imageArray.length >= 2) {
         console.log(' More than 2 images...');
-       for (let i = 0; i < imageArray.length; i++) {
-        let img = imageArray[i];
-        if (i === 0) {
-          console.log('IMAGE 1', img);
-          myMultipleImagesArray.push(img.substring(0, img.length - 1));
-        } else if (i === imageArray.length -1 ) {
-          console.log('IMAGE LAST...', img);
-          myMultipleImagesArray.push(img.substring(1));
-        } else {
-          console.log('IMAGE IN BETWEEN...', img);
-          myMultipleImagesArray.push(img.substring(1, img.length - 1));
+        for (let i = 0; i < imageArray.length; i++) {
+          let img = imageArray[i];
+          if (i === 0) {
+            console.log('IMAGE 1', img);
+            myMultipleImagesArray.push(img.substring(0, img.length - 1));
+          } else if (i === imageArray.length - 1) {
+            console.log('IMAGE LAST...', img);
+            myMultipleImagesArray.push(img.substring(1));
+          } else {
+            console.log('IMAGE IN BETWEEN...', img);
+            myMultipleImagesArray.push(img.substring(1, img.length - 1));
+          }
         }
-       }
         // let image1 = imageArray[0];
         // console.log('IMAGE 1', image1);
         // let image2 = imageArray[1];
@@ -91,45 +101,195 @@ function YarnDetails() {
 
   return (
     <>
-      <h1>Yarn Details Page</h1>
-      <p>
-        {yarnDetails.name}
-        {yarnDetails.yarn_title}
-      </p>
-      <IconButton onClick={() => editDetails(yarnDetails.id)}>
-        <EditIcon />
-      </IconButton>
-      {/* <IconButton onClick={() => markFavorite(yarnDetails.id)}>
-        <FavoriteIcon />
-      </IconButton> */}
-      {yarnDetails.isFavorite ? (
-        <IconButton
-          size='sm'
-          variant='soft'
-          color='danger'
-          sx={{ ml: 'auto' }}
-          onClick={() => markFavorite(yarnDetails.id)}
+      <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}>
+        <Button style={{ backgroundColor: 'darkslategray' }} onClick={returnToYarn}>
+          Back to Inventory
+        </Button>
+      </Box>
+      <Box
+        key={yarnDetails.id}
+        sx={{ minHeight: 100, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      >
+        {yarnDetails.name} {yarnDetails.yarn_title}
+        <Box>
+          {yarnDetails.isFavorite ? (
+            <IconButton
+              aria-label='Add to favorites'
+              size='sm'
+              variant='soft'
+              color='danger'
+              sx={{ ml: 'auto' }}
+              onClick={() => markFavorite(yarnDetails.id)}
+            >
+              <FavoriteBorder color='danger' />
+            </IconButton>
+          ) : (
+            <IconButton
+              size='sm'
+              variant='soft'
+              color='neutral'
+              sx={{ ml: 'auto' }}
+              onClick={() => markFavorite(yarnDetails.id)}
+            >
+              <FavoriteBorder color='danger' />
+            </IconButton>
+          )}
+        </Box>
+      </Box>
+      <Box
+        className='yarn-container'
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      >
+        <Card
+          className='container-card'
+          variant='outlined'
+          sx={(theme) => ({
+            width: 270,
+            height: 410, // Set the fixed height here
+            flexDirection: 'column',
+            overflow: 'hidden',
+            transition: 'transform 0.3s, border 0.3s',
+            '&:hover': {
+              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+              transform: 'translateY(-2px)',
+            },
+          })}
         >
-          <FavoriteBorderRoundedIcon color='danger' />
-        </IconButton>
-      ) : (
-        <IconButton
-          size='sm'
-          variant='soft'
-          color='neutral'
-          sx={{ ml: 'auto' }}
-          onClick={() => markFavorite(yarnDetails.id)}
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  some text
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>some text</Typography>
+            </div>
+          </Box>
+
+          <AspectRatio
+            ratio='3/4' // Set the aspect ratio for the phone photo size
+            sx={{
+              width: '100%',
+              height: 'auto',
+            }}
+          >
+            <img src={imageClean(yarnDetails)} loading='lazy' alt='' />
+          </AspectRatio>
+        </Card>
+
+        <Card
+          className='container-card'
+          variant='outlined'
+          sx={(theme) => ({
+            width: 270,
+            height: 410, // Set the fixed height here
+            flexDirection: 'column',
+            overflow: 'hidden',
+            transition: 'transform 0.3s, border 0.3s',
+            '&:hover': {
+              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+              transform: 'translateY(-2px)',
+            },
+          })}
         >
-          <FavoriteBorderRoundedIcon color='danger' />
-        </IconButton>
-      )}
-      <button onClick={() => deleteYarn(yarnDetails.id)}>Delete Yarn</button>
-      <button onClick={returnToYarn}>Back to Inventory</button>
-      <div>
-        {imageClean(yarnDetails)?.map((image, i) => (
-          <img key={i} src={image} />
-        ))}
-      </div>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Yarn details
+                </Link>
+              </Typography>
+            </div>
+            <IconButton
+              size='sm'
+              variant='soft'
+              color={'neutral'}
+              sx={{ ml: 'auto', zIndex: 2 }}
+              onClick={() => editDetails(yarnDetails.id)}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Grams in stash
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>{yarnDetails.skeins * yarnDetails.skein_grams}</Typography>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Fiber content
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>{yarnDetails.fiber}</Typography>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Yarn weight
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>{yarnDetails.weight}</Typography>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Yarn notes
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>{yarnDetails.notes}</Typography>
+            </div>
+          </Box>
+        </Card>
+      </Box>
+      <Box
+        id='bottom-button-box'
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      >
+        <Button style={{ backgroundColor: 'darkslategray' }} onClick={() => deleteYarn(yarnDetails.id)}>
+          Delete Yarn
+        </Button>
+      </Box>
     </>
   );
 }
