@@ -14,6 +14,7 @@ function* fetchAllProjects() {
 // saga to fetch project details
 function* fetchProjectDetails(action) {
   try {
+    console.log('in fetchprojectdetails saga, check action.payload', action.payload);
     const response = yield axios.get(`/api/projects/${action.payload}`);
     yield put({ type: 'SET_PROJECT_DETAILS', payload: response.data[0] ?? {} });
     console.log(response.data[0]);
@@ -46,7 +47,8 @@ function* deleteProject(action) {
 // saga to edit project
 function* editProject(action) {
   try {
-    yield axios.put(`/api/project/${action.payload.projectId}`, action.payload.details);
+    console.log('ACTION PAY', action.payload);
+    yield axios.put(`/api/projects/${action.payload.projectId}`, action.payload.details );
     yield put({ type: 'FETCH_PROJECT_DETAILS', payload: action.payload.projectId });
     yield put({ type: 'CLEAR_PROJECT_DETAILS' });
   } catch (error) {

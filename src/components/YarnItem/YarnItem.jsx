@@ -28,7 +28,7 @@ function YarnItem({ yarn }) {
 
   const editDetails = (yarnId) => {
     console.log('edit button clicked check id', yarnId);
-    // history.push(`/edit-yarn/${yarnId}`);
+    history.push(`/edit-yarn/${yarnId}`);
   };
 
   const toggleCard = (yarnId) => {
@@ -148,7 +148,7 @@ function YarnItem({ yarn }) {
                     {yarn.weight} weight
                   </Link>
                 </Typography>
-                <Typography level='body-sm'>{yarn.skein_grams * yarn.skeins} grams in stash</Typography>
+                <Typography level='body-sm'>{yarn.total_grams} grams in stash</Typography>
               </div>
               <Button
                 sx={{ ml: 'auto' }}
@@ -234,7 +234,7 @@ function YarnItem({ yarn }) {
                     Grams in stash
                   </Link>
                 </Typography>
-                <Typography level='body-sm'>{yarn.skein_grams * yarn.skeins} grams</Typography>
+                <Typography level='body-sm'>{yarn.total_grams} grams</Typography>
                 <Typography level='title-lg'>
                   <Link
                     overlay

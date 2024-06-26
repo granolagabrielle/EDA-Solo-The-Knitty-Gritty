@@ -160,7 +160,7 @@ function App() {
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
-            path='/project/:id'
+            path='/projects/:id'
           >
             <ProjectDetails />
           </ProtectedRoute>

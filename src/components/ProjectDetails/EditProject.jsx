@@ -13,15 +13,16 @@ function EditProject() {
   }, []);
 
   const handleSubmit = (projectId) => {
+    console.log('project details', projectDetails);
     dispatch({ type: 'EDIT_PROJECT', payload: { projectId: projectDetails.id, details: projectDetails } });
-    history.push(`/project/${projectId}`);
+    history.push(`/projects/${projectId}`);
   };
 
   return (
     <div>
       <h1>Edit {projectDetails?.pattern_title}</h1>
       <form onSubmit={handleSubmit}>
-        <label>
+        {/* <label>
           Notes:
           <input
             id='project-notes'
@@ -29,16 +30,29 @@ function EditProject() {
             value={projectDetails?.notes}
             onChange={(event) => dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { notes: event.target.value } })}
           />
-        </label>
+        </label> */}
         <label>
-          Progress:
+          Grams knit:
           <input
-            id='project-progress'
+            id='grams_knit'
             type='text'
-            value={projectDetails?.progress}
-            onChange={(event) => dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { progress: event.target.value } })}
+            value={projectDetails?.grams_knit}
+            onChange={(event) =>
+              dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { grams_knit: event.target.value } })
+            }
           />
         </label>
+        {/* <label>
+          Total grams needed for project:
+          <input
+            id='grams_knit'
+            type='text'
+            value={projectDetails?.est_grams_needed}
+            onChange={(event) =>
+              dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { est_grams_needed: event.target.value } })
+            }
+          />
+        </label> */}
         <button type='submit' onClick={() => handleSubmit(projectDetails.id)}>
           Submit Changes
         </button>

@@ -5,6 +5,12 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import * as React from 'react';
 import { DateTime } from 'luxon';
+import { Box } from '@mui/joy';
+import AspectRatio from '@mui/joy/AspectRatio';
+import Card from '@mui/joy/Card';
+import Typography from '@mui/joy/Typography';
+import Link from '@mui/joy/Link';
+import Button from '@mui/joy/Button';
 
 import './ProjectDetails.css';
 
@@ -31,9 +37,9 @@ function ProjectDetails() {
     history.push('/projects');
   };
 
-  // const editDetails = (projectId) => {
-  //   history.push(`/edit-project/${projectId}`);
-  // };
+  const editDetails = (projectId) => {
+    history.push(`/edit-project/${projectId}`);
+  };
 
   let [newNote, setNewNote] = useState({
     notes: '',
@@ -105,7 +111,161 @@ function ProjectDetails() {
 
   return (
     <>
-      <h1>Project Details Page</h1>
+      <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}>
+        <Button style={{ backgroundColor: 'darkslategray' }} onClick={returnToProjects}>
+          Back to Projects
+        </Button>
+      </Box>
+      <Box
+        key={projectDetails.id}
+        sx={{ minHeight: 100, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      >
+        {projectDetails.pattern_title}
+      </Box>
+      <Box
+        className='yarn-container'
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      >
+        <Card
+          className='container-card'
+          variant='outlined'
+          sx={(theme) => ({
+            width: 270,
+            height: 410, // Set the fixed height here
+            flexDirection: 'column',
+            overflow: 'hidden',
+            transition: 'transform 0.3s, border 0.3s',
+            '&:hover': {
+              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+              transform: 'translateY(-2px)',
+            },
+          })}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  some text
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>some text</Typography>
+            </div>
+          </Box>
+
+          <AspectRatio
+            ratio='3/4' // Set the aspect ratio for the phone photo size
+            sx={{
+              width: '100%',
+              height: 'auto',
+            }}
+          >
+            <img src={imageClean(projectDetails)} loading='lazy' alt='' />
+          </AspectRatio>
+        </Card>
+
+        <Card
+          className='container-card'
+          variant='outlined'
+          sx={(theme) => ({
+            width: 270,
+            height: 410, // Set the fixed height here
+            flexDirection: 'column',
+            overflow: 'hidden',
+            transition: 'transform 0.3s, border 0.3s',
+            '&:hover': {
+              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+              transform: 'translateY(-2px)',
+            },
+          })}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Project details
+                </Link>
+              </Typography>
+            </div>
+            <IconButton
+              size='sm'
+              variant='soft'
+              color={'neutral'}
+              sx={{ ml: 'auto', zIndex: 2 }}
+              onClick={() => editDetails(projectDetails.id)}
+            >
+              <EditIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Total grams needed
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>{projectDetails.est_grams_needed}</Typography>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Grams used
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>{projectDetails.grams_knit}</Typography>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Progress
+                </Link>
+              </Typography>
+              <Typography level='body-sm'>
+                {(projectDetails.grams_knit / projectDetails.est_grams_needed) * 100}%
+              </Typography>
+            </div>
+          </Box>
+        </Card>
+      </Box>
+      <Box
+        id='bottom-button-box'
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      >
+        <Button style={{ backgroundColor: 'darkslategray' }} onClick={() => deleteProject(projectDetails.id)}>
+          Delete Project
+        </Button>
+      </Box>
+      {/* <h1>Project Details Page</h1>
       <p>{projectDetails.pattern_title}</p>
       <table>
         <thead>
@@ -131,13 +291,13 @@ function ProjectDetails() {
       {/* <IconButton onClick={() => editDetails(projectDetails.id)}>
         <EditIcon />
       </IconButton> */}
-      <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
+      {/* <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
       <button onClick={returnToProjects}>Back to Inventory</button>
       <div>
         {imageClean(projectDetails)?.map((image, i) => (
           <img key={i} src={image} />
         ))}
-      </div>
+      </div> */}
     </>
   );
 }

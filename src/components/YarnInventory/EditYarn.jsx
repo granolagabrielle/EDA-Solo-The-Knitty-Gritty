@@ -14,7 +14,7 @@ function EditYarn() {
 
   const handleSubmit = (yarnId) => {
     dispatch({ type: 'EDIT_YARN', payload: { yarnId: yarnDetails.id, details: yarnDetails } });
-    history.push(`/yarn/${yarnId}`);
+    history.push(`/yarn`);
   };
 
   return (
@@ -30,27 +30,15 @@ function EditYarn() {
           <div className='row'>
             <div className='mb-3 col-lg-4'>
               <label for='input' className='form-label'>
-                Total Skeins:
+                Total Grams:
               </label>
               <input
                 className='form-control'
-                placeholder='Total skeins'
+                placeholder='Total grams'
                 id='skeins'
-                value={yarnDetails?.skeins}
-                onChange={(event) => dispatch({ type: 'EDIT_YARN_DETAILS', payload: { skeins: event.target.value } })}
-              />
-            </div>
-            <div className='mb-3 col-lg-4'>
-              <label for='input' className='form-label'>
-                Grams in Skein:
-              </label>
-              <input
-                className='form-control'
-                placeholder='Grams in skein'
-                id='skein_grams'
-                value={yarnDetails?.skein_grams}
+                value={yarnDetails?.total_grams}
                 onChange={(event) =>
-                  dispatch({ type: 'EDIT_YARN_DETAILS', payload: { skein_grams: event.target.value } })
+                  dispatch({ type: 'EDIT_YARN_DETAILS', payload: { total_grams: event.target.value } })
                 }
               />
             </div>
