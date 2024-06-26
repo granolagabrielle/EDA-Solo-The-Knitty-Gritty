@@ -21,9 +21,12 @@ function AddProject() {
     date_started: '',
     // notes: '',
     // progress: '',
+    grams_knit: '',
     yarn_id: '',
     user_id: '',
     image: [],
+    est_grams_needed: '',
+    needle_size: '',
   });
 
   // else if (event.target.id === 'notes') {
@@ -42,6 +45,12 @@ function AddProject() {
       setNewProject({ ...newProject, date_started: event.target.value });
     } else if (event.target.id === 'yarn_id') {
       setNewProject({ ...newProject, yarn_id: event.target.value });
+    } else if (event.target.id === 'grams_knit') {
+      setNewProject({ ...newProject, grams_knit: event.target.value });
+    } else if (event.target.id === 'est_grams_needed') {
+      setNewProject({ ...newProject, est_grams_needed: event.target.value });
+    } else if (event.target.id === 'needle_size') {
+      setNewProject({ ...newProject, needle_size: event.target.value });
     } else {
       setNewProject({ ...newProject, user_id: event.target.user.id });
     }

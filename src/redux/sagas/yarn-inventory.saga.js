@@ -110,6 +110,7 @@ function* addYarn(action) {
 // saga to delete yarn
 function* deleteYarn(action) {
   try {
+    console.log('in delete yarn saga, check action.payload', action.payload);
     yield axios.delete(`/api/yarn/${action.payload}`);
     yield put({ type: 'FETCH_YARNS' });
   } catch (error) {

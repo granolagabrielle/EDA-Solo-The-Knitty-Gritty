@@ -22,10 +22,9 @@ function AddYarn() {
   let [newYarn, setNewYarn] = useState({
     brand: '',
     yarn_title: '',
-    skeins: '',
     fiber: '',
     weight: '',
-    skein_grams: '',
+    total_grams: '',
     dye_lot: '',
     user_id: '',
     notes: '',
@@ -40,12 +39,10 @@ function AddYarn() {
       setNewYarn({ ...newYarn, fiber: event.target.value });
     } else if (event.target.id === 'yarn_title') {
       setNewYarn({ ...newYarn, yarn_title: event.target.value });
-    } else if (event.target.id === 'skeins') {
-      setNewYarn({ ...newYarn, skeins: event.target.value });
     } else if (event.target.id === 'weight') {
       setNewYarn({ ...newYarn, weight: event.target.value });
-    } else if (event.target.id === 'skein_grams') {
-      setNewYarn({ ...newYarn, skein_grams: event.target.value });
+    } else if (event.target.id === 'total_grams') {
+      setNewYarn({ ...newYarn, total_grams: event.target.value });
     } else if (event.target.id === 'dye_lot') {
       setNewYarn({ ...newYarn, dye_lot: event.target.value });
     } else if (event.target.id === 'notes') {
@@ -181,25 +178,13 @@ function AddYarn() {
             </div>
             <div className='mb-3 col-lg-4'>
               <label for='input' className='form-label'>
-                Total Skeins in Stash
+                Total Grams in Stash
               </label>
               <input
                 className='form-control'
-                placeholder='Total skeins'
-                id='skeins'
-                value={newYarn.skeins}
-                onChange={handleNewYarn}
-              />
-            </div>
-            <div className='mb-3 col-lg-4'>
-              <label for='input' className='form-label'>
-                Grams in Each Skein
-              </label>
-              <input
-                className='form-control'
-                placeholder='Grams in skein'
-                id='skein_grams'
-                value={newYarn.skein_grams}
+                placeholder='Total grams'
+                id='total_grams'
+                value={newYarn.total_grams}
                 onChange={handleNewYarn}
               />
             </div>

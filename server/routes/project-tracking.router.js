@@ -6,7 +6,7 @@ const router = express.Router();
 // get project inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title",
-     "project_tracking"."image", "project_tracking"."isdeleted"
+     "project_tracking"."image", "project_tracking"."isdeleted", "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -29,7 +29,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
       SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", 
-     "project_tracking"."image"
+     "project_tracking"."image", "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -58,17 +58,20 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', (req, res) => {
   console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
-      ("pattern_id", "date_started", "yarn_id", "user_id", "image") 
-      VALUES ($1, $2, $3, $4, $5);`;
+      ("pattern_id", "date_started", "grams_knit", "yarn_id", "user_id", "image", "est_grams_needed", "needle_size") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   pool
     .query(queryText, [
       req.body.pattern_id,
       req.body.date_started,
       // req.body.notes,
       // req.body.progress,
+      req.body.grams_knit,
       req.body.yarn_id,
       req.user.id,
       JSON.stringify(req.body.image),
+      req.body.est_grams_needed,
+      req.body.needle_size,
     ])
     .then((result) => {
       res.send(result.rows[0]);
@@ -80,23 +83,23 @@ router.post('/', (req, res) => {
 });
 
 // // put to update project details
-// router.put('/:id', (req, res) => {
-//   // console.log('in project put, check req.body', req.body);
-//   const queryText = `
-//     UPDATE "project_tracking"
-//     SET "notes" = $1, "progress" = $2
-//     WHERE "project_id"=$3 AND "user_id"=$4;`;
-//   const values = [req.body.notes, req.body.progress, req.params.id, req.user.id];
-//   pool
-//     .query(queryText, values)
-//     .then((result) => {
-//       res.sendStatus(201);
-//     })
-//     .catch((error) => {
-//       console.log('error updating project', error);
-//       res.sendStatus(500);
-//     });
-// });
+router.put('/:id', (req, res) => {
+  console.log('in project put, check req.body', req.body);
+  const queryText = `
+    UPDATE "project_tracking"
+    SET "grams_knit" = $1
+    WHERE "yarn_id"=$2 AND "project_id"=$3 AND "user_id"=$4;`;
+  const values = [req.body.grams_knit, req.body.yarn_id, req.params.id, req.user.id];
+  pool
+    .query(queryText, values)
+    .then((result) => {
+      res.sendStatus(201);
+    })
+    .catch((error) => {
+      console.log('error updating project', error);
+      res.sendStatus(500);
+    });
+});
 
 // delete project from inventory
 router.delete('/:id', (req, res) => {
