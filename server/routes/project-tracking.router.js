@@ -58,15 +58,14 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', (req, res) => {
   console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
-      ("pattern_id", "date_started", "grams_knit", "yarn_id", "user_id", "image", "est_grams_needed", "needle_size") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+      ("pattern_id", "date_started", "yarn_id", "user_id", "image", "est_grams_needed", "needle_size") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   pool
     .query(queryText, [
       req.body.pattern_id,
       req.body.date_started,
       // req.body.notes,
       // req.body.progress,
-      req.body.grams_knit,
       req.body.yarn_id,
       req.user.id,
       JSON.stringify(req.body.image),

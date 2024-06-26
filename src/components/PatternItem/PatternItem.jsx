@@ -9,13 +9,32 @@ import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
+import EditIcon from '@mui/icons-material/Edit';
+import { useState } from 'react';
 
 function PatternItem({ pattern }) {
   const history = useHistory();
   const dispatch = useDispatch();
+  const [toggle, setToggle] = useState(true);
 
-  const viewDetails = (patternId) => {
-    history.push(`/pattern/${patternId}`);
+  // const viewDetails = (patternId) => {
+  //   history.push(`/pattern/${patternId}`);
+  // };
+
+  const deletePattern = (patternId) => {
+    console.log('delete button clicked check id', patternId);
+    dispatch({ type: 'DELETE_PATTERN', payload: patternId });
+  };
+
+  const editDetails = (patternId) => {
+    console.log('edit button clicked check id', patternId);
+    history.push(`/edit-pattern/${patternId}`);
+  };
+
+  const toggleCard = (patternId) => {
+    setToggle(!toggle);
   };
 
   const markFavorite = () => {
@@ -71,85 +90,203 @@ function PatternItem({ pattern }) {
 
   return (
     <>
-      <Box
-        key={pattern.id}
-        sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
-      >
-        <Card
-          variant='outlined'
-          sx={(theme) => ({
-            width: 270,
-            height: 465, // Set the fixed height here
-            flexDirection: 'column',
-            overflow: 'hidden',
-            transition: 'transform 0.3s, border 0.3s',
-            '&:hover': {
-              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
-              transform: 'translateY(-2px)',
-            },
-          })}
+      {toggle ? (
+        <Box
+          key={pattern.id}
+          sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  {pattern.pattern_title}
-                </Link>
-              </Typography>
-              <Typography level='body-sm'>{pattern.name}</Typography>
-            </div>
-            <IconButton
-              size='sm'
-              variant='soft'
-              color={pattern.isFavorite ? 'danger' : 'neutral'}
-              sx={{ ml: 'auto', zIndex: 2 }}
-              onClick={markFavorite}
-            >
-              <FavoriteBorderRoundedIcon color='danger' />
-            </IconButton>
-          </Box>
-          <AspectRatio
-            ratio='3/4' // Set the aspect ratio for the phone photo size
-            sx={{
-              width: '100%',
-              height: 'auto',
-            }}
+          <Card
+            variant='outlined'
+            sx={(theme) => ({
+              width: 270,
+              height: 465, // Set the fixed height here
+              flexDirection: 'column',
+              overflow: 'hidden',
+              transition: 'transform 0.3s, border 0.3s',
+              '&:hover': {
+                borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+                transform: 'translateY(-2px)',
+              },
+            })}
           >
-            <img src={imageClean(pattern)} loading='lazy' alt='' />
-          </AspectRatio>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Some text
-                </Link>
-              </Typography>
-              <Typography level='body-sm'>Some text</Typography>
-            </div>
-            <Button
-              sx={{ ml: 'auto' }}
-              style={{ backgroundColor: 'darkslategray' }}
-              onClick={() => viewDetails(pattern.id)}
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <div>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    {pattern.pattern_title}
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>{pattern.name}</Typography>
+              </div>
+              <IconButton
+                size='sm'
+                variant='soft'
+                color={pattern.isFavorite ? 'danger' : 'neutral'}
+                sx={{ ml: 'auto', zIndex: 2 }}
+                onClick={markFavorite}
+              >
+                <FavoriteBorderRoundedIcon color='danger' />
+              </IconButton>
+            </Box>
+            <AspectRatio
+              ratio='3/4' // Set the aspect ratio for the phone photo size
+              sx={{
+                width: '100%',
+                height: 'auto',
+              }}
             >
-              Details
-            </Button>
-          </Box>
-        </Card>
-      </Box>
+              <img src={imageClean(pattern)} loading='lazy' alt='' />
+            </AspectRatio>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <div>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    Some text
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>Some text</Typography>
+              </div>
+              <Button
+                sx={{ ml: 'auto' }}
+                style={{ backgroundColor: 'darkslategray' }}
+                onClick={() => toggleCard(pattern.id)}
+              >
+                Details
+              </Button>
+            </Box>
+          </Card>
+        </Box>
+      ) : (
+        <Box
+          key={pattern.id}
+          sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
+        >
+          <Card
+            variant='outlined'
+            sx={(theme) => ({
+              width: 270,
+              height: 465, // Set the fixed height here
+              flexDirection: 'column',
+              overflow: 'hidden',
+              transition: 'transform 0.3s, border 0.3s',
+              '&:hover': {
+                borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+                transform: 'translateY(-2px)',
+              },
+            })}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <div>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    {pattern.pattern_title}
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>{pattern.name}</Typography>
+              </div>
+              <IconButton
+                size='sm'
+                variant='soft'
+                color={pattern.isFavorite ? 'danger' : 'neutral'}
+                sx={{ ml: 'auto', zIndex: 2 }}
+                onClick={markFavorite}
+              >
+                <FavoriteBorderRoundedIcon color='danger' />
+              </IconButton>
+            </Box>
+            <br></br>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <div>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    Pattern Type
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>{pattern.type}</Typography>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    Difficulty Level
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>{pattern.level}</Typography>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    Recommended Yarn Weight
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>{pattern.weight}</Typography>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    Pattern Notes
+                  </Link>
+                </Typography>
+                <Typography level='body-sm'>{pattern.notes}</Typography>
+              </div>
+              <br></br>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <IconButton onClick={() => toggleCard(pattern.id)}>
+                <ArrowBackRoundedIcon />
+              </IconButton>
+              <IconButton onClick={() => editDetails(pattern.id)}>
+                <EditIcon />
+              </IconButton>
+              <IconButton onClick={() => deletePattern(pattern.id)}>
+                <DeleteForeverRoundedIcon />
+              </IconButton>
+            </Box>
+          </Card>
+        </Box>
+      )}
     </>
   );
 }

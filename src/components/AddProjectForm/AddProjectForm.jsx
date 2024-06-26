@@ -21,7 +21,6 @@ function AddProject() {
     date_started: '',
     // notes: '',
     // progress: '',
-    grams_knit: '',
     yarn_id: '',
     user_id: '',
     image: [],
@@ -45,8 +44,6 @@ function AddProject() {
       setNewProject({ ...newProject, date_started: event.target.value });
     } else if (event.target.id === 'yarn_id') {
       setNewProject({ ...newProject, yarn_id: event.target.value });
-    } else if (event.target.id === 'grams_knit') {
-      setNewProject({ ...newProject, grams_knit: event.target.value });
     } else if (event.target.id === 'est_grams_needed') {
       setNewProject({ ...newProject, est_grams_needed: event.target.value });
     } else if (event.target.id === 'needle_size') {
@@ -147,6 +144,32 @@ function AddProject() {
                     );
                   })}
                 </select>
+              </div>
+              <div className='mb-3 col-lg-3'>
+                <label for='input' className='form-label'>
+                  Grams of yarn needed
+                </label>
+                <input
+                  type='text'
+                  className='form-control'
+                  placeholder='Grams of yarn needed'
+                  id='est_grams_needed'
+                  value={newProject.est_grams_needed}
+                  onChange={handleNewProject}
+                />
+              </div>
+              <div className='mb-3 col-lg-3'>
+                <label for='input' className='form-label'>
+                  Needle size
+                </label>
+                <input
+                  type='text'
+                  className='form-control'
+                  placeholder='Needle size'
+                  id='needle_size'
+                  value={newProject.needle_size}
+                  onChange={handleNewProject}
+                />
               </div>
             </div>
             <div className='row'>
