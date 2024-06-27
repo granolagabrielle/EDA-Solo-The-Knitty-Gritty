@@ -59,7 +59,7 @@ function AddYarn() {
     event.preventDefault();
     dispatch({ type: 'ADD_YARN', payload: newYarn });
     dispatch({ type: 'FETCH_YARNS' });
-    history.push('/yarn');
+    // history.push('/yarn');
   };
 
   const cancel = () => {
@@ -229,10 +229,10 @@ function AddYarn() {
           <div className='row'>
             <div className='mb-3 col-lg-6'>
               <button type='submit' class='btn btn-secondary' id='submit-btn'>
-                Add Yarn
+                Add yarn
               </button>
               <button onClick={cancel} class='btn btn-secondary'>
-                Cancel
+                Back to inventory
               </button>
             </div>
           </div>

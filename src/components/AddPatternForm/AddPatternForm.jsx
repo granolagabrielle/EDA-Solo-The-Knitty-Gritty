@@ -55,7 +55,7 @@ function AddPattern() {
     console.log('check newPattern', newPattern);
     dispatch({ type: 'ADD_PATTERN', payload: newPattern });
     dispatch({ type: 'FETCH_PATTERNS' });
-    history.push('/patterns');
+    // history.push('/patterns');
   };
 
   const cancel = () => {
@@ -203,10 +203,10 @@ function AddPattern() {
             <div className='row'>
               <div className='mb-3 col-lg-6'>
                 <button type='submit' className='btn btn-secondary' id='submit-btn'>
-                  Add Pattern
+                  Add pattern
                 </button>
                 <button onClick={cancel} className='btn btn-secondary'>
-                  Cancel
+                  Back to inventory
                 </button>
               </div>
             </div>

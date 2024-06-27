@@ -56,11 +56,9 @@ function AddProject() {
 
   const AddProject = (event) => {
     event.preventDefault();
-    console.log('check new project', newProject);
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
     dispatch({ type: 'FETCH_PROJECTS' });
-    history.push('/projects');
-    console.log('check newProject', newProject);
+    // history.push('/projects');
   };
 
   const cancel = () => {
@@ -188,7 +186,7 @@ function AddProject() {
                   Add Project
                 </button>
                 <button onClick={cancel} className='btn btn-secondary'>
-                  Cancel
+                  Back to inventory
                 </button>
               </div>
             </div>
