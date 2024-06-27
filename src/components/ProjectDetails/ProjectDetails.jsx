@@ -13,6 +13,8 @@ import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+import FormControl from '@mui/joy/FormControl';
+import Input from '@mui/joy/Input';
 
 // joy notes
 import List from '@mui/joy/List';
@@ -33,6 +35,20 @@ function ProjectDetails() {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
     dispatch({ type: 'FETCH_NOTES', payload: params.id });
   }, []);
+
+  const [gramsToggle, setGramsToggle] = useState('');
+
+  const editGrams = () => {
+    console.log('edit grams button clicked');
+    setGramsToggle(!gramsToggle);
+  };
+
+  const handleSubmit = (projectId) => {
+    console.log('project details', projectDetails);
+    dispatch({ type: 'EDIT_PROJECT', payload: { projectId: projectDetails.id, details: projectDetails } });
+    setGramsToggle(!gramsToggle);
+    // history.push(`/projects/${projectId}`);
+  };
 
   const deleteProject = () => {
     dispatch({ type: 'DELETE_PROJECT', payload: params.id });
@@ -118,7 +134,7 @@ function ProjectDetails() {
       myMultipleImagesArray.push(images?.image);
     }
 
-    console.log('My Multi Images', myMultipleImagesArray);
+    // console.log('My Multi Images', myMultipleImagesArray);
     return myMultipleImagesArray;
   };
 
@@ -174,7 +190,7 @@ function ProjectDetails() {
               variant='soft'
               color={'neutral'}
               sx={{ ml: 'auto', zIndex: 2 }}
-              onClick={() => editDetails(projectDetails.id)}
+              onClick={() => editGrams()}
             >
               <EditIcon />
             </IconButton>
@@ -206,7 +222,9 @@ function ProjectDetails() {
                   Grams used
                 </Link>
               </Typography>
+
               <Typography level='body-sm'>{projectDetails.grams_knit}</Typography>
+
               <Typography level='title-lg'>
                 <Link
                   overlay
@@ -255,6 +273,34 @@ function ProjectDetails() {
           );
         })}
       </Box>
+      {gramsToggle ? (
+        <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}>
+          <form onSubmit={() => handleSubmit()}>
+            {/* <FormControl> */}
+            <div className='row'>
+              <div className='mb-3 col-lg-4'>
+                <Input
+                  className='form-control'
+                  id='grams_knit'
+                  type='text'
+                  value={projectDetails?.grams_knit}
+                  onChange={(event) =>
+                    dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { grams_knit: event.target.value } })
+                  }
+                />
+              </div>
+              <div className='mb-3 col-lg-4'>
+                <Button className='btn btn-primary' type='submit' onClick={() => handleSubmit(projectDetails.id)}>
+                  Submit
+                </Button>
+              </div>
+            </div>
+            {/* </FormControl> */}
+          </form>
+        </Box>
+      ) : (
+        ''
+      )}
       <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}>
         <Box
           className='notes-container'
