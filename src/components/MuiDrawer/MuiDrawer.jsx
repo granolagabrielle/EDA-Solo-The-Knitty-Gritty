@@ -203,10 +203,10 @@ export default function PersistentDrawerLeft() {
         </List>
         <Divider />
         <List>
-          {['Settings', 'Log Out'].map((text, index) => (
+          {['Log Out'].map((text, index) => (
             <ListItem key={text} disablePadding>
               <ListItemButton>
-                <ListItemIcon>{index % 2 === 0 ? <SettingsApplicationsIcon /> : <LogoutIcon />}</ListItemIcon>
+                <ListItemIcon>{index % 1 === 0 ? <LogoutIcon /> : ''}</ListItemIcon>
                 <ListItemText primary={text} onClick={() => navToPage(text)} />
               </ListItemButton>
             </ListItem>
