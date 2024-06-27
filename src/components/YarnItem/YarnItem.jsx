@@ -16,10 +16,12 @@ import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import EditIcon from '@mui/icons-material/Edit';
 import './YarnItem.css';
 
-function YarnItem({ yarn }) {
+function YarnItem({ yarn, home }) {
   const history = useHistory();
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true);
+
+  console.log('where am i?', home);
 
   const deleteYarn = (yarnId) => {
     console.log('delete button clicked check id', yarnId);
@@ -283,12 +285,12 @@ function YarnItem({ yarn }) {
               <IconButton onClick={() => toggleCard(yarn.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>
-              <IconButton onClick={() => editDetails(yarn.id)}>
+              {!home && <IconButton onClick={() => editDetails(yarn.id)}>
                 <EditIcon />
-              </IconButton>
-              <IconButton onClick={() => deleteYarn(yarn.id)}>
+              </IconButton>}
+              {!home && <IconButton onClick={() => deleteYarn(yarn.id)}>
                 <DeleteForeverRoundedIcon />
-              </IconButton>
+              </IconButton>}
             </Box>
           </Card>
         </Box>

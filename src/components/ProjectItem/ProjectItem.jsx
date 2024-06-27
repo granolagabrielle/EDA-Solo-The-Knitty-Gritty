@@ -1,15 +1,13 @@
-import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import * as React from 'react';
 // joy
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
-import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
-import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import { DateTime } from 'luxon';
 
 function ProjectItem({ project }) {
   const history = useHistory();
@@ -92,7 +90,7 @@ function ProjectItem({ project }) {
                   {project.pattern_title}
                 </Link>
               </Typography>
-              <Typography level='body-sm'>{project.date_started}</Typography>
+              <Typography level='body-sm'>{DateTime.now(project.date_started).toFormat('MMMM dd, yyyy')}</Typography>
             </div>
             <Button
               sx={{ ml: 'auto', zIndex: 2 }}

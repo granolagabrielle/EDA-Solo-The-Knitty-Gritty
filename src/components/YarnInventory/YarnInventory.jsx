@@ -63,7 +63,7 @@ function YarnInventory() {
       </Box>
       <section className='yarn-container'>
         {yarns.map((yarn) => (
-          <YarnItem key={yarn.id} yarn={yarn} />
+          <YarnItem key={yarn.id} yarn={yarn} home=''/>
         ))}
       </section>
     </>

@@ -16,9 +16,6 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 
 // joy notes
 import List from '@mui/joy/List';
-import ListItem from '@mui/joy/ListItem';
-import ListSubheader from '@mui/joy/ListSubheader';
-import ListItemButton from '@mui/joy/ListItemButton';
 import Sheet from '@mui/joy/Sheet';
 
 import './ProjectDetails.css';
@@ -72,9 +69,12 @@ function ProjectDetails() {
     });
   };
 
-  // const newNote = (event) => {
-  //   setToggle(!toggle);
-  // };
+  const [toggle, setToggle] = useState('');
+
+  const addNoteButton = (event) => {
+    console.log('plus button clicked');
+    setToggle(!toggle);
+  };
 
   const imageClean = (images) => {
     // console.log('Images', images.image);
@@ -255,117 +255,124 @@ function ProjectDetails() {
           );
         })}
       </Box>
-      <Box
-        className='notes-container'
-        sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
-      >
-        <Card
-          className='container-card'
-          variant='outlined'
-          sx={(theme) => ({
-            width: 1210,
-            height: 350, // Set the fixed height here
-            flexDirection: 'column',
-            overflow: 'hidden',
-            transition: 'transform 0.3s, border 0.3s',
-            '&:hover': {
-              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
-              transform: 'translateY(-2px)',
-            },
-          })}
+      <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}>
+        <Box
+          className='notes-container'
+          sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
         >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Project Notes
-                </Link>
-              </Typography>
-            </div>
-            <IconButton
-              size='sm'
-              variant='soft'
-              color={'neutral'}
-              sx={{ ml: 'auto', zIndex: 2 }}
-              onClick={() => editDetails(projectDetails.id)}
-            >
-              <AddCircleOutlineRoundedIcon />
-            </IconButton>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
-            <Sheet
-              // variant='outlined'
-              sx={{
-                width: 1210,
-                maxHeight: 300,
-                overflow: 'auto',
-                borderRadius: 'sm',
-              }}
-            >
-              <List>
-                {projectNotes.map((note) => {
-                  return (
-                    <>
-                      <Typography level='title-md'>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</Typography>
-                      <li className='note-item'>{note.notes}</li>
-                      <ListDivider />
-                    </>
-                  );
-                })}
-              </List>
-            </Sheet>
-          </Box>
-        </Card>
+          <Card
+            className='container-card'
+            variant='outlined'
+            sx={(theme) => ({
+              width: 1210,
+              height: 350, // Set the fixed height here
+              flexDirection: 'column',
+              overflow: 'hidden',
+              transition: 'transform 0.3s, border 0.3s',
+              '&:hover': {
+                borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+                transform: 'translateY(-2px)',
+              },
+            })}
+          >
+            <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <div>
+                <Typography level='title-lg'>
+                  <Link
+                    overlay
+                    underline='none'
+                    sx={{
+                      color: 'text.primary',
+                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                    }}
+                  >
+                    Project Notes
+                  </Link>
+                </Typography>
+              </div>
+              <IconButton
+                size='sm'
+                variant='soft'
+                color={'neutral'}
+                sx={{ ml: 'auto', zIndex: 2 }}
+                onClick={() => addNoteButton()}
+              >
+                <AddCircleOutlineRoundedIcon />
+              </IconButton>
+            </Box>
+            <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
+              <Sheet
+                // variant='outlined'
+                sx={{
+                  width: 1210,
+                  maxHeight: 300,
+                  overflow: 'auto',
+                  borderRadius: 'sm',
+                }}
+              >
+                <List>
+                  {projectNotes.map((note) => {
+                    return (
+                      <>
+                        <Typography level='title-md'>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</Typography>
+                        <li className='note-item'>{note.notes}</li>
+                        <ListDivider />
+                      </>
+                    );
+                  })}
+                </List>
+              </Sheet>
+            </Box>
+          </Card>
+        </Box>
       </Box>
       <Box
         id='bottom-button-box'
-        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+        sx={{
+          minHeight: 75,
+          display: 'flex',
+          justifyContent: 'left',
+          alignItems: 'center',
+          margin: 3,
+          paddingLeft: 14,
+        }}
       >
-        <form onSubmit={addNote}>
-          <input id='notes' placeholder='Project notes' type='text' value={newNote.notes} onChange={handleNewNote} />
-          <input id='date' type='date' value={newNote.date} onChange={handleNewNote} />
-          <button type='submit'>Add Note</button>
-        </form>
-        <Button style={{ backgroundColor: 'darkslategray' }} onClick={() => deleteProject(projectDetails.id)}>
-          Delete Project
-        </Button>
+        {toggle ? (
+          <div className='container'>
+            <form onSubmit={addNote}>
+              <div className='row'>
+                <div className='mb-3 col-lg-8'>
+                  <input
+                    className='form-control'
+                    id='notes'
+                    placeholder='Project notes'
+                    type='text'
+                    value={newNote.notes}
+                    onChange={handleNewNote}
+                  />
+                </div>
+                <div className='mb-3 col-lg-2'>
+                  <input className='form-control' id='date' type='date' value={newNote.date} onChange={handleNewNote} />
+                </div>
+                <div className='mb-3 col-lg-2'>
+                  <button class='btn btn-secondary' type='submit'>
+                    Add Note
+                  </button>
+                </div>
+              </div>
+              <div className='row'></div>
+            </form>
+          </div>
+        ) : (
+          <Button
+            sx={{ marginLeft: 28 }}
+            style={{ backgroundColor: 'darkslategray' }}
+            onClick={() => deleteProject(projectDetails.id)}
+          >
+            Delete Project
+          </Button>
+        )}
       </Box>
-      {/* <h1>Project Details Page</h1>
-        <p>{projectDetails.pattern_title}</p>
-        <table>
-        <thead>
-        <th>Date</th>
-        <th>Notes</th>
-        </thead>
-        <tbody>
-        {projectNotes.map((note) => {
-          return (
-            
-            <tr key={note.id}>
-            <td>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</td>
-            <td>{note.notes}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
-      <form onSubmit={addNote}>
-        <input id='notes' placeholder='Project notes' type='text' value={newNote.notes} onChange={handleNewNote} />
-        <input id='date' type='date' value={newNote.date} onChange={handleNewNote} />
-        <button type='submit'>Add Note</button>
-      </form>
-      {/* <IconButton onClick={() => editDetails(projectDetails.id)}>
-        <EditIcon />
-      </IconButton> */}
-      {/* <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
-      <button onClick={returnToProjects}>Back to Inventory</button>*/}
     </>
   );
 }
