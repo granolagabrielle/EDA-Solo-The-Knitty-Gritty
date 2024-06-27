@@ -30,7 +30,7 @@ function YarnInventory() {
 
   return (
     <>
-      <Box className='header' height={50} display='flex' alignItems='center' gap={4} p={12}>
+      <Box className='yarn-inv-header' height={50} display='flex' alignItems='center' gap={4} p={11}>
         <h1>Yarn Inventory</h1>
         {yarns.length === 0 ? (
           <h4>

@@ -1,8 +1,15 @@
 .yarn-container {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 80px;
+  justify-content: center;
+}
+
+.yarn-inv-header {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  background-color: #f0f0f0;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }

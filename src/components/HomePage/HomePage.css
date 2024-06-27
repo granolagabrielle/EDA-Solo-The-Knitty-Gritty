@@ -1,16 +1,25 @@
-.yarn-container,
-.pattern-container {
+.yarn-container-home,
+.pattern-container-home {
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
   padding-top: 20px;
   padding-bottom: 20px;
-  padding-left: 80px;
+  justify-content: center;
 }
 
-.yarn-card,
-.pattern-card {
+.header {
+  font-size: 2rem;
+  color: #333;
+  text-align: center;
+  margin: 20px 0;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.pagination-btns {
   display: flex;
-  margin: 20px;
-  align-content: center;
+  justify-content: center;
+  margin: 20px 0;
 }

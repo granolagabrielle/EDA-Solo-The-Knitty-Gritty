@@ -100,11 +100,10 @@ function AddYarn() {
 
   return (
     <>
+      <h1 className='header'>Add Yarn</h1>
       <form onSubmit={addYarn}>
         <div className='container'>
-          <div className='mb-3 col-lg-6'>
-            <h1>Add Yarn</h1>
-          </div>
+          <div className='mb-3 col-lg-6'></div>
           <div className='row'>
             <div className='mb-3 col-lg-6'>
               <label for='select' className='form-label'>

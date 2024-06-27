@@ -96,6 +96,7 @@ function PatternItem({ pattern }) {
           sx={{ minHeight: 350, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
         >
           <Card
+            className='project-card'
             variant='outlined'
             sx={(theme) => ({
               width: 270,

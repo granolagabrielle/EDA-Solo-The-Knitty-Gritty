@@ -91,10 +91,10 @@ function AddPattern() {
 
   return (
     <>
+      <h1 className='header'>Add Pattern</h1>
       <div className='pattern-form'>
         <form onSubmit={addPattern}>
           <div className='container'>
-            <h1>Add Pattern</h1>
             <div className='row'>
               <div className='mb-3 col-lg-6'>
                 <label className='form-label'>Pattern title</label>

@@ -96,10 +96,10 @@ function AddProject() {
 
   return (
     <>
+      <h1 className='header'>Add Project</h1>
       <div className='project-form'>
         <form onSubmit={AddProject}>
           <div className='container'>
-            <h1>Add Project</h1>
             <div className='row'>
               <div className='mb-3 col-lg-6'>
                 <label className='form-label'>Select pattern</label>

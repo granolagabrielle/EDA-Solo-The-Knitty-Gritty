@@ -26,7 +26,7 @@ function ProjectInventory() {
 
   return (
     <>
-      <Box className='header' height={50} display='flex' alignItems='center' gap={4} p={12}>
+      <Box className='project-inv-header' height={50} display='flex' alignItems='center' gap={4} p={11}>
         <h1>Project Tracking</h1>
         {projects.length === 0 ? (
           <h4>

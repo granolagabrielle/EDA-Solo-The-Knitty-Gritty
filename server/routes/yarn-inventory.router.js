@@ -182,7 +182,7 @@ router.post('/', (req, res) => {
   console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
   ("brand", "yarn_title", "fiber", "weight", "total_grams", "dye_lot", "user_id", "notes", "image", "location") 
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11);`;
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
   pool
     .query(queryText, [
       req.body.brand,
