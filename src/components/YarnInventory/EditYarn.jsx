@@ -20,13 +20,13 @@ function EditYarn() {
   return (
     <>
       <form onSubmit={handleSubmit}>
+        <div className='header'>
+          <h1>Edit Yarn Details</h1>
+          <h5>
+            {yarnDetails?.name} {yarnDetails?.yarn_title}
+          </h5>
+        </div>
         <div className='container'>
-          <div className='mb-3 col-lg-6'>
-            <h1>Edit Yarn Details</h1>
-            <h3>
-              {yarnDetails?.name} {yarnDetails?.yarn_title}
-            </h3>
-          </div>
           <div className='row'>
             <div className='mb-3 col-lg-4'>
               <label for='input' className='form-label'>

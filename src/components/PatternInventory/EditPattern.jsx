@@ -14,22 +14,33 @@ function EditPattern() {
 
   const handleSubmit = (patternId) => {
     dispatch({ type: 'EDIT_PATTERN', payload: { patternId: patternDetails.id, details: patternDetails } });
-    history.push(`/pattern/${patternId}`);
+    history.push(`/patterns`);
   };
 
   return (
     <div>
-      <h1>Edit {patternDetails?.pattern_title}</h1>
+      <h1 className='header'>Edit {patternDetails?.pattern_title}</h1>
       <form onSubmit={handleSubmit}>
-        <input
-          id='pattern-notes'
-          type='text'
-          value={patternDetails?.notes}
-          onChange={(event) => dispatch({ type: 'EDIT_PATTERN_DETAILS', payload: { notes: event.target.value } })}
-        />
-        <button type='submit' onClick={() => handleSubmit(patternDetails.id)}>
-          Submit Changes
-        </button>
+        <div className='container'>
+          <div className='row'>
+            <div className='mb-3 col-lg-4'>
+              <label for='input' className='form-label'>
+                Total grams:
+              </label>
+              <input
+                id='pattern-notes'
+                type='text'
+                value={patternDetails?.notes}
+                onChange={(event) => dispatch({ type: 'EDIT_PATTERN_DETAILS', payload: { notes: event.target.value } })}
+              />
+            </div>
+            <div className='mb-3 col-lg-4'>
+              <button type='submit' onClick={() => handleSubmit(patternDetails.id)}>
+                Submit Changes
+              </button>
+            </div>
+          </div>
+        </div>
       </form>
     </div>
   );

@@ -30,10 +30,10 @@ function PatternItem({ pattern }) {
     dispatch({ type: 'FETCH_FAVORITE_PATTERNS' });
   };
 
-  const editDetails = (patternId) => {
-    console.log('edit button clicked check id', patternId);
-    history.push(`/edit-pattern/${patternId}`);
-  };
+  // const editDetails = (patternId) => {
+  //   console.log('edit button clicked check id', patternId);
+  //   history.push(`/edit-pattern/${patternId}`);
+  // };
 
   const toggleCard = (patternId) => {
     setToggle(!toggle);
@@ -148,7 +148,7 @@ function PatternItem({ pattern }) {
               <img src={imageClean(pattern)} loading='lazy' alt='' />
             </AspectRatio>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <div>
+              {/* <div>
                 <Typography level='title-lg'>
                   <Link
                     overlay
@@ -162,7 +162,7 @@ function PatternItem({ pattern }) {
                   </Link>
                 </Typography>
                 <Typography level='body-sm'>Some text</Typography>
-              </div>
+              </div> */}
               <Button
                 sx={{ ml: 'auto' }}
                 style={{ backgroundColor: 'darkslategray' }}
@@ -280,9 +280,9 @@ function PatternItem({ pattern }) {
               <IconButton onClick={() => toggleCard(pattern.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>
-              <IconButton onClick={() => editDetails(pattern.id)}>
+              {/* <IconButton onClick={() => editDetails(pattern.id)}>
                 <EditIcon />
-              </IconButton>
+              </IconButton> */}
               <IconButton onClick={() => deletePattern(pattern.id)}>
                 <DeleteForeverRoundedIcon />
               </IconButton>

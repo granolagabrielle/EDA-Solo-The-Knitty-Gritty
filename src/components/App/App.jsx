@@ -97,20 +97,20 @@ function App() {
           >
             <YarnDetails />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
+          {/* <ProtectedRoute */}
+          // logged in shows InfoPage else shows LoginPage
+          {/* exact
             path='/pattern/:id'
           >
             <PatternDetails />
-          </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
+          </ProtectedRoute> */}
+          {/* <ProtectedRoute */}
+          // logged in shows InfoPage else shows LoginPage
+          {/* exact
             path='/edit-pattern/:id'
           >
             <EditPattern />
-          </ProtectedRoute>
+          </ProtectedRoute> */}
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
