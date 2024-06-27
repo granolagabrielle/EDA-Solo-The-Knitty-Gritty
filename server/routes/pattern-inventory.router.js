@@ -153,7 +153,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // post new pattern to inventory
 router.post('/', (req, res) => {
-  // console.log('in pattern post,check req.body', req.body);
+  console.log('in pattern post,check req.body', req.body);
   const queryText = `INSERT INTO "pattern_inventory" 
     ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "image") 
     VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;

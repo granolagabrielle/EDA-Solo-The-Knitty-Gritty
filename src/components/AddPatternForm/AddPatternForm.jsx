@@ -39,6 +39,7 @@ function AddPattern() {
     } else if (event.target.id === 'pattern_type') {
       setNewPattern({ ...newPattern, pattern_type: event.target.value });
     } else if (event.target.id === 'difficulty_level') {
+      console.log('check diff level etv', event.target.value);
       setNewPattern({ ...newPattern, difficulty_level: event.target.value });
     } else if (event.target.id === 'yarn_weight') {
       setNewPattern({ ...newPattern, yarn_weight: event.target.value });
@@ -55,7 +56,7 @@ function AddPattern() {
     console.log('check newPattern', newPattern);
     dispatch({ type: 'ADD_PATTERN', payload: newPattern });
     dispatch({ type: 'FETCH_PATTERNS' });
-    // history.push('/patterns');
+    history.push('/patterns');
   };
 
   const cancel = () => {
@@ -135,7 +136,7 @@ function AddPattern() {
                 >
                   {types.map((type) => {
                     return (
-                      <option key={type.id} value={type.id}>
+                      <option defaultValue='test' key={type.id} value={type.id}>
                         {type.type}
                       </option>
                     );

@@ -11,6 +11,7 @@ import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
+import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 
 import './ProjectDetails.css';
 
@@ -112,18 +113,18 @@ function ProjectDetails() {
   return (
     <>
       <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}>
-        <Button style={{ backgroundColor: 'darkslategray' }} onClick={returnToProjects}>
-          Back to Projects
-        </Button>
+        <IconButton style={{ backgroundColor: 'darkslategray' }} onClick={returnToProjects}>
+          <ArrowBackRoundedIcon />
+        </IconButton>
+        <Box
+          key={projectDetails.id}
+          sx={{ minHeight: 100, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 2 }}
+        >
+          <h3>{projectDetails.pattern_title}</h3>
+        </Box>
       </Box>
       <Box
-        key={projectDetails.id}
-        sx={{ minHeight: 100, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
-      >
-        {projectDetails.pattern_title}
-      </Box>
-      <Box
-        className='yarn-container'
+        className='card-container'
         sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
       >
         <Card
@@ -131,51 +132,7 @@ function ProjectDetails() {
           variant='outlined'
           sx={(theme) => ({
             width: 270,
-            height: 410, // Set the fixed height here
-            flexDirection: 'column',
-            overflow: 'hidden',
-            transition: 'transform 0.3s, border 0.3s',
-            '&:hover': {
-              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
-              transform: 'translateY(-2px)',
-            },
-          })}
-        >
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  some text
-                </Link>
-              </Typography>
-              <Typography level='body-sm'>some text</Typography>
-            </div>
-          </Box>
-
-          <AspectRatio
-            ratio='3/4' // Set the aspect ratio for the phone photo size
-            sx={{
-              width: '100%',
-              height: 'auto',
-            }}
-          >
-            <img src={imageClean(projectDetails)} loading='lazy' alt='' />
-          </AspectRatio>
-        </Card>
-
-        <Card
-          className='container-card'
-          variant='outlined'
-          sx={(theme) => ({
-            width: 270,
-            height: 410, // Set the fixed height here
+            height: 350, // Set the fixed height here
             flexDirection: 'column',
             overflow: 'hidden',
             transition: 'transform 0.3s, border 0.3s',
@@ -256,7 +213,40 @@ function ProjectDetails() {
             </div>
           </Box>
         </Card>
+        {imageClean(projectDetails)?.map((image, i) => {
+          return (
+            <Card
+              className='container-card'
+              variant='outlined'
+              sx={(theme) => ({
+                width: 270,
+                height: 350, // Set the fixed height here
+                flexDirection: 'column',
+                overflow: 'hidden',
+                transition: 'transform 0.3s, border 0.3s',
+                '&:hover': {
+                  borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+                  transform: 'translateY(-2px)',
+                },
+              })}
+            >
+              <AspectRatio
+                ratio='3/4' // Set the aspect ratio for the phone photo size
+                sx={{
+                  width: '100%',
+                  height: 'auto',
+                }}
+              >
+                <img key={i} src={image} style={{ width: 240 }} />
+              </AspectRatio>
+            </Card>
+          );
+        })}
       </Box>
+      <Box
+        className='yarn-container'
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+      ></Box>
       <Box
         id='bottom-button-box'
         sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
@@ -292,12 +282,7 @@ function ProjectDetails() {
         <EditIcon />
       </IconButton> */}
       {/* <button onClick={() => deleteProject(projectDetails.id)}>Delete Project</button>
-      <button onClick={returnToProjects}>Back to Inventory</button>
-      <div>
-        {imageClean(projectDetails)?.map((image, i) => (
-          <img key={i} src={image} />
-        ))}
-      </div> */}
+      <button onClick={returnToProjects}>Back to Inventory</button>*/}
     </>
   );
 }
