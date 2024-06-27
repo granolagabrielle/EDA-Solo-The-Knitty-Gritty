@@ -5,13 +5,21 @@ import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
 import * as React from 'react';
 import { DateTime } from 'luxon';
-import { Box } from '@mui/joy';
+import { Box, ListDivider } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
 import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
+import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
+
+// joy notes
+import List from '@mui/joy/List';
+import ListItem from '@mui/joy/ListItem';
+import ListSubheader from '@mui/joy/ListSubheader';
+import ListItemButton from '@mui/joy/ListItemButton';
+import Sheet from '@mui/joy/Sheet';
 
 import './ProjectDetails.css';
 
@@ -64,26 +72,30 @@ function ProjectDetails() {
     });
   };
 
+  // const newNote = (event) => {
+  //   setToggle(!toggle);
+  // };
+
   const imageClean = (images) => {
-    console.log('Images', images.image);
+    // console.log('Images', images.image);
     let myMultipleImagesArray = [];
     if (images?.image?.includes('[')) {
-      console.log('Yes, it does!!!!');
+      // console.log('Yes, it does!!!!');
       let imageArray = images?.image?.substring(2, images?.image?.length - 2).split(',');
-      console.log('Image Array', imageArray);
+      // console.log('Image Array', imageArray);
 
       if (imageArray.length >= 2) {
-        console.log(' More than 2 images...');
+        // console.log(' More than 2 images...');
         for (let i = 0; i < imageArray.length; i++) {
           let img = imageArray[i];
           if (i === 0) {
-            console.log('IMAGE 1', img);
+            // console.log('IMAGE 1', img);
             myMultipleImagesArray.push(img.substring(0, img.length - 1));
           } else if (i === imageArray.length - 1) {
-            console.log('IMAGE LAST...', img);
+            // console.log('IMAGE LAST...', img);
             myMultipleImagesArray.push(img.substring(1));
           } else {
-            console.log('IMAGE IN BETWEEN...', img);
+            // console.log('IMAGE IN BETWEEN...', img);
             myMultipleImagesArray.push(img.substring(1, img.length - 1));
           }
         }
@@ -96,13 +108,13 @@ function ProjectDetails() {
         // myMultipleImagesArray.push(image2.substring(1));
       } else if (imageArray.length === 1) {
         let image1 = imageArray[0];
-        console.log('handle one image new way', image1);
+        // console.log('handle one image new way', image1);
         myMultipleImagesArray.push(image1);
       } else {
         console.log('Something else needs handling...');
       }
     } else {
-      console.log('No, just one image');
+      // console.log('No, just one image');
       myMultipleImagesArray.push(images?.image);
     }
 
@@ -112,7 +124,7 @@ function ProjectDetails() {
 
   return (
     <>
-      <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}>
+      <Box className='header' sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center' }}>
         <IconButton style={{ backgroundColor: 'darkslategray' }} onClick={returnToProjects}>
           <ArrowBackRoundedIcon />
         </IconButton>
@@ -125,7 +137,7 @@ function ProjectDetails() {
       </Box>
       <Box
         className='card-container'
-        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
       >
         <Card
           className='container-card'
@@ -244,30 +256,101 @@ function ProjectDetails() {
         })}
       </Box>
       <Box
-        className='yarn-container'
-        sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
-      ></Box>
+        className='notes-container'
+        sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}
+      >
+        <Card
+          className='container-card'
+          variant='outlined'
+          sx={(theme) => ({
+            width: 1210,
+            height: 350, // Set the fixed height here
+            flexDirection: 'column',
+            overflow: 'hidden',
+            transition: 'transform 0.3s, border 0.3s',
+            '&:hover': {
+              borderColor: theme.vars.palette.primary.outlinedHoverBorder,
+              transform: 'translateY(-2px)',
+            },
+          })}
+        >
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <div>
+              <Typography level='title-lg'>
+                <Link
+                  overlay
+                  underline='none'
+                  sx={{
+                    color: 'text.primary',
+                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
+                  }}
+                >
+                  Project Notes
+                </Link>
+              </Typography>
+            </div>
+            <IconButton
+              size='sm'
+              variant='soft'
+              color={'neutral'}
+              sx={{ ml: 'auto', zIndex: 2 }}
+              onClick={() => editDetails(projectDetails.id)}
+            >
+              <AddCircleOutlineRoundedIcon />
+            </IconButton>
+          </Box>
+          <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
+            <Sheet
+              // variant='outlined'
+              sx={{
+                width: 1210,
+                maxHeight: 300,
+                overflow: 'auto',
+                borderRadius: 'sm',
+              }}
+            >
+              <List>
+                {projectNotes.map((note) => {
+                  return (
+                    <>
+                      <Typography level='title-md'>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</Typography>
+                      <li className='note-item'>{note.notes}</li>
+                      <ListDivider />
+                    </>
+                  );
+                })}
+              </List>
+            </Sheet>
+          </Box>
+        </Card>
+      </Box>
       <Box
         id='bottom-button-box'
         sx={{ minHeight: 75, display: 'flex', justifyContent: 'left', alignItems: 'center', margin: 3 }}
       >
+        <form onSubmit={addNote}>
+          <input id='notes' placeholder='Project notes' type='text' value={newNote.notes} onChange={handleNewNote} />
+          <input id='date' type='date' value={newNote.date} onChange={handleNewNote} />
+          <button type='submit'>Add Note</button>
+        </form>
         <Button style={{ backgroundColor: 'darkslategray' }} onClick={() => deleteProject(projectDetails.id)}>
           Delete Project
         </Button>
       </Box>
       {/* <h1>Project Details Page</h1>
-      <p>{projectDetails.pattern_title}</p>
-      <table>
+        <p>{projectDetails.pattern_title}</p>
+        <table>
         <thead>
-          <th>Date</th>
-          <th>Notes</th>
+        <th>Date</th>
+        <th>Notes</th>
         </thead>
         <tbody>
-          {projectNotes.map((note) => {
-            return (
-              <tr key={note.id}>
-                <td>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</td>
-                <td>{note.notes}</td>
+        {projectNotes.map((note) => {
+          return (
+            
+            <tr key={note.id}>
+            <td>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</td>
+            <td>{note.notes}</td>
               </tr>
             );
           })}

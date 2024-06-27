@@ -6,6 +6,7 @@ import YarnItem from '../YarnItem/YarnItem';
 import PatternItem from '../PatternItem/PatternItem';
 import { IconButton } from '@mui/material';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
+import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import './HomePage.css';
 import Box from '@mui/joy/Box';
 
@@ -14,25 +15,29 @@ function HomePage() {
   const patterns = useSelector((store) => store.patterns.patternFavorites);
   const dispatch = useDispatch();
 
-  const itemsPerPage = 4;
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const currentYarns = yarns.slice(currentIndex, currentIndex + itemsPerPage);
+  const yarnPerPage = 4;
+  const [currentYarnIndex, setCurrentYarnIndex] = useState(0);
+  const currentYarns = yarns.slice(currentYarnIndex, currentYarnIndex + yarnPerPage);
 
   const nextYarns = () => {
     console.log('next button');
-    if (currentIndex + itemsPerPage >= yarns.length) {
-      setCurrentIndex(0);
+    if (currentYarnIndex + yarnPerPage >= yarns.length) {
+      setCurrentYarnIndex(0);
     } else {
-      setCurrentIndex(currentIndex + itemsPerPage);
+      setCurrentYarnIndex(currentYarnIndex + yarnPerPage);
     }
   };
 
+  const patternsPerPage = 4;
+  const [currentPatternIndex, setCurrentPatternIndex] = useState(0);
+  const currentPatterns = patterns.slice(currentPatternIndex, currentPatternIndex + patternsPerPage);
+
   const nextPatterns = () => {
     console.log('next button');
-    if (currentIndex + itemsPerPage >= patterns.length) {
-      setCurrentIndex(0);
+    if (currentPatternIndex + patternsPerPage >= patterns.length) {
+      setCurrentPatternIndex(0);
     } else {
-      setCurrentIndex(currentIndex + itemsPerPage);
+      setCurrentPatternIndex(currentPatternIndex + patternsPerPage);
     }
   };
 
@@ -51,6 +56,9 @@ function HomePage() {
           ))}
         </section>
         <div className='pagination-btns'>
+          {/* <IconButton>
+            <ArrowBackIosRoundedIcon />
+          </IconButton> */}
           <IconButton onClick={nextYarns}>
             <ArrowForwardIosRoundedIcon />
           </IconButton>
@@ -59,11 +67,14 @@ function HomePage() {
       <section className='pattern-section'>
         <h2 className='header'>Favorite Patterns</h2>
         <section className='pattern-container-home'>
-          {patterns.map((pattern) => (
+          {currentPatterns.map((pattern) => (
             <PatternItem key={pattern.id} pattern={pattern} />
           ))}
         </section>
         <div className='pagination-btns'>
+          {/* <IconButton>
+            <ArrowBackIosRoundedIcon />
+          </IconButton> */}
           <IconButton onClick={nextPatterns}>
             <ArrowForwardIosRoundedIcon />
           </IconButton>

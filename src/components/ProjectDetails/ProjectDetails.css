@@ -5,3 +5,11 @@
   padding-bottom: 20px;
   justify-content: center;
 }
+
+.notes-container {
+  margin-top: -24px;
+}
+
+.note-item {
+  list-style: none;
+}
