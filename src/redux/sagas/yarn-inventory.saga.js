@@ -69,7 +69,7 @@ function* removeFavoriteYarnInventory(action) {
     const response = yield axios.put(`/api/yarn/remove-inventory-fav`, { id: action.payload });
     console.log('check fav yarn response', response);
     // yield put({ type: 'MARK_YARN_AS_NOT_FAVORITE' });
-    yield put({ type: 'FETCH_YARNS' });
+    yield put({ type: 'FETCH_FAVORITE_YARNS' });
   } catch (error) {
     console.log('error marking as fav', error);
   }

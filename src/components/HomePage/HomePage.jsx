@@ -56,9 +56,6 @@ function HomePage() {
           ))}
         </section>
         <div className='pagination-btns'>
-          {/* <IconButton>
-            <ArrowBackIosRoundedIcon />
-          </IconButton> */}
           <IconButton onClick={nextYarns}>
             <ArrowForwardIosRoundedIcon />
           </IconButton>
@@ -72,9 +69,6 @@ function HomePage() {
           ))}
         </section>
         <div className='pagination-btns'>
-          {/* <IconButton>
-            <ArrowBackIosRoundedIcon />
-          </IconButton> */}
           <IconButton onClick={nextPatterns}>
             <ArrowForwardIosRoundedIcon />
           </IconButton>

@@ -24,6 +24,8 @@ function YarnItem({ yarn }) {
   const deleteYarn = (yarnId) => {
     console.log('delete button clicked check id', yarnId);
     dispatch({ type: 'DELETE_YARN', payload: yarnId });
+    dispatch({ type: 'REMOVE_FAVORITE_YARN_INVENTORY', payload: yarnId });
+    dispatch({ type: 'FETCH_FAVORITE_YARNS' });
   };
 
   const editDetails = (yarnId) => {
@@ -40,7 +42,7 @@ function YarnItem({ yarn }) {
       dispatch({ type: 'FAVORITE_YARN_INVENTORY', payload: yarn.id });
     } else if (yarn.isFavorite === true) {
       dispatch({ type: 'REMOVE_FAVORITE_YARN_INVENTORY', payload: yarn.id });
-      dispatch({ type: 'FETCH_FAVORITE_YARNS' });
+      // dispatch({ type: 'FETCH_FAVORITE_YARNS' });
     }
     return yarn.isFavorite;
   };

@@ -89,14 +89,18 @@ function ProjectItem({ project }) {
                     '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                   }}
                 >
-                  some text
+                  {project.pattern_title}
                 </Link>
               </Typography>
-              <Typography level='body-sm'>some text</Typography>
+              <Typography level='body-sm'>{project.date_started}</Typography>
             </div>
-            <IconButton size='sm' variant='soft' color={'neutral'} sx={{ ml: 'auto', zIndex: 2 }}>
-              <FavoriteBorderRoundedIcon color='danger' />
-            </IconButton>
+            <Button
+              sx={{ ml: 'auto', zIndex: 2 }}
+              style={{ backgroundColor: 'darkslategray' }}
+              onClick={() => viewDetails(project.id)}
+            >
+              Details
+            </Button>
           </Box>
 
           <AspectRatio
@@ -109,7 +113,7 @@ function ProjectItem({ project }) {
             <img src={imageClean(project)} loading='lazy' alt='' />
           </AspectRatio>
 
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div>
               <Typography level='title-lg'>
                 <Link
@@ -120,18 +124,13 @@ function ProjectItem({ project }) {
                     '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                   }}
                 >
-                  some text
+                  Project Progress:
                 </Link>
               </Typography>
-              <Typography level='body-sm'>some text</Typography>
+              <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} level='body-sm'>
+                {(project.grams_knit / project.est_grams_needed) * 100}%
+              </Typography>
             </div>
-            <Button
-              sx={{ ml: 'auto' }}
-              style={{ backgroundColor: 'darkslategray' }}
-              onClick={() => viewDetails(project.id)}
-            >
-              Details
-            </Button>
           </Box>
         </Card>
       </Box>

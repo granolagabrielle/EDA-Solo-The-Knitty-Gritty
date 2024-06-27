@@ -26,6 +26,8 @@ function PatternItem({ pattern }) {
   const deletePattern = (patternId) => {
     console.log('delete button clicked check id', patternId);
     dispatch({ type: 'DELETE_PATTERN', payload: patternId });
+    dispatch({ type: 'REMOVE_FAVORITE_PATTERN_INVENTORY', payload: patternId });
+    dispatch({ type: 'FETCH_FAVORITE_PATTERNS' });
   };
 
   const editDetails = (patternId) => {
