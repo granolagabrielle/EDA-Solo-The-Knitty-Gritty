@@ -26,7 +26,16 @@ function ProjectInventory() {
 
   return (
     <>
-      <Box className='project-inv-header' height={50} display='flex' alignItems='center' gap={4} p={11}>
+      <Box
+        className='project-inv-header'
+        height={5}
+        display='flex'
+        alignItems='center'
+        justifyContent='center'
+        gap={4}
+        p={6}
+        paddingTop={8}
+      >
         <h1>Project Tracking</h1>
         {projects.length === 0 ? (
           <h4>
@@ -35,7 +44,7 @@ function ProjectInventory() {
         ) : (
           ''
         )}
-        <Stack spacing={2} sx={{ width: 300 }}>
+        {/* <Stack spacing={2} sx={{ width: 300 }}>
           <Autocomplete
             freeSolo
             id='free-solo-2-demo'
@@ -58,7 +67,7 @@ function ProjectInventory() {
               }
             }}
           />
-        </Stack>
+        </Stack> */}
       </Box>
       <section className='project-container'>
         {projects.map((project) => (

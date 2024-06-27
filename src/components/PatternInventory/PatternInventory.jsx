@@ -24,7 +24,7 @@ function PatternInventory() {
 
   return (
     <>
-      <Box className='pattern-inv-header' height={50} display='flex' alignItems='center' gap={4} p={11}>
+      <Box className='pattern-inv-header' height={50} display='flex' alignItems='center' gap={4} p={8} paddingTop={10}>
         <h1>Pattern Inventory</h1>
         {patterns.length === 0 ? (
           <h4>
