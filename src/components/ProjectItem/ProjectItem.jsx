@@ -124,7 +124,7 @@ function ProjectItem({ project }) {
                     '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                   }}
                 >
-                  {(project.grams_knit / project.est_grams_needed) * 100}% Completed
+                  {((project.grams_knit / project.est_grams_needed) * 100).toFixed(0)}% Completed
                 </Link>
               </Typography>
               <Typography

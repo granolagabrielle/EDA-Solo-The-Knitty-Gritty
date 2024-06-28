@@ -63,6 +63,7 @@ function ProjectDetails() {
     history.push(`/edit-project/${projectId}`);
   };
 
+  // notes
   let [newNote, setNewNote] = useState({
     notes: '',
     date: '',
@@ -91,8 +92,6 @@ function ProjectDetails() {
     console.log('plus button clicked');
     setToggle(!toggle);
   };
-
-  
 
   const imageClean = (images) => {
     // console.log('Images', images.image);
@@ -240,7 +239,7 @@ function ProjectDetails() {
                 </Link>
               </Typography>
               <Typography level='body-sm'>
-                {(projectDetails.grams_knit / projectDetails.est_grams_needed) * 100}%
+                {((projectDetails.grams_knit / projectDetails.est_grams_needed) * 100).toFixed(0)}%
               </Typography>
             </div>
           </Box>
@@ -278,7 +277,6 @@ function ProjectDetails() {
       {gramsToggle ? (
         <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}>
           <form onSubmit={() => handleSubmit()}>
-            {/* <FormControl> */}
             <div className='row'>
               <div className='mb-3 col-lg-4'>
                 <Input
@@ -287,7 +285,10 @@ function ProjectDetails() {
                   type='text'
                   value={projectDetails?.grams_knit}
                   onChange={(event) =>
-                    dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { grams_knit: event.target.value } })
+                    dispatch({
+                      type: 'EDIT_PROJECT_DETAILS',
+                      payload: { grams_knit: event.target.value },
+                    })
                   }
                 />
               </div>
@@ -297,7 +298,6 @@ function ProjectDetails() {
                 </Button>
               </div>
             </div>
-            {/* </FormControl> */}
           </form>
         </Box>
       ) : (

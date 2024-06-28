@@ -25,7 +25,7 @@ function PatternInventory() {
   return (
     <>
       <Box className='pattern-inv-header' height={50} display='flex' alignItems='center' gap={4} p={8} paddingTop={10}>
-        <h1>Pattern Inventory</h1>
+        <h1>Pattern Library</h1>
         {patterns.length === 0 ? (
           <h4>
             Your pattern library is empty. <strong onClick={addPattern}>Add a pattern now?</strong>
@@ -50,11 +50,11 @@ function PatternInventory() {
                 }}
               />
             )}
-            onChange={(event, value) => {
-              if (value) {
-                history.push(`/pattern/${value.id}`);
-              }
-            }}
+            // onChange={(event, value) => {
+            //   if (value) {
+            //     history.push(`/pattern/${value.id}`);
+            //   }
+            // }}
           />
         </Stack>
       </Box>

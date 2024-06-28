@@ -53,17 +53,17 @@ function YarnInventory() {
                 }}
               />
             )}
-            onChange={(event, value) => {
-              if (value) {
-                history.push(`/yarn/${value.id}`);
-              }
-            }}
+            // onChange={(event, value) => {
+            //   if (value) {
+            //     history.push(`/yarn/${value.id}`);
+            //   }
+            // }}
           />
         </Stack>
       </Box>
       <section className='yarn-container'>
         {yarns.map((yarn) => (
-          <YarnItem key={yarn.id} yarn={yarn} home=''/>
+          <YarnItem key={yarn.id} yarn={yarn} home='' />
         ))}
       </section>
     </>
