@@ -92,6 +92,8 @@ function ProjectDetails() {
     setToggle(!toggle);
   };
 
+  
+
   const imageClean = (images) => {
     // console.log('Images', images.image);
     let myMultipleImagesArray = [];
