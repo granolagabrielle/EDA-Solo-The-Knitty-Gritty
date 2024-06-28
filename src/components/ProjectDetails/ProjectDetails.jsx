@@ -360,7 +360,9 @@ function ProjectDetails() {
                   {projectNotes.map((note) => {
                     return (
                       <>
-                        <Typography level='title-md'>{DateTime.now(note.date).toFormat('MMMM dd, yyyy')}</Typography>
+                        <Typography level='title-md'>
+                          {DateTime.fromISO(note.date).toFormat('MMMM dd, yyyy')}
+                        </Typography>
                         <li className='note-item'>{note.notes}</li>
                         <ListDivider />
                       </>

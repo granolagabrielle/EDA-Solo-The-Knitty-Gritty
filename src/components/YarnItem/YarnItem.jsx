@@ -42,9 +42,10 @@ function YarnItem({ yarn, home }) {
   const markFavorite = () => {
     if (yarn.isFavorite === false) {
       dispatch({ type: 'FAVORITE_YARN_INVENTORY', payload: yarn.id });
+      dispatch({ type: 'FETCH_YARNS' });
     } else if (yarn.isFavorite === true) {
       dispatch({ type: 'REMOVE_FAVORITE_YARN_INVENTORY', payload: yarn.id });
-      // dispatch({ type: 'FETCH_FAVORITE_YARNS' });
+      dispatch({ type: 'FETCH_YARNS' });
     }
     return yarn.isFavorite;
   };
@@ -285,12 +286,16 @@ function YarnItem({ yarn, home }) {
               <IconButton onClick={() => toggleCard(yarn.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>
-              {!home && <IconButton onClick={() => editDetails(yarn.id)}>
-                <EditIcon />
-              </IconButton>}
-              {!home && <IconButton onClick={() => deleteYarn(yarn.id)}>
-                <DeleteForeverRoundedIcon />
-              </IconButton>}
+              {!home && (
+                <IconButton onClick={() => editDetails(yarn.id)}>
+                  <EditIcon />
+                </IconButton>
+              )}
+              {!home && (
+                <IconButton onClick={() => deleteYarn(yarn.id)}>
+                  <DeleteForeverRoundedIcon />
+                </IconButton>
+              )}
             </Box>
           </Card>
         </Box>

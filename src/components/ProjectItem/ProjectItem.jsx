@@ -90,7 +90,9 @@ function ProjectItem({ project }) {
                   {project.pattern_title}
                 </Link>
               </Typography>
-              <Typography level='body-sm'>{DateTime.now(project.date_started).toFormat('MMMM dd, yyyy')}</Typography>
+              <Typography level='body-sm'>
+                {DateTime.fromISO(project.date_started).toFormat('MMMM dd, yyyy')}
+              </Typography>
             </div>
             <Button
               sx={{ ml: 'auto', zIndex: 2 }}
@@ -122,12 +124,13 @@ function ProjectItem({ project }) {
                     '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                   }}
                 >
-                  Project Progress:
+                  {(project.grams_knit / project.est_grams_needed) * 100}% Completed
                 </Link>
               </Typography>
-              <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }} level='body-sm'>
-                {(project.grams_knit / project.est_grams_needed) * 100}%
-              </Typography>
+              <Typography
+                sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+                level='body-sm'
+              ></Typography>
             </div>
           </Box>
         </Card>
