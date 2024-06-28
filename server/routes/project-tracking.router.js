@@ -90,7 +90,9 @@ router.put('/:id', (req, res) => {
     WHERE "id"=$2 AND "user_id"=$3;`;
   const values = [req.body.grams_knit, req.params.id, req.user.id];
   const yarnId = req.body.yarn_id;
-  const gramsKnit = req.body.grams_knit;
+  // const gramsKnit = req.body.grams_knit;
+  const gramsUsed = req.body.grams_used;
+  console.log('Grams used', gramsUsed);
   pool
     .query(queryText, values)
     .then((result) => {
@@ -100,7 +102,7 @@ router.put('/:id', (req, res) => {
       SET "total_grams"="total_grams"-$1
       WHERE "id"=$2 AND "user_id"=$3;`;
       pool
-        .query(updateYarnQuery, [gramsKnit, yarnId, req.user.id])
+        .query(updateYarnQuery, [gramsUsed, yarnId, req.user.id])
         .then((result) => {
           console.log('successfully updated yarn inventory');
           res.sendStatus(201);

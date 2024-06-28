@@ -48,7 +48,10 @@ function* deleteProject(action) {
 function* editProject(action) {
   try {
     console.log('ACTION PAY', action.payload);
-    yield axios.put(`/api/projects/${action.payload.projectId}`, action.payload.details );
+    yield axios.put(`/api/projects/${action.payload.projectId}`, {
+      ...action.payload.details,
+      grams_used: action.payload.details.grams_used,
+    });
     yield put({ type: 'FETCH_PROJECT_DETAILS', payload: action.payload.projectId });
     yield put({ type: 'CLEAR_PROJECT_DETAILS' });
   } catch (error) {

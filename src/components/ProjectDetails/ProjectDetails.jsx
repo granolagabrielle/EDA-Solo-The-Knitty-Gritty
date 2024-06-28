@@ -34,6 +34,7 @@ function ProjectDetails() {
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
     dispatch({ type: 'FETCH_NOTES', payload: params.id });
+    setPrevGrams(projectDetails.grams_knit);
   }, []);
 
   const [gramsToggle, setGramsToggle] = useState('');
@@ -43,9 +44,19 @@ function ProjectDetails() {
     setGramsToggle(!gramsToggle);
   };
 
+  // grams math functionality
+  const [prevGrams, setPrevGrams] = useState('');
+  console.log('check prev grams', prevGrams);
+  console.log('what is project details right now?', projectDetails?.grams_knit);
+
   const handleSubmit = (projectId) => {
     console.log('project details', projectDetails);
-    dispatch({ type: 'EDIT_PROJECT', payload: { projectId: projectDetails.id, details: projectDetails } });
+    const gramsUsed = projectDetails.grams_knit - prevGrams;
+    console.log('check gramsUsed', gramsUsed);
+    // dispatch({
+    //   type: 'EDIT_PROJECT',
+    //   payload: { projectId: projectId, details: { ...projectDetails, grams_used: gramsUsed } },
+    // });
     setGramsToggle(!gramsToggle);
     // history.push(`/projects/${projectId}`);
   };
