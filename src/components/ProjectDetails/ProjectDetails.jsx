@@ -34,29 +34,31 @@ function ProjectDetails() {
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
     dispatch({ type: 'FETCH_NOTES', payload: params.id });
-    setPrevGrams(projectDetails.grams_knit);
   }, []);
 
-  const [gramsToggle, setGramsToggle] = useState('');
+  const [gramsToggle, setGramsToggle] = useState(false);
+  // grams math functionality
+  const [grams, setGrams] = useState(projectDetails?.grams_knit);
 
   const editGrams = () => {
     console.log('edit grams button clicked');
     setGramsToggle(!gramsToggle);
   };
 
-  // grams math functionality
-  const [prevGrams, setPrevGrams] = useState('');
-  console.log('check prev grams', prevGrams);
-  console.log('what is project details right now?', projectDetails?.grams_knit);
-
-  const handleSubmit = (projectId) => {
-    console.log('project details', projectDetails);
-    const gramsUsed = projectDetails.grams_knit - prevGrams;
-    console.log('check gramsUsed', gramsUsed);
-    // dispatch({
-    //   type: 'EDIT_PROJECT',
-    //   payload: { projectId: projectId, details: { ...projectDetails, grams_used: gramsUsed } },
-    // });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    //copy project details to modify key/values
+    const copyProjectDetails = { ...projectDetails };
+    //set current grams weighed as value for updated project details grams_knit
+    copyProjectDetails.grams_knit = Number(grams);
+    //caputure difference between previous value of grams_knit and current grams
+    const gramsUsed = projectDetails.grams_knit - grams;
+    //set grams_used as current absolute value (helps w/backend math)
+    copyProjectDetails.grams_used = Math.abs(gramsUsed);
+    dispatch({
+      type: 'EDIT_PROJECT',
+      payload: { projectId: projectDetails.id, details: copyProjectDetails },
+    });
     setGramsToggle(!gramsToggle);
     // history.push(`/projects/${projectId}`);
   };
@@ -287,26 +289,22 @@ function ProjectDetails() {
       </Box>
       {gramsToggle ? (
         <Box sx={{ minHeight: 75, display: 'flex', justifyContent: 'center', alignItems: 'center', margin: 3 }}>
-          <form onSubmit={() => handleSubmit()}>
+          <form onSubmit={handleSubmit}>
             <div className='row'>
               <div className='mb-3 col-lg-4'>
                 <Input
                   className='form-control'
                   id='grams_knit'
                   type='text'
-                  value={projectDetails?.grams_knit}
-                  onChange={(event) =>
-                    dispatch({
-                      type: 'EDIT_PROJECT_DETAILS',
-                      payload: { grams_knit: event.target.value },
-                    })
-                  }
+                  placeholder='Enter Weight in grams'
+                  value={grams ?? ''}
+                  onChange={(event) => setGrams(event.target.value)}
                 />
               </div>
               <div className='mb-3 col-lg-4'>
-                <Button className='btn btn-primary' type='submit' onClick={() => handleSubmit(projectDetails.id)}>
+                <button className='btn btn-primary' type='submit'>
                   Submit
-                </Button>
+                </button>
               </div>
             </div>
           </form>
