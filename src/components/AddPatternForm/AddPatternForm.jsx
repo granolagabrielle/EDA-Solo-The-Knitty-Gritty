@@ -180,7 +180,7 @@ function AddPattern() {
                 </select>
               </div>
               <div className='mb-3 col-lg-8'>
-                <label className='form-label'>Pattern Notes</label>
+                <label className='form-label'>Pattern notes</label>
                 <input
                   type='text'
                   className='form-control'

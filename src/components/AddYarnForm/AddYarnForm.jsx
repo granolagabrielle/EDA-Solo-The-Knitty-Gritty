@@ -165,7 +165,7 @@ function AddYarn() {
           <div className='row'>
             <div className='mb-3 col-lg-4'>
               <label for='input' className='form-label'>
-                Yarn Dye Lot
+                Yarn dye Lot
               </label>
               <input
                 className='form-control'
@@ -177,7 +177,7 @@ function AddYarn() {
             </div>
             <div className='mb-3 col-lg-4'>
               <label for='input' className='form-label'>
-                Total Grams in Stash
+                Total grams in stash
               </label>
               <input
                 className='form-control'
@@ -204,7 +204,7 @@ function AddYarn() {
             </div>
             <div className='mb-3 col-lg-8'>
               <label for='input' className='form-label'>
-                Yarn Notes
+                Yarn notes
               </label>
               <input
                 type='text'

@@ -230,7 +230,7 @@ function PatternItem({ pattern }) {
                       '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                     }}
                   >
-                    Pattern Type
+                    Pattern type
                   </Link>
                 </Typography>
                 <Typography level='body-sm'>{pattern.type}</Typography>
@@ -243,7 +243,7 @@ function PatternItem({ pattern }) {
                       '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                     }}
                   >
-                    Difficulty Level
+                    Difficulty level
                   </Link>
                 </Typography>
                 <Typography level='body-sm'>{pattern.level}</Typography>
@@ -256,7 +256,7 @@ function PatternItem({ pattern }) {
                       '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                     }}
                   >
-                    Recommended Yarn Weight
+                    Recommended yarn weight
                   </Link>
                 </Typography>
                 <Typography level='body-sm'>{pattern.weight}</Typography>
@@ -269,7 +269,7 @@ function PatternItem({ pattern }) {
                       '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
                     }}
                   >
-                    Pattern Notes
+                    Pattern notes
                   </Link>
                 </Typography>
                 <Typography level='body-sm'>{pattern.notes}</Typography>

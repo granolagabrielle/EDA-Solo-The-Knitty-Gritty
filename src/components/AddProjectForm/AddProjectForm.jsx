@@ -183,7 +183,7 @@ function AddProject() {
             <div className='row'>
               <div className='mb-3 col-lg-6'>
                 <button type='submit' className='btn btn-secondary' id='submit-btn'>
-                  Add Project
+                  Add project
                 </button>
                 <button onClick={cancel} className='btn btn-secondary'>
                   Back to inventory
