@@ -10,13 +10,14 @@ const projectInventory = (state = [], action) => {
   }
 };
 
-const projectDetails = (state = [], action) => {
+const projectDetails = (state = {}, action) => {
   switch (action.type) {
     case 'SET_PROJECT_DETAILS':
       return action.payload;
     case 'CLEAR_PROJECT_DETAILS':
       return {};
     case 'EDIT_PROJECT_DETAILS':
+      console.log('Action.payload', action.payload);
       return { ...state, ...action.payload };
     default:
       return state;

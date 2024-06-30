@@ -178,7 +178,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 // });
 
 // post new yarn to inventory
-router.post('/', (req, res) => {
+router.post('/', rejectUnauthenticated, (req, res) => {
   console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
   ("brand", "yarn_title", "fiber", "weight", "total_grams", "dye_lot", "user_id", "notes", "image", "location") 
