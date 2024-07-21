@@ -21,17 +21,13 @@ function YarnItem({ yarn, home }) {
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true);
 
-  console.log('where am i?', home);
-
   const deleteYarn = (yarnId) => {
-    console.log('delete button clicked check id', yarnId);
     dispatch({ type: 'DELETE_YARN', payload: yarnId });
     dispatch({ type: 'REMOVE_FAVORITE_YARN_INVENTORY', payload: yarnId });
     dispatch({ type: 'FETCH_FAVORITE_YARNS' });
   };
 
   const editDetails = (yarnId) => {
-    console.log('edit button clicked check id', yarnId);
     history.push(`/edit-yarn/${yarnId}`);
   };
 

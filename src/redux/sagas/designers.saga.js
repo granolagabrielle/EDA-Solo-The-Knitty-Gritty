@@ -6,7 +6,6 @@ function* fetchDesigners() {
   try {
     const designersResponse = yield axios.get('/api/designers');
     yield put({ type: 'SET_DESIGNERS', payload: designersResponse.data });
-    console.log('check designersResponse', designersResponse);
   } catch (error) {
     console.log('fetch designers error', error);
   }

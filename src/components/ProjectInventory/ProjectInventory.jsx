@@ -14,8 +14,6 @@ function ProjectInventory() {
   const dispatch = useDispatch();
   const projects = useSelector((store) => store.projects.projectInventory);
 
-  console.log('check projects', projects);
-
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECTS' });
   }, []);

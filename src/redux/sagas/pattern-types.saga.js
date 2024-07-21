@@ -6,7 +6,6 @@ function* fetchPatternTypes() {
   try {
     const patternTypesResponse = yield axios.get('/api/types');
     yield put({ type: 'SET_PATTERN_TYPES', payload: patternTypesResponse.data });
-    console.log('check patternTypesResponse', patternTypesResponse);
   } catch (error) {
     console.log('fetch pattern types error', error);
   }

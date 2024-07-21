@@ -15,7 +15,6 @@ function YarnInventory() {
   const history = useHistory();
   const dispatch = useDispatch();
   const yarns = useSelector((store) => store.yarns.yarnInventory);
-  console.log('check yarns', yarns);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_YARNS' });

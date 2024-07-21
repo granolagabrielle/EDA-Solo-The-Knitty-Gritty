@@ -1,5 +1,4 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom/';
+import { useDispatch } from 'react-redux';
 import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
@@ -11,37 +10,23 @@ import Button from '@mui/joy/Button';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
-import EditIcon from '@mui/icons-material/Edit';
 import { useState } from 'react';
 
 function PatternItem({ pattern }) {
-  const history = useHistory();
   const dispatch = useDispatch();
   const [toggle, setToggle] = useState(true);
 
-  // const viewDetails = (patternId) => {
-  //   history.push(`/pattern/${patternId}`);
-  // };
-
   const deletePattern = (patternId) => {
-    // console.log('delete button clicked check id', patternId);
     dispatch({ type: 'DELETE_PATTERN', payload: patternId });
     dispatch({ type: 'REMOVE_FAVORITE_PATTERN_INVENTORY', payload: patternId });
     dispatch({ type: 'FETCH_FAVORITE_PATTERNS' });
   };
-
-  // const editDetails = (patternId) => {
-  //   console.log('edit button clicked check id', patternId);
-  //   history.push(`/edit-pattern/${patternId}`);
-  // };
 
   const toggleCard = (patternId) => {
     setToggle(!toggle);
   };
 
   const markFavorite = () => {
-    // console.log('markFavorite clicked');
-    // console.log('check patternId', pattern.id);
     if (pattern.isFavorite === false) {
       dispatch({ type: 'FAVORITE_PATTERN_INVENTORY', payload: pattern.id });
     } else if (pattern.isFavorite === true) {
@@ -148,21 +133,6 @@ function PatternItem({ pattern }) {
               <img src={imageClean(pattern)} loading='lazy' alt='' />
             </AspectRatio>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              {/* <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Some text
-                  </Link>
-                </Typography>
-                <Typography level='body-sm'>Some text</Typography>
-              </div> */}
               <Button
                 sx={{ ml: 'auto' }}
                 style={{ backgroundColor: 'darkslategray' }}
@@ -280,9 +250,6 @@ function PatternItem({ pattern }) {
               <IconButton onClick={() => toggleCard(pattern.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>
-              {/* <IconButton onClick={() => editDetails(pattern.id)}>
-                <EditIcon />
-              </IconButton> */}
               <IconButton onClick={() => deletePattern(pattern.id)}>
                 <DeleteForeverRoundedIcon />
               </IconButton>

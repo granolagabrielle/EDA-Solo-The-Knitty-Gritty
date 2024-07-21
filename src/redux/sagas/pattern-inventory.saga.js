@@ -16,7 +16,6 @@ function* fetchFavoritePatterns() {
   try {
     const response = yield axios.get('/api/patterns/favorites');
     yield put({ type: 'SET_FAVORITE_PATTERNS', payload: response.data });
-    console.log('check fetch fav patterns', response);
   } catch (error) {
     console.log('fetch fav patterns error', error);
   }
@@ -25,9 +24,7 @@ function* fetchFavoritePatterns() {
 // saga to mark as favorite in details page
 function* favoritePattern(action) {
   try {
-    console.log('check favoritePattern action', action.payload.patternId);
     const response = yield axios.put(`/api/patterns/favorite-pattern/${action.payload.patternId}`);
-    console.log('check favoritePattern response', response);
     yield put({ type: 'MARK_PATTERN_AS_FAVORITE' });
     yield put({ type: 'FETCH_PATTERN_DETAILS', payload: action.payload.patternId });
   } catch (error) {
@@ -38,7 +35,6 @@ function* favoritePattern(action) {
 // saga to remove pattern from favorites in details page
 function* removeFavoritePattern(action) {
   try {
-    console.log('check removeFavoritePattern action', action.payload.patternId);
     const response = yield axios.put(`/api/patterns/unfavorite-pattern/${action.payload.patternId}`);
     console.log('check removeFavoritePattern response', response);
     yield put({ type: 'MARK_PATTERN_AS_NOT_FAVORITE' });
@@ -63,7 +59,6 @@ function* favoritePatternInventory(action) {
 // saga to remove as favorite in inventory view
 function* removeFavoritePatternInventory(action) {
   try {
-    console.log('check removeFavoritePatternInventory action', action.payload);
     const response = yield axios.put(`/api/patterns/remove-inventory-fav`, { id: action.payload });
     console.log('check fav pattern response', response);
     yield put({ type: 'FETCH_PATTERNS' });
@@ -77,7 +72,6 @@ function* fetchPatternDetails(action) {
   try {
     const response = yield axios.get(`/api/patterns/${action.payload}`);
     yield put({ type: 'SET_PATTERN_DETAILS', payload: response.data[0] ?? {} });
-    console.log(response.data[0]);
   } catch (error) {
     console.log('fetchPatternDetails error', error);
   }
@@ -86,7 +80,6 @@ function* fetchPatternDetails(action) {
 // saga to add pattern
 function* addPattern(action) {
   try {
-    console.log('checking addPattern action.payload', action.payload);
     yield axios.post('/api/patterns', action.payload);
     yield put({ type: 'FETCH_PATTERNS' });
   } catch (error) {

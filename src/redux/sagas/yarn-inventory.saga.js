@@ -6,7 +6,6 @@ function* fetchAllYarns() {
   try {
     const yarnsResponse = yield axios.get('/api/yarn');
     yield put({ type: 'SET_YARNS', payload: yarnsResponse.data });
-    console.log('checking fetchyarns', yarnsResponse.data);
   } catch (error) {
     console.log('fetchAllYarns error', error);
   }
@@ -17,7 +16,6 @@ function* fetchFavoriteYarns() {
   try {
     const response = yield axios.get('/api/yarn/favorites');
     yield put({ type: 'SET_FAVORITE_YARNS', payload: response.data });
-    console.log('check fetch fav yarns', response);
   } catch (error) {
     console.log('fetch fav yarns error', error);
   }
@@ -26,9 +24,7 @@ function* fetchFavoriteYarns() {
 // saga to mark as favorite in details page
 function* favoriteYarn(action) {
   try {
-    console.log('check favoriteYarn action', action.payload.yarnId);
     const response = yield axios.put(`/api/yarn/favorite-yarn/${action.payload.yarnId}`);
-    console.log('check fav yarn response', response);
     yield put({ type: 'MARK_YARN_AS_FAVORITE' });
     yield put({ type: 'FETCH_YARN_DETAILS', payload: action.payload.yarnId });
   } catch (error) {
@@ -39,9 +35,7 @@ function* favoriteYarn(action) {
 // saga to remove yarn from favorites in details page
 function* removeFavoriteYarn(action) {
   try {
-    console.log('check removeFavoriteYarn action', action.payload.yarnId);
     const response = yield axios.put(`/api/yarn/unfavorite-yarn/${action.payload.yarnId}`);
-    console.log('check removeFavoriteYarn response', response);
     yield put({ type: 'MARK_YARN_AS_NOT_FAVORITE' });
     yield put({ type: 'FETCH_YARN_DETAILS', payload: action.payload.yarnId });
   } catch (error) {
@@ -52,7 +46,6 @@ function* removeFavoriteYarn(action) {
 // saga to mark as favorite in inventory view
 function* favoriteYarnInventory(action) {
   try {
-    console.log('check favoriteYarnInventory action', action.payload);
     const response = yield axios.put(`/api/yarn/inventory-fav`, { id: action.payload });
     console.log('check fav yarn response', response);
     // yield put({ type: 'MARK_YARN_AS_FAVORITE' });

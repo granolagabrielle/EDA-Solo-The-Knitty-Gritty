@@ -13,7 +13,6 @@ function ProjectItem({ project }) {
   const history = useHistory();
 
   const viewDetails = (projectId) => {
-    console.log('view details clicked check id', projectId);
     history.push(`/projects/${projectId}`);
   };
 

@@ -19,22 +19,12 @@ function AddProject() {
   let [newProject, setNewProject] = useState({
     pattern_id: '',
     date_started: '',
-    // notes: '',
-    // progress: '',
     yarn_id: '',
     user_id: '',
     image: [],
     est_grams_needed: '',
     needle_size: '',
   });
-
-  // else if (event.target.id === 'notes') {
-  //   setNewProject({ ...newProject, notes: event.target.value });
-  // }
-
-  // else if (event.target.id === 'progress') {
-  //   setNewProject({ ...newProject, progress: event.target.value });
-  // }
 
   const handleNewProject = (event) => {
     if (event.target.id === 'pattern_id') {
@@ -58,7 +48,7 @@ function AddProject() {
     event.preventDefault();
     dispatch({ type: 'ADD_PROJECT', payload: newProject });
     dispatch({ type: 'FETCH_PROJECTS' });
-    // history.push('/projects');
+    history.push('/projects');
   };
 
   const cancel = () => {
@@ -71,10 +61,10 @@ function AddProject() {
         .createUploadWidget(
           {
             sources: ['local', 'url', 'camera'],
-            // cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-            cloudName: 'dhh2vptsp',
-            // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
-            uploadPreset: 'cvg0hnyy',
+            cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            // cloudName: 'dhh2vptsp',
+            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            // uploadPreset: 'cvg0hnyy',
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {

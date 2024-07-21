@@ -7,6 +7,8 @@ import { useScript } from '../../hooks/useScript';
 import './AddYarnForm.css';
 
 function AddYarn() {
+  console.log('Cloudinary Name:', process.env.REACT_APP_CLOUDINARY_NAME);
+  console.log('Upload Preset:', process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET);
   const history = useHistory();
   const dispatch = useDispatch();
   const fibers = useSelector((store) => store.fiber);
@@ -59,7 +61,7 @@ function AddYarn() {
     event.preventDefault();
     dispatch({ type: 'ADD_YARN', payload: newYarn });
     dispatch({ type: 'FETCH_YARNS' });
-    // history.push('/yarn');
+    history.push('/yarn');
   };
 
   const cancel = () => {
@@ -72,10 +74,10 @@ function AddYarn() {
         .createUploadWidget(
           {
             sources: ['local', 'url', 'camera'],
-            // cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-            cloudName: 'dhh2vptsp',
-            // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
-            uploadPreset: 'cvg0hnyy',
+            cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            // cloudName: 'dhh2vptsp',
+            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            // uploadPreset: 'cvg0hnyy',
             multiple: 'true',
           },
           (error, result) => {

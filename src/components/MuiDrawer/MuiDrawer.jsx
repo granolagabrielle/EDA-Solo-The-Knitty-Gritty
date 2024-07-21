@@ -20,13 +20,10 @@ import InventoryIcon from '@mui/icons-material/Inventory';
 import AddToPhotosRoundedIcon from '@mui/icons-material/AddToPhotosRounded';
 import ChecklistRoundedIcon from '@mui/icons-material/ChecklistRounded';
 import GestureRoundedIcon from '@mui/icons-material/GestureRounded';
-import SettingsApplicationsIcon from '@mui/icons-material/SettingsApplications';
 import BungalowRoundedIcon from '@mui/icons-material/BungalowRounded';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-
-// import './MuiDrawer.css';
 
 const drawerWidth = 240;
 

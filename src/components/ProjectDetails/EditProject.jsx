@@ -22,15 +22,6 @@ function EditProject() {
     <div>
       <h1>Edit {projectDetails?.pattern_title}</h1>
       <form onSubmit={handleSubmit}>
-        {/* <label>
-          Notes:
-          <input
-            id='project-notes'
-            type='text'
-            value={projectDetails?.notes}
-            onChange={(event) => dispatch({ type: 'EDIT_PROJECT_DETAILS', payload: { notes: event.target.value } })}
-          />
-        </label> */}
         <label>
           Grams knit:
           <input

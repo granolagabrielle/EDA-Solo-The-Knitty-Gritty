@@ -16,7 +16,6 @@ function* fetchProjectDetails(action) {
   try {
     //first clear
     yield put({ type: 'CLEAR_PROJECT_DETAILS' });
-    console.log('in fetchprojectdetails saga, check action.payload', action.payload);
     const response = yield axios.get(`/api/projects/${action.payload}`);
     yield put({ type: 'SET_PROJECT_DETAILS', payload: response.data[0] ?? {} });
     console.log(response.data[0]);

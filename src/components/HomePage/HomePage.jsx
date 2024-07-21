@@ -6,9 +6,7 @@ import YarnItem from '../YarnItem/YarnItem';
 import PatternItem from '../PatternItem/PatternItem';
 import { IconButton } from '@mui/material';
 import ArrowForwardIosRoundedIcon from '@mui/icons-material/ArrowForwardIosRounded';
-import ArrowBackIosRoundedIcon from '@mui/icons-material/ArrowBackIosRounded';
 import './HomePage.css';
-import Box from '@mui/joy/Box';
 
 function HomePage() {
   const yarns = useSelector((store) => store.yarns.yarnFavorites);
@@ -20,7 +18,6 @@ function HomePage() {
   const currentYarns = yarns.slice(currentYarnIndex, currentYarnIndex + yarnPerPage);
 
   const nextYarns = () => {
-    console.log('next button');
     if (currentYarnIndex + yarnPerPage >= yarns.length) {
       setCurrentYarnIndex(0);
     } else {
@@ -33,7 +30,6 @@ function HomePage() {
   const currentPatterns = patterns.slice(currentPatternIndex, currentPatternIndex + patternsPerPage);
 
   const nextPatterns = () => {
-    console.log('next button');
     if (currentPatternIndex + patternsPerPage >= patterns.length) {
       setCurrentPatternIndex(0);
     } else {

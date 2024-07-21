@@ -6,7 +6,6 @@ function* fetchBrands() {
   try {
     const brandResponse = yield axios.get('/api/brands');
     yield put({ type: 'SET_BRANDS', payload: brandResponse.data });
-    console.log('check brandResponse', brandResponse);
   } catch (error) {
     console.log('fetch brands error', error);
   }

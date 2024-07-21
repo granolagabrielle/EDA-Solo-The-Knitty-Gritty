@@ -6,7 +6,6 @@ function* fetchWeights() {
   try {
     const weightsResponse = yield axios.get('/api/weights');
     yield put({ type: 'SET_WEIGHTS', payload: weightsResponse.data });
-    console.log('check weightsResponse', weightsResponse);
   } catch (error) {
     console.log('fetch weights error', error);
   }

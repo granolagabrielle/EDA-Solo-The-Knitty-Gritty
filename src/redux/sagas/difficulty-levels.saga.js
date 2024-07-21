@@ -6,7 +6,6 @@ function* fetchDifficultyLevels() {
   try {
     const difficultyLevelsResponse = yield axios.get('/api/difficulty');
     yield put({ type: 'SET_DIFFICULTYS', payload: difficultyLevelsResponse.data });
-    console.log('check difficultyLevelsResponse', difficultyLevelsResponse);
   } catch (error) {
     console.log('fetch difficulty levels error', error);
   }

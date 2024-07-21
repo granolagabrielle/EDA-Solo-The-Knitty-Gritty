@@ -50,11 +50,6 @@ function PatternInventory() {
                 }}
               />
             )}
-            // onChange={(event, value) => {
-            //   if (value) {
-            //     history.push(`/pattern/${value.id}`);
-            //   }
-            // }}
           />
         </Stack>
       </Box>

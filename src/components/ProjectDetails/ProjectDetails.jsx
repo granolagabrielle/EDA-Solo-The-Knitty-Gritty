@@ -13,7 +13,6 @@ import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
-import FormControl from '@mui/joy/FormControl';
 import Input from '@mui/joy/Input';
 
 // joy notes
@@ -28,8 +27,6 @@ function ProjectDetails() {
   const params = useParams();
   const projectDetails = useSelector((store) => store.projects.projectDetails);
   const projectNotes = useSelector((store) => store.notes);
-  console.log('check projectDetails', projectDetails);
-  console.log('check projectNotes', projectNotes);
 
   useEffect(() => {
     dispatch({ type: 'FETCH_PROJECT_DETAILS', payload: params.id });
@@ -41,7 +38,6 @@ function ProjectDetails() {
   const [grams, setGrams] = useState(projectDetails?.grams_knit);
 
   const editGrams = () => {
-    console.log('edit grams button clicked');
     setGramsToggle(!gramsToggle);
   };
 
@@ -60,7 +56,6 @@ function ProjectDetails() {
       payload: { projectId: projectDetails.id, details: copyProjectDetails },
     });
     setGramsToggle(!gramsToggle);
-    // history.push(`/projects/${projectId}`);
   };
 
   const deleteProject = () => {

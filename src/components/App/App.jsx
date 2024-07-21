@@ -45,16 +45,7 @@ function App() {
         <Switch>
           {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
           <Redirect exact from='/' to='/home' />
-          {/* Visiting localhost:5173/about will show the about page. */}
-          {/* <Route */}
-          // shows AboutPage at all times (logged in or not) exact path='/about'
-          {/* >
-            <AboutPage />
-          </Route> */}
-          {/* For protected routes, the view could show one of several things on the same route.
-            Visiting localhost:5173/user will show the UserPage if the user is logged in.
-            If the user is not logged in, the ProtectedRoute will show the LoginPage (component).
-            Even though it seems like they are different pages, the user is always on localhost:5173/user */}
+          
           <ProtectedRoute
             // logged in shows UserPage else shows LoginPage
             exact
@@ -97,20 +88,7 @@ function App() {
           >
             <YarnDetails />
           </ProtectedRoute>
-          {/* <ProtectedRoute */}
-          // logged in shows InfoPage else shows LoginPage
-          {/* exact
-            path='/pattern/:id'
-          >
-            <PatternDetails />
-          </ProtectedRoute> */}
-          {/* <ProtectedRoute */}
-          // logged in shows InfoPage else shows LoginPage
-          {/* exact
-            path='/edit-pattern/:id'
-          >
-            <EditPattern />
-          </ProtectedRoute> */}
+         
           <ProtectedRoute
             // logged in shows InfoPage else shows LoginPage
             exact
