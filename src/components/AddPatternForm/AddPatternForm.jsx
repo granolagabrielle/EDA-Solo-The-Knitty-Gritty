@@ -69,10 +69,10 @@ function AddPattern() {
         .createUploadWidget(
           {
             sources: ['local', 'url', 'camera'],
-            cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
-            // cloudName: 'dhh2vptsp',
-            uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
-            // uploadPreset: 'cvg0hnyy',
+            // cloudName: process.env.REACT_APP_CLOUDINARY_NAME,
+            cloudName: 'dhh2vptsp',
+            // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
+            uploadPreset: 'cvg0hnyy',
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {

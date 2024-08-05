@@ -11,6 +11,7 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { useState } from 'react';
+import Lightbox from '../AdobeLightbox/Lightbox';
 
 function PatternItem({ pattern }) {
   const dispatch = useDispatch();
@@ -37,41 +38,28 @@ function PatternItem({ pattern }) {
   };
 
   const imageClean = (images) => {
-    // console.log('Images', images.image);
     let myMultipleImagesArray = [];
     if (images?.image?.includes('[')) {
-      // console.log('Yes, it does!!!!');
       let imageArray = images?.image?.substring(2, images?.image?.length - 2).split(',');
-      // console.log('Image Array', imageArray);
-
       if (imageArray.length >= 2) {
-        // console.log(' More than 2 images...');
         for (let i = 0; i < imageArray.length; i++) {
           let img = imageArray[i];
           if (i === 0) {
-            // console.log('IMAGE 1', img);
             myMultipleImagesArray.push(img.substring(0, img.length - 1));
           } else if (i === imageArray.length - 1) {
-            // console.log('IMAGE LAST...', img);
             myMultipleImagesArray.push(img.substring(1));
           } else {
-            // console.log('IMAGE IN BETWEEN...', img);
             myMultipleImagesArray.push(img.substring(1, img.length - 1));
           }
         }
       } else if (imageArray.length === 1) {
         let image1 = imageArray[0];
-        // console.log('handle one image new way', image1);
         myMultipleImagesArray.push(image1);
       } else {
-        // console.log('Something else needs handling...');
       }
     } else {
-      // console.log('No, just one image');
       myMultipleImagesArray.push(images?.image);
     }
-
-    // console.log('My Multi Images', myMultipleImagesArray);
     return myMultipleImagesArray[0];
   };
 
@@ -247,6 +235,7 @@ function PatternItem({ pattern }) {
               <br></br>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Lightbox />
               <IconButton onClick={() => toggleCard(pattern.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>
