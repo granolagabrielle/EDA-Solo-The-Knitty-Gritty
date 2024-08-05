@@ -19,6 +19,8 @@ function AddYarn() {
     dispatch({ type: 'FETCH_WEIGHTS' });
   }, []);
 
+  // const [image, setImage] = useState({});
+
   let [newYarn, setNewYarn] = useState({
     brand: '',
     yarn_title: '',
@@ -28,7 +30,7 @@ function AddYarn() {
     dye_lot: '',
     user_id: '',
     notes: '',
-    image: [],
+    image: '',
     location: '',
   });
 
@@ -57,6 +59,7 @@ function AddYarn() {
 
   const addYarn = (event) => {
     event.preventDefault();
+    console.log('check new yarn', newYarn);
     dispatch({ type: 'ADD_YARN', payload: newYarn });
     dispatch({ type: 'FETCH_YARNS' });
     history.push('/yarn');
@@ -81,16 +84,13 @@ function AddYarn() {
           (error, result) => {
             if (!error && result && result.event === 'success') {
               console.log('check url', result.info.secure_url);
-              // setImages((previousImg) => [...previousImg, result.info.secure_url]);
-              let myYarnCopy = { ...newYarn };
-              myYarnCopy.image.push(result.info.secure_url);
-              setNewYarn(myYarnCopy);
-              // console.log('check setImages', setImages);
+              // setImage((previousImg) => [...previousImg, result.info.secure_url]);
+              // console.log('check setImages', setImage);
+              setNewYarn({
+                ...newYarn,
+                image: result.info.secure_url,
+              });
             }
-            // setNewYarn({
-            //   ...newYarn,
-            //   image: images,
-            // });
           }
         )
         .open();

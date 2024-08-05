@@ -11,7 +11,7 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { useState } from 'react';
-import Lightbox from '../AdobeLightbox/Lightbox';
+// import Lightbox from '../AdobeLightbox/Lightbox';
 
 function PatternItem({ pattern }) {
   const dispatch = useDispatch();
@@ -235,7 +235,7 @@ function PatternItem({ pattern }) {
               <br></br>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Lightbox />
+              {/* <Lightbox /> */}
               <IconButton onClick={() => toggleCard(pattern.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>

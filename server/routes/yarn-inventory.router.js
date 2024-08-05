@@ -5,7 +5,7 @@ const router = express.Router();
 
 // get yarn inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -27,7 +27,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite yarns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -181,8 +181,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
   console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
-  ("brand", "yarn_title", "fiber", "weight", "total_grams", "dye_lot", "user_id", "notes", "image", "location") 
-  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
+  ("brand", "yarn_title", "fiber", "weight", "total_grams", "dye_lot", "user_id", "notes", "location") 
+  VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+  RETURNING id;`;
   pool
     .query(queryText, [
       req.body.brand,
@@ -193,11 +194,19 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       req.body.dye_lot,
       req.user.id,
       req.body.notes,
-      JSON.stringify(req.body.image),
       req.body.location,
     ])
     .then((result) => {
-      res.send(result.rows[0]);
+      // res.send(result.rows[0]);
+      const newYarnId = result.rows[0].id;
+      const imgQuery = `
+      INSERT INTO "yarn_uploads"
+      ("yarn_id", "file_url")
+      VALUES ($1, $2);`;
+      pool.query(imgQuery, [newYarnId, req.body.image]).then((result) => {
+        console.log('successfully added image url');
+        res.sendStatus(201);
+      });
     })
     .catch((error) => {
       console.log(error);
