@@ -19,7 +19,7 @@ function AddYarn() {
     dispatch({ type: 'FETCH_WEIGHTS' });
   }, []);
 
-  // const [image, setImage] = useState({});
+  const [images, setImages] = useState([]);
 
   let [newYarn, setNewYarn] = useState({
     brand: '',
@@ -30,7 +30,7 @@ function AddYarn() {
     dye_lot: '',
     user_id: '',
     notes: '',
-    image: '',
+    image: [],
     location: '',
   });
 
@@ -84,19 +84,16 @@ function AddYarn() {
           (error, result) => {
             if (!error && result && result.event === 'success') {
               console.log('check url', result.info.secure_url);
-              // setImage((previousImg) => [...previousImg, result.info.secure_url]);
-              // console.log('check setImages', setImage);
-              setNewYarn({
-                ...newYarn,
-                image: result.info.secure_url,
-              });
+              setImages((previousImg) => [...previousImg, result.info.secure_url]);
+              setNewYarn((prevYarn) => ({
+                ...prevYarn,
+                image: [...prevYarn.image, result.info.secure_url],
+              }));
             }
           }
         )
         .open();
   };
-
-  // console.log('check images', images);
 
   return (
     <>

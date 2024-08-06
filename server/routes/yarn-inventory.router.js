@@ -5,7 +5,7 @@ const router = express.Router();
 
 // get yarn inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes", "yarn_uploads"."file_url"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -13,6 +13,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   ON "brands"."id"="yarn_inventory"."brand"
   JOIN "weights"
   ON "weights"."id"="yarn_inventory"."weight"
+  JOIN "yarn_uploads"
+  ON "yarn_uploads"."yarn_id"="yarn_inventory"."id"
   WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isdeleted"=FALSE
   ORDER BY "id" ASC
 ;`;
@@ -27,7 +29,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite yarns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isdeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_inventory"."notes", "yarn_uploads"."file_url"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -35,6 +37,8 @@ router.get('/favorites', (req, res) => {
   ON "brands"."id"="yarn_inventory"."brand"
   JOIN "weights"
   ON "weights"."id"="yarn_inventory"."weight"
+  JOIN "yarn_uploads"
+  ON "yarn_uploads"."yarn_id"="yarn_inventory"."id"
   WHERE "yarn_inventory"."user_id"=$1 AND "yarn_inventory"."isFavorite"=TRUE
   ORDER BY "id" ASC;
 ;`;
@@ -123,10 +127,10 @@ router.put('/remove-inventory-fav', (req, res) => {
 
 // get yarn details for specific user -- pass in id of yarn that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-  console.log('in yarn deets GET, check req.params.id', req.params.id);
-  console.log('in yarn deets GET, check req.user.id', req.user.id);
+  // console.log('in yarn deets GET, check req.params.id', req.params.id);
+  // console.log('in yarn deets GET, check req.user.id', req.user.id);
   const queryText = `
-  SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."image", "yarn_inventory"."notes", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
+  SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."notes", "yarn_inventory"."isFavorite", "yarn_inventory"."location", "yarn_uploads"."file_url"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -134,6 +138,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
   ON "brands"."id"="yarn_inventory"."brand"
   JOIN "weights"
   ON "weights"."id"="yarn_inventory"."weight"
+  JOIN "yarn_uploads"
+  ON "yarn_uploads"."yarn_id"="yarn_inventory"."id"
   WHERE "yarn_inventory"."id"=$1 AND "yarn_inventory"."user_id"=$2
 ;
   `;
