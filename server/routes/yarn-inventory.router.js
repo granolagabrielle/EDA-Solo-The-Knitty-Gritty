@@ -210,7 +210,7 @@ router.post('/', rejectUnauthenticated, (req, res) => {
       ("yarn_id", "file_url")
       VALUES ($1, $2);`;
       pool.query(imgQuery, [newYarnId, req.body.image]).then((result) => {
-        console.log('successfully added image url');
+        // console.log('successfully added image url');
         res.sendStatus(201);
       });
     })

@@ -2,7 +2,6 @@ import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import * as React from 'react';
 import { useState } from 'react';
-// joy
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
@@ -44,37 +43,6 @@ function YarnItem({ yarn, home }) {
       dispatch({ type: 'FETCH_YARNS' });
     }
     return yarn.isFavorite;
-  };
-
-  const imageClean = (images) => {
-    // console.log('Images', images.image);
-    let myMultipleImagesArray = [];
-    if (images?.image?.includes('[')) {
-      let imageArray = images?.image?.substring(2, images?.image?.length - 2).split(',');
-      // console.log('Image Array', imageArray);
-
-      if (imageArray.length >= 2) {
-        for (let i = 0; i < imageArray.length; i++) {
-          let img = imageArray[i];
-          if (i === 0) {
-            myMultipleImagesArray.push(img.substring(0, img.length - 1));
-          } else if (i === imageArray.length - 1) {
-            myMultipleImagesArray.push(img.substring(1));
-          } else {
-            myMultipleImagesArray.push(img.substring(1, img.length - 1));
-          }
-        }
-      } else if (imageArray.length === 1) {
-        let image1 = imageArray[0];
-        myMultipleImagesArray.push(image1);
-      } else {
-        console.log('Something else needs handling...');
-      }
-    } else {
-      myMultipleImagesArray.push(images?.image);
-    }
-
-    return myMultipleImagesArray[0];
   };
 
   return (
@@ -132,7 +100,7 @@ function YarnItem({ yarn, home }) {
                 height: 'auto',
               }}
             >
-              <img src={imageClean(yarn)} loading='lazy' alt='' />
+              <img src={yarn.file_url} alt='' />
             </AspectRatio>
 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
