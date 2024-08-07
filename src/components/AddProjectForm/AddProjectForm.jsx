@@ -16,6 +16,8 @@ function AddProject() {
     dispatch({ type: 'FETCH_PATTERNS' });
   }, []);
 
+  const [images, setImages] = useState([]);
+
   let [newProject, setNewProject] = useState({
     pattern_id: '',
     date_started: '',
@@ -65,22 +67,22 @@ function AddProject() {
             cloudName: 'dhh2vptsp',
             // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
             uploadPreset: 'cvg0hnyy',
+            multiple: 'true',
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {
-              // setNewProject({
-              //   ...newProject,
-              //   image: result.info.secure_url,
-              // });
-              console.log('check url', result.info.secure_url);
-              let myProjectCopy = { ...newProject };
-              myProjectCopy.image.push(result.info.secure_url);
-              setNewProject(myProjectCopy);
+              setImages((previousImg) => [...previousImg, result.info.secure_url]);
+              setNewProject((prevProject) => ({
+                ...prevProject,
+                image: [...prevProject.image, result.info.secure_url],
+              }));
             }
           }
         )
         .open();
   };
+
+  console.log('check images', images);
 
   return (
     <>
