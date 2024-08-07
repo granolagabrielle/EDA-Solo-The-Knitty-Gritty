@@ -49,8 +49,7 @@ CREATE TABLE "yarn_inventory" (
 	"skein_grams" INT,
 	"dye_lot" VARCHAR (100),
 	"user_id" INT REFERENCES "user" ("id"),
-	"notes" VARCHAR,
-    "image" VARCHAR
+	"notes" VARCHAR
 );
 
 CREATE TABLE "pattern_inventory" (
@@ -61,8 +60,7 @@ CREATE TABLE "pattern_inventory" (
 	"difficulty_level" INT REFERENCES "difficulty" ("id"),
 	"yarn_weight" INT REFERENCES "weights" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
-	"notes" VARCHAR,
-    "image" VARCHAR
+	"notes" VARCHAR
 );
 
 CREATE TABLE "project_tracking" (
@@ -72,9 +70,26 @@ CREATE TABLE "project_tracking" (
 	"notes" VARCHAR,
 	"progress" INT,
 	"yarn_id" INT REFERENCES "yarn_inventory" ("id"),
-	"user_id" INT REFERENCES "user" ("id"),
-    "image" VARCHAR
+	"user_id" INT REFERENCES "user" ("id")
 );
+
+CREATE TABLE "yarn_uploads" (
+    "id" SERIAL PRIMARY KEY,
+    "yarn_id" INT REFERENCES "yarn_inventory",
+    "file_url" VARCHAR(250) NOT NULL
+    );
+    
+    CREATE TABLE "pattern_uploads" (
+    "id" SERIAL PRIMARY KEY,
+    "pattern_id" INT REFERENCES "pattern_inventory",
+    "file_url" VARCHAR(250) NOT NULL
+    );
+
+    CREATE TABLE "project_uploads" (
+    "id" SERIAL PRIMARY KEY,
+    "project_id" INT REFERENCES "project_tracking",
+    "file_url" VARCHAR(250) NOT NULL
+    );
 
 -- Seed Data
 

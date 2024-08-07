@@ -37,31 +37,31 @@ function PatternItem({ pattern }) {
     return pattern.isFavorite;
   };
 
-  const imageClean = (images) => {
-    let myMultipleImagesArray = [];
-    if (images?.image?.includes('[')) {
-      let imageArray = images?.image?.substring(2, images?.image?.length - 2).split(',');
-      if (imageArray.length >= 2) {
-        for (let i = 0; i < imageArray.length; i++) {
-          let img = imageArray[i];
-          if (i === 0) {
-            myMultipleImagesArray.push(img.substring(0, img.length - 1));
-          } else if (i === imageArray.length - 1) {
-            myMultipleImagesArray.push(img.substring(1));
-          } else {
-            myMultipleImagesArray.push(img.substring(1, img.length - 1));
-          }
-        }
-      } else if (imageArray.length === 1) {
-        let image1 = imageArray[0];
-        myMultipleImagesArray.push(image1);
-      } else {
-      }
-    } else {
-      myMultipleImagesArray.push(images?.image);
-    }
-    return myMultipleImagesArray[0];
-  };
+  // const imageClean = (images) => {
+  //   let myMultipleImagesArray = [];
+  //   if (images?.image?.includes('[')) {
+  //     let imageArray = images?.image?.substring(2, images?.image?.length - 2).split(',');
+  //     if (imageArray.length >= 2) {
+  //       for (let i = 0; i < imageArray.length; i++) {
+  //         let img = imageArray[i];
+  //         if (i === 0) {
+  //           myMultipleImagesArray.push(img.substring(0, img.length - 1));
+  //         } else if (i === imageArray.length - 1) {
+  //           myMultipleImagesArray.push(img.substring(1));
+  //         } else {
+  //           myMultipleImagesArray.push(img.substring(1, img.length - 1));
+  //         }
+  //       }
+  //     } else if (imageArray.length === 1) {
+  //       let image1 = imageArray[0];
+  //       myMultipleImagesArray.push(image1);
+  //     } else {
+  //     }
+  //   } else {
+  //     myMultipleImagesArray.push(images?.image);
+  //   }
+  //   return myMultipleImagesArray[0];
+  // };
 
   return (
     <>
@@ -118,7 +118,7 @@ function PatternItem({ pattern }) {
                 height: 'auto',
               }}
             >
-              <img src={imageClean(pattern)} loading='lazy' alt='' />
+              <img src={pattern.file_url} alt='' />
             </AspectRatio>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <Button

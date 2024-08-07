@@ -20,6 +20,8 @@ function AddPattern() {
     dispatch({ type: 'FETCH_WEIGHTS' });
   }, []);
 
+  const [images, setImages] = useState([]);
+
   let [newPattern, setNewPattern] = useState({
     pattern_title: '',
     designer_name: '',
@@ -73,22 +75,23 @@ function AddPattern() {
             cloudName: 'dhh2vptsp',
             // uploadPreset: process.env.REACT_APP_CLOUDINARY_UPLOAD_PRESET,
             uploadPreset: 'cvg0hnyy',
+            multiple: 'true',
           },
           (error, result) => {
             if (!error && result && result.event === 'success') {
               console.log('check url', result.info.secure_url);
-              // setNewPattern({
-              //   ...newPattern,
-              //   image: result.info.secure_url,
-              // });
-              let myPatterncopy = { ...newPattern };
-              myPatterncopy.image.push(result.info.secure_url);
-              setNewPattern(myPatterncopy);
+              setImages((previousImg) => [...previousImg, result.info.secure_url]);
+              setNewPattern((prevPattern) => ({
+                ...prevPattern,
+                image: [...prevPattern.image, result.info.secure_url],
+              }));
             }
           }
         )
         .open();
   };
+
+  console.log('check images', images);
 
   return (
     <>

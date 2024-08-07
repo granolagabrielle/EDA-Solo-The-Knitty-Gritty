@@ -6,7 +6,7 @@ const router = express.Router();
 // get pattern inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite", "pattern_uploads"."file_url"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -16,6 +16,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
+    JOIN "pattern_uploads"
+  ON "pattern_uploads"."pattern_id"="pattern_inventory"."id"
     WHERE "user_id"=$1 AND "pattern_inventory"."isdeleted"=FALSE;`;
   pool
     .query(queryText, [req.user.id])
@@ -29,7 +31,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 // get favorite patterns for specific user
 router.get('/favorites', (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite", "pattern_uploads"."file_url"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -39,6 +41,8 @@ router.get('/favorites', (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
+    JOIN "pattern_uploads"
+  ON "pattern_uploads"."pattern_id"="pattern_inventory"."id"
   WHERE "pattern_inventory"."user_id"=$1 AND "pattern_inventory"."isFavorite"=TRUE;
 ;`;
   pool
@@ -128,7 +132,7 @@ router.put('/remove-inventory-fav', (req, res) => {
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
     SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isFavorite"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."isFavorite", "pattern_uploads"."file_url"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -138,6 +142,8 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
+    JOIN "pattern_uploads"
+  ON "pattern_uploads"."pattern_id"="pattern_inventory"."id"
     WHERE "pattern_inventory"."id"=$1 AND "user_id"=$2;
     `;
   pool
@@ -155,8 +161,9 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', (req, res) => {
   console.log('in pattern post,check req.body', req.body);
   const queryText = `INSERT INTO "pattern_inventory" 
-    ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "image") 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes") 
+    VALUES ($1, $2, $3, $4, $5, $6, $7)
+    RETURNING id;`;
   pool
     .query(queryText, [
       req.body.pattern_title,
@@ -166,10 +173,18 @@ router.post('/', (req, res) => {
       req.body.yarn_weight,
       req.user.id,
       req.body.notes,
-      JSON.stringify(req.body.image),
     ])
     .then((result) => {
-      res.send(result.rows[0]);
+      // res.send(result.rows[0]);
+      console.log('check result.rows', result.rows[0].id);
+      const newPatternId = result.rows[0].id;
+      const imgQuery = `
+      INSERT INTO "pattern_uploads"
+      ("pattern_id", "file_url")
+      VALUES ($1, $2);`;
+      pool.query(imgQuery, [newPatternId, req.body.image]).then((result) => {
+        res.sendStatus(201);
+      });
     })
     .catch((error) => {
       console.log(error);
