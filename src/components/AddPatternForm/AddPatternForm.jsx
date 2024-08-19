@@ -91,8 +91,6 @@ function AddPattern() {
         .open();
   };
 
-  console.log('check images', images);
-
   return (
     <>
       <h1 className='header'>Add Pattern</h1>
