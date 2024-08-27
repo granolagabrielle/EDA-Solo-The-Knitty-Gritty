@@ -11,7 +11,6 @@ import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import DeleteForeverRoundedIcon from '@mui/icons-material/DeleteForeverRounded';
 import { useState } from 'react';
-import Lightbox from '../AdobeLightbox/Lightbox';
 
 function PatternItem({ pattern }) {
   const dispatch = useDispatch();
