@@ -3,7 +3,7 @@ const { rejectUnauthenticated } = require('../modules/authentication-middleware'
 const pool = require('../modules/pool');
 const router = express.Router();
 
-// get designer names for dropdown list
+// get all brands for dropdown list
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT * FROM "brands";`;
   pool

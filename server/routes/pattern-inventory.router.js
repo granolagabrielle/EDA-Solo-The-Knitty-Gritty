@@ -5,7 +5,7 @@ const router = express.Router();
 
 // get pattern inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
+  const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."title", "designer_names"."name", "pattern_types"."type", 
     "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
     FROM "pattern_inventory"
     JOIN "designer_names"
@@ -16,7 +16,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
-    WHERE "user_id"=$1 AND "pattern_inventory"."isdeleted"=FALSE;`;
+    WHERE "user_id"=$1 AND "pattern_inventory"."isDeleted"=FALSE;`;
   pool
     .query(queryText, [req.user.id])
     .then((result) => res.send(result.rows))

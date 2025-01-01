@@ -51,3 +51,8 @@ Thanks to Emerging Digital Academy, who equipped and helped me to make this appl
 
 ## Support
 If you have suggestions or issues, please email me at granolagabrielle@gmail.com
+
+## Upcoming Features
+[] Time tracking for projects
+[] Cost tracking for yarn and projects
+[] Community component (user profiles, feed, etc.)
