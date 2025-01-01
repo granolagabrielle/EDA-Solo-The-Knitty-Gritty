@@ -14,7 +14,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
   ON "yarn_inventory"."id"="project_tracking"."yarn_id"
   JOIN "brands"
   ON "brands"."id"="yarn_inventory"."brand"
-  WHERE "project_tracking"."user_id"=1 AND "project_tracking"."isDeleted"=FALSE;`;
+  WHERE "project_tracking"."user_id"=$1 AND "project_tracking"."isDeleted"=FALSE;`;
   // "project_tracking"."progress",
   pool
     .query(queryText, [req.user.id])
@@ -25,12 +25,11 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// LEFT OFF HERE
 // get project details for specific pattern of user -- pass in id of pattern that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-      SELECT "project_tracking"."id", "pattern_inventory"."pattern_title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", 
-     "project_tracking"."image", "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size", "project_tracking"."yarn_id"
+       SELECT "project_tracking"."id", "pattern_inventory"."title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."title", 
+      "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size", "project_tracking"."yarn_id"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -59,18 +58,16 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', (req, res) => {
   console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
-      ("pattern_id", "date_started", "yarn_id", "user_id", "image", "est_grams_needed", "needle_size") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7);`;
+      ("pattern_id", "date_started", "est_grams_needed", "grams_knit", "yarn_id", "user_id", "needle_size") 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
   pool
     .query(queryText, [
       req.body.pattern_id,
       req.body.date_started,
-      // req.body.notes,
-      // req.body.progress,
+      req.body.est_grams_needed,
+      req.body.grams_knit,
       req.body.yarn_id,
       req.user.id,
-      JSON.stringify(req.body.image),
-      req.body.est_grams_needed,
       req.body.needle_size,
     ])
     .then((result) => {

@@ -39,14 +39,16 @@ CREATE TABLE "yarn_inventory" (
 	"id" SERIAL PRIMARY KEY,
 	"brand" INT REFERENCES "brands" ("id"),
 	"title" VARCHAR,
-	"skeins" INT,
 	"fiber" INT REFERENCES "fibers" ("id"),
 	"weight" INT REFERENCES "weights" ("id"),
+  	"skeins" INT,
 	"skein_grams" INT,
+  "total_grams" INT,
 	"dye_lot" VARCHAR (100),
 	"user_id" INT REFERENCES "user" ("id"),
   "isFavorite" BOOLEAN DEFAULT FALSE,
   "isDeleted" BOOLEAN DEFAULT FALSE
+  "location" VARCHAR
 );
 
 CREATE TABLE "pattern_inventory" (
@@ -68,7 +70,6 @@ CREATE TABLE "project_tracking" (
 "est_grams_needed" INT,
 "grams_knit" INT,
 "needle_size" INT,
-	"progress" INT,
 	"yarn_id" INT REFERENCES "yarn_inventory" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
   "isFavorite" BOOLEAN DEFAULT FALSE,

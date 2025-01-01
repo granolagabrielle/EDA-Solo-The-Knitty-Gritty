@@ -17,12 +17,12 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // add new yarn brand
 router.post('/', (req, res) => {
-  // console.log('in yarn brand post, check req.body', req.body);
+  console.log('in yarn brand post, check req.body', req.body);
   const queryText = `INSERT INTO "brands" 
   ("name") 
   VALUES ($1);`;
   pool
-    .query(queryText, [req.body.brand_name])
+    .query(queryText, [req.body.name])
     .then((result) => {
       res.send(result.rows[0]);
     })
