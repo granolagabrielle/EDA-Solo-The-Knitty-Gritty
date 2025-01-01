@@ -6,7 +6,7 @@ const router = express.Router();
 // get pattern inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
   const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."isDeleted", "pattern_inventory"."isFavorite"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -28,8 +28,8 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite patterns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isdeleted", "pattern_inventory"."isFavorite"
+  const queryText = `SELECT "pattern_inventory"."id", "pattern_inventory"."title", "designer_names"."name", "pattern_types"."type", 
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."isDeleted", "pattern_inventory"."isFavorite"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -52,6 +52,8 @@ router.get('/favorites', (req, res) => {
       res.sendStatus(500);
     });
 });
+
+// TODO -- why do I have adding/removing favorites for inventory and details pages???
 
 // update pattern as favorite on details page
 router.put('/favorite-pattern/:id', (req, res) => {
@@ -127,8 +129,8 @@ router.put('/remove-inventory-fav', (req, res) => {
 // get pattern details for specific user -- pass in id of pattern that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-    SELECT "pattern_inventory"."id", "pattern_inventory"."pattern_title", "designer_names"."name", "pattern_types"."type", 
-    "difficulty"."level", "weights"."weight", "pattern_inventory"."notes", "pattern_inventory"."image", "pattern_inventory"."isFavorite"
+    SELECT "pattern_inventory"."id", "pattern_inventory"."title", "designer_names"."name", "pattern_types"."type", 
+    "difficulty"."level", "weights"."weight", "pattern_inventory"."isFavorite"
     FROM "pattern_inventory"
     JOIN "designer_names"
     ON "designer_names"."id"="pattern_inventory"."designer_name"
@@ -138,7 +140,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
-    WHERE "pattern_inventory"."id"=$1 AND "user_id"=$2;
+    WHERE "pattern_inventory"."id"=1 AND "user_id"=1;
     `;
   pool
     .query(queryText, [req.params.id, req.user.id])
@@ -155,18 +157,18 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', (req, res) => {
   console.log('in pattern post,check req.body', req.body);
   const queryText = `INSERT INTO "pattern_inventory" 
-    ("pattern_title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id", "notes", "image") 
-    VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+    ("title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id") 
+    VALUES ($1, $2, $3, $4, $5, $6);`;
   pool
     .query(queryText, [
-      req.body.pattern_title,
+      req.body.title,
       req.body.designer_name,
       req.body.pattern_type,
       req.body.difficulty_level,
       req.body.yarn_weight,
       req.user.id,
-      req.body.notes,
-      JSON.stringify(req.body.image),
+      // req.body.notes,
+      // JSON.stringify(req.body.image),
     ])
     .then((result) => {
       res.send(result.rows[0]);
@@ -178,23 +180,23 @@ router.post('/', (req, res) => {
 });
 
 // put to update pattern details
-router.put('/:id', (req, res) => {
+// router.put('/:id', (req, res) => {
   // console.log('in pattern put, check req.body', req.body);
-  const queryText = `
-      UPDATE "pattern_inventory"
-      SET "notes" = $1
-      WHERE "id"=$2 AND "user_id"=$3;`;
-  const values = [req.body.notes, req.params.id, req.user.id];
-  pool
-    .query(queryText, values)
-    .then((result) => {
-      res.sendStatus(201);
-    })
-    .catch((error) => {
-      console.log('error updating project', error);
-      res.sendStatus(500);
-    });
-});
+//   const queryText = `
+//       UPDATE "pattern_inventory"
+//       SET "notes" = $1
+//       WHERE "id"=$2 AND "user_id"=$3;`;
+//   const values = [req.body.notes, req.params.id, req.user.id];
+//   pool
+//     .query(queryText, values)
+//     .then((result) => {
+//       res.sendStatus(201);
+//     })
+//     .catch((error) => {
+//       console.log('error updating project', error);
+//       res.sendStatus(500);
+//     });
+// });
 
 // delete pattern from inventory
 router.delete('/:id', (req, res) => {
@@ -205,7 +207,7 @@ router.delete('/:id', (req, res) => {
     AND "user_id"=$2;
     `;
   pool
-    .query(queryText, [req.params.id, req.user.id]) // $1, $2
+    .query(queryText, [req.params.id, req.user.id])
     .then(() => {
       res.sendStatus(201);
     })

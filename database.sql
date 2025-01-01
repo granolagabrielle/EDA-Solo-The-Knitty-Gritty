@@ -37,7 +37,7 @@ CREATE TABLE "brands" (
 
 CREATE TABLE "yarn_inventory" (
 	"id" SERIAL PRIMARY KEY,
-	"brand" VARCHAR,
+	"brand" INT REFERENCES "brands" ("id"),
 	"title" VARCHAR,
 	"skeins" INT,
 	"fiber" INT REFERENCES "fibers" ("id"),
@@ -65,6 +65,9 @@ CREATE TABLE "project_tracking" (
 	"id" SERIAL PRIMARY KEY,
 	"pattern_id" INT REFERENCES "pattern_inventory" ("id"),
 	"date_started" date,
+"est_grams_needed" INT,
+"grams_knit" INT,
+"needle_size" INT,
 	"progress" INT,
 	"yarn_id" INT REFERENCES "yarn_inventory" ("id"),
 	"user_id" INT REFERENCES "user" ("id"),
@@ -104,7 +107,7 @@ INSERT INTO "weights" ("weight") VALUES ('Lace'), ('Sock'), ('Sport'), ('Double 
 
 INSERT INTO "yarn_inventory" ("brand", "title", "skeins", "fiber", "weight", "skein_grams", "dye_lot", "user_id") VALUES (1, 'test title', 1, 1, 1, 50, 'blue', 1);
 
-INSERT INTO "pattern_inventory" ("title", "pattern_type", "difficulty_level", "yarn_weight", "user_id") VALUES ('Sophie Scarf', 1, 1, 1, 1);
+INSERT INTO "pattern_inventory" ("title", "pattern_type", "designer_name", "difficulty_level", "yarn_weight", "user_id") VALUES ('Sophie Scarf', 1, 1, 1, 1, 1);
 
 INSERT INTO "project_tracking" ("pattern_id", "date_started", "progress", "yarn_id", "user_id") VALUES (1, '01-01-2024', 25, 1, 1);
 
