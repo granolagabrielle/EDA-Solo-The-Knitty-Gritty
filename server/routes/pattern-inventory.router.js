@@ -127,7 +127,7 @@ router.put('/remove-inventory-fav', (req, res) => {
 });
 
 // get pattern details for specific user -- pass in id of pattern that was clicked on
-router.get('/:id', rejectUnauthenticated, (req, res) => {
+router.get('/:id', (req, res) => {
   const queryText = `
     SELECT "pattern_inventory"."id", "pattern_inventory"."title", "designer_names"."name", "pattern_types"."type", 
     "difficulty"."level", "weights"."weight", "pattern_inventory"."isFavorite"
@@ -140,7 +140,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
     ON "weights"."id"="pattern_inventory"."yarn_weight"
     JOIN "difficulty"
     ON "difficulty"."id"="pattern_inventory"."difficulty_level"
-    WHERE "pattern_inventory"."id"=1 AND "user_id"=1;
+    WHERE "pattern_inventory"."id"=$1 AND "user_id"=$2;
     `;
   pool
     .query(queryText, [req.params.id, req.user.id])
@@ -181,7 +181,7 @@ router.post('/', (req, res) => {
 
 // put to update pattern details
 // router.put('/:id', (req, res) => {
-  // console.log('in pattern put, check req.body', req.body);
+// console.log('in pattern put, check req.body', req.body);
 //   const queryText = `
 //       UPDATE "pattern_inventory"
 //       SET "notes" = $1
@@ -202,7 +202,7 @@ router.post('/', (req, res) => {
 router.delete('/:id', (req, res) => {
   const queryText = `
     UPDATE "pattern_inventory" 
-    SET "isdeleted"=TRUE
+    SET "isDeleted"=TRUE
     WHERE "id"=$1 
     AND "user_id"=$2;
     `;

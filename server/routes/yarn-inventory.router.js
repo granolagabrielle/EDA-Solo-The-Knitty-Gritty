@@ -5,7 +5,7 @@ const router = express.Router();
 
 // get yarn inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isDeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isDeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -27,7 +27,7 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // get favorite yarns for specific user
 router.get('/favorites', (req, res) => {
-  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isDeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
+  const queryText = `SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isDeleted", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -126,7 +126,7 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
   console.log('in yarn deets GET, check req.params.id', req.params.id);
   console.log('in yarn deets GET, check req.user.id', req.user.id);
   const queryText = `
- SELECT "yarn_inventory"."id", "yarn_inventory"."title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
+ SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
   FROM "yarn_inventory" 
   JOIN "fibers"
   ON "fibers"."id"="yarn_inventory"."fiber"
@@ -181,12 +181,12 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 router.post('/', rejectUnauthenticated, (req, res) => {
   console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
-  ("brand", "title", "fiber", "weight", "skeins", "skein_grams", "total_grams", "dye_lot", "user_id", "location") 
+  ("brand", "yarn_title", "fiber", "weight", "skeins", "skein_grams", "total_grams", "dye_lot", "user_id", "location") 
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
   pool
     .query(queryText, [
       req.body.brand,
-      req.body.title,
+      req.body.yarn_title,
       req.body.fiber,
       req.body.weight,
       req.body.skeins,
@@ -210,7 +210,7 @@ router.delete('/:id', (req, res) => {
   console.log('in yarn inventory delete router, check req.body.id', req.params.id);
   const queryText = `
   UPDATE "yarn_inventory" 
-  SET "isdeleted"=TRUE
+  SET "isDeleted"=TRUE
   WHERE "id"=$1 
   AND "user_id"=$2;
   `;

@@ -5,8 +5,8 @@ const router = express.Router();
 
 // get project inventory for specific user
 router.get('/', rejectUnauthenticated, (req, res) => {
-  const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."title",
-      "project_tracking"."isDeleted", "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size"
+  const queryText = `SELECT "project_tracking"."id", "pattern_inventory"."title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title",
+      "project_tracking"."isDeleted", "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size", "project_tracking"."yarn_id"
   FROM "project_tracking"
   JOIN "pattern_inventory"
   ON "pattern_inventory"."id"="project_tracking"."pattern_id"
@@ -25,10 +25,10 @@ router.get('/', rejectUnauthenticated, (req, res) => {
     });
 });
 
-// get project details for specific pattern of user -- pass in id of pattern that was clicked on
+// get project details for specific project of user -- pass in id of project that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
   const queryText = `
-       SELECT "project_tracking"."id", "pattern_inventory"."title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."title", 
+       SELECT "project_tracking"."id", "pattern_inventory"."title", "project_tracking"."date_started", "brands"."name", "yarn_inventory"."yarn_title", 
       "project_tracking"."grams_knit", "project_tracking"."est_grams_needed", "project_tracking"."needle_size", "project_tracking"."yarn_id"
   FROM "project_tracking"
   JOIN "pattern_inventory"
@@ -59,7 +59,7 @@ router.post('/', (req, res) => {
   console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
       ("pattern_id", "date_started", "est_grams_needed", "grams_knit", "yarn_id", "user_id", "needle_size") 
-      VALUES ($1, $2, $3, $4, $5, $6, $7, $8);`;
+      VALUES ($1, $2, $3, $4, $5, $6, $7);`;
   pool
     .query(queryText, [
       req.body.pattern_id,
@@ -122,7 +122,7 @@ router.put('/:id', (req, res) => {
 router.delete('/:id', (req, res) => {
   const queryText = `
     UPDATE "project_tracking" 
-    SET "isdeleted"=TRUE
+    SET "isDeleted"=TRUE
     WHERE "id"=$1 
     AND "user_id"=$2;
       `;
