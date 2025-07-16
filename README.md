@@ -6,8 +6,6 @@ Duration: 2 Week Sprint
 
 The Knitty Gritty is a web application I developed and designed to address common challenges faced by knitters. The application allows users to manage their yarn stash, pattern library, and ongoing knitting projects.
 
-To see the fully functional site, please visit: TBD
-
 ## Screen Shot
 
 <img width="1434" alt="Screen Shot 2024-07-07 at 5 33 22 PM" src="https://github.com/granolagabrielle/EDA-Solo-The-Knitty-Gritty/assets/135292783/df0a41fd-7fba-444f-bb4a-421c0f097c5c">
