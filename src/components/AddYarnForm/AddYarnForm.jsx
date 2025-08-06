@@ -33,24 +33,23 @@ function AddYarn() {
   });
 
   const handleNewYarn = (event) => {
-    if (event.target.id === 'brand') {
-      setNewYarn({ ...newYarn, brand: event.target.value });
-    } else if (event.target.id === 'fiber') {
-      setNewYarn({ ...newYarn, fiber: event.target.value });
-    } else if (event.target.id === 'yarn_title') {
-      setNewYarn({ ...newYarn, yarn_title: event.target.value });
-    } else if (event.target.id === 'weight') {
-      setNewYarn({ ...newYarn, weight: event.target.value });
-    } else if (event.target.id === 'total_grams') {
-      setNewYarn({ ...newYarn, total_grams: event.target.value });
-    } else if (event.target.id === 'dye_lot') {
-      setNewYarn({ ...newYarn, dye_lot: event.target.value });
-    } else if (event.target.id === 'notes') {
-      setNewYarn({ ...newYarn, notes: event.target.value });
-    } else if (event.target.id === 'location') {
-      setNewYarn({ ...newYarn, location: event.target.value });
-    } else {
-      setNewYarn({ ...newYarn, user_id: event.target.user.id });
+    const { id, value, user } = event.target;
+    switch (id) {
+      case 'brand':
+      case 'fiber':
+      case 'yarn_title':
+      case 'weight':
+      case 'total_grams':
+      case 'dye_lot':
+      case 'notes':
+      case 'location':
+        setNewYarn({ ...newYarn, [id]: value });
+        break;
+      default:
+        if (user && user.id) {
+          setNewYarn({ ...newYarn, user_id: user.id });
+        }
+        break;
     }
     return newYarn;
   };

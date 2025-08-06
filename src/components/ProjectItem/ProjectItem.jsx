@@ -1,11 +1,9 @@
 import { useHistory } from 'react-router-dom/';
 import * as React from 'react';
-// joy
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
 import Typography from '@mui/joy/Typography';
-import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import { DateTime } from 'luxon';
 
@@ -77,18 +75,7 @@ function ProjectItem({ project }) {
         >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  {project.pattern_title}
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>{project.pattern_title}</Typography>
               <Typography level='body-sm'>
                 {DateTime.fromISO(project.date_started).toFormat('MMMM dd, yyyy')}
               </Typography>
@@ -115,16 +102,7 @@ function ProjectItem({ project }) {
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div>
               <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  {((project.grams_knit / project.est_grams_needed) * 100).toFixed(0)}% Completed
-                </Link>
+                {((project.grams_knit / project.est_grams_needed) * 100).toFixed(0)}% Completed
               </Typography>
               <Typography
                 sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}

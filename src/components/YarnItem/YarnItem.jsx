@@ -8,7 +8,6 @@ import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
@@ -100,18 +99,7 @@ function YarnItem({ yarn, home }) {
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    {yarn.name}
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>{yarn.name}</Typography>
                 <Typography level='body-sm'>{yarn.location}</Typography>
               </div>
               <IconButton
@@ -137,18 +125,7 @@ function YarnItem({ yarn, home }) {
 
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    {yarn.weight} weight
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>{yarn.weight} weight</Typography>
                 <Typography level='body-sm'>{yarn.total_grams} grams in stash</Typography>
               </div>
               <Button
@@ -182,18 +159,7 @@ function YarnItem({ yarn, home }) {
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    {yarn.name}
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>{yarn.name}</Typography>
                 <Typography level='body-sm'>{yarn.yarn_title}</Typography>
               </div>
               <IconButton
@@ -209,71 +175,15 @@ function YarnItem({ yarn, home }) {
             <br></br>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Yarn weight
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Yarn weight</Typography>
                 <Typography level='body-sm'>{yarn.weight}</Typography>
-
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Grams in stash
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Grams in stash</Typography>
                 <Typography level='body-sm'>{yarn.total_grams} grams</Typography>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Fiber content
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Fiber content</Typography>
                 <Typography level='body-sm'>{yarn.fiber}</Typography>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Dye lot
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Dye lot</Typography>
                 <Typography level='body-sm'>{yarn.dye_lot}</Typography>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Yarn notes
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Yarn notes</Typography>
                 <Typography level='body-sm'>{yarn.notes}</Typography>
               </div>
             </Box>

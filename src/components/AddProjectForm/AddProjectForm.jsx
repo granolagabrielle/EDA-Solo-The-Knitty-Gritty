@@ -27,19 +27,19 @@ function AddProject() {
   });
 
   const handleNewProject = (event) => {
-    if (event.target.id === 'pattern_id') {
-      setNewProject({ ...newProject, pattern_id: event.target.value });
-      console.log('check pattern selection', event.target.value);
-    } else if (event.target.id === 'date_started') {
-      setNewProject({ ...newProject, date_started: event.target.value });
-    } else if (event.target.id === 'yarn_id') {
-      setNewProject({ ...newProject, yarn_id: event.target.value });
-    } else if (event.target.id === 'est_grams_needed') {
-      setNewProject({ ...newProject, est_grams_needed: event.target.value });
-    } else if (event.target.id === 'needle_size') {
-      setNewProject({ ...newProject, needle_size: event.target.value });
-    } else {
-      setNewProject({ ...newProject, user_id: event.target.user.id });
+    const { id, value, user } = event.target;
+    switch (id) {
+      case 'date_started':
+      case 'yarn_id':
+      case 'est_grams_needed':
+      case 'needle_size':
+        setNewProject({ ...newProject, [id]: value });
+        break;
+      default:
+        if (user && user.id) {
+          setNewProject({ ...newYarn, user_id: user.id });
+        }
+        break;
     }
     return newProject;
   };

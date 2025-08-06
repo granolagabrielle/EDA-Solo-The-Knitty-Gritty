@@ -32,21 +32,21 @@ function AddPattern() {
   });
 
   const handleNewPattern = (event) => {
-    if (event.target.id === 'pattern_title') {
-      setNewPattern({ ...newPattern, pattern_title: event.target.value });
-    } else if (event.target.id === 'designer_name') {
-      setNewPattern({ ...newPattern, designer_name: event.target.value });
-    } else if (event.target.id === 'pattern_type') {
-      setNewPattern({ ...newPattern, pattern_type: event.target.value });
-    } else if (event.target.id === 'difficulty_level') {
-      console.log('check diff level etv', event.target.value);
-      setNewPattern({ ...newPattern, difficulty_level: event.target.value });
-    } else if (event.target.id === 'yarn_weight') {
-      setNewPattern({ ...newPattern, yarn_weight: event.target.value });
-    } else if (event.target.id === 'notes') {
-      setNewPattern({ ...newPattern, notes: event.target.value });
-    } else {
-      setNewPattern({ ...newPattern, user_id: event.target.user.id });
+    const { id, value, user } = event.target;
+    switch (id) {
+      case 'pattern_title':
+      case 'designer_name':
+      case 'pattern_type':
+      case 'difficulty_level':
+      case 'yarn_weight':
+      case 'notes':
+        setNewPattern({ ...newPattern, [id]: value });
+        break;
+      default:
+        if (user && user.id) {
+          setNewPattern({ ...newPattern, user_id: user.id });
+        }
+        break;
     }
     return newPattern;
   };

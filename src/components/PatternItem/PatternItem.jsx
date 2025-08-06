@@ -5,7 +5,6 @@ import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
 import IconButton from '@mui/joy/IconButton';
 import Typography from '@mui/joy/Typography';
-import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
@@ -74,7 +73,7 @@ function PatternItem({ pattern }) {
             variant='outlined'
             sx={(theme) => ({
               width: 270,
-              height: 465, // Set the fixed height here
+              height: 465,
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
@@ -86,18 +85,7 @@ function PatternItem({ pattern }) {
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    {pattern.pattern_title}
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>{pattern.pattern_title}</Typography>
                 <Typography level='body-sm'>{pattern.name}</Typography>
               </div>
               <IconButton
@@ -139,7 +127,7 @@ function PatternItem({ pattern }) {
             variant='outlined'
             sx={(theme) => ({
               width: 270,
-              height: 465, // Set the fixed height here
+              height: 465,
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
@@ -151,18 +139,7 @@ function PatternItem({ pattern }) {
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    {pattern.pattern_title}
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>{pattern.pattern_title}</Typography>
                 <Typography level='body-sm'>{pattern.name}</Typography>
               </div>
               <IconButton
@@ -178,63 +155,18 @@ function PatternItem({ pattern }) {
             <br></br>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Pattern type
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Pattern type</Typography>
                 <Typography level='body-sm'>{pattern.type}</Typography>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Difficulty level
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Difficulty level</Typography>
                 <Typography level='body-sm'>{pattern.level}</Typography>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Recommended yarn weight
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Recommended yarn weight</Typography>
                 <Typography level='body-sm'>{pattern.weight}</Typography>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Pattern notes
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Pattern notes</Typography>
                 <Typography level='body-sm'>{pattern.notes}</Typography>
               </div>
               <br></br>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <Lightbox />
               <IconButton onClick={() => toggleCard(pattern.id)}>
                 <ArrowBackRoundedIcon />
               </IconButton>

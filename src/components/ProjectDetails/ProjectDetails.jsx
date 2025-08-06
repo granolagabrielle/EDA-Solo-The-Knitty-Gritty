@@ -9,13 +9,10 @@ import { Box, ListDivider } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
-import Link from '@mui/joy/Link';
 import Button from '@mui/joy/Button';
 import ArrowBackRoundedIcon from '@mui/icons-material/ArrowBackRounded';
 import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRounded';
 import Input from '@mui/joy/Input';
-
-// joy notes
 import List from '@mui/joy/List';
 import Sheet from '@mui/joy/Sheet';
 
@@ -71,7 +68,6 @@ function ProjectDetails() {
     history.push(`/edit-project/${projectId}`);
   };
 
-  // notes
   let [newNote, setNewNote] = useState({
     notes: '',
     date: '',
@@ -181,18 +177,7 @@ function ProjectDetails() {
         >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Project details
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Project details</Typography>
             </div>
             <IconButton
               size='sm'
@@ -206,46 +191,11 @@ function ProjectDetails() {
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Total grams needed
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Total grams needed</Typography>
               <Typography level='body-sm'>{projectDetails.est_grams_needed}</Typography>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Grams used
-                </Link>
-              </Typography>
-
+              <Typography level='title-lg'>Grams used</Typography>
               <Typography level='body-sm'>{projectDetails.grams_knit}</Typography>
-
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Progress
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Progress</Typography>
               <Typography level='body-sm'>
                 {((projectDetails.grams_knit / projectDetails.est_grams_needed) * 100).toFixed(0)}%
               </Typography>
@@ -329,18 +279,7 @@ function ProjectDetails() {
           >
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <div>
-                <Typography level='title-lg'>
-                  <Link
-                    overlay
-                    underline='none'
-                    sx={{
-                      color: 'text.primary',
-                      '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                    }}
-                  >
-                    Project Notes
-                  </Link>
-                </Typography>
+                <Typography level='title-lg'>Project Notes</Typography>
               </div>
               <IconButton
                 size='sm'

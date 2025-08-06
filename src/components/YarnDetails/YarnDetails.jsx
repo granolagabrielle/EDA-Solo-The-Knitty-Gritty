@@ -8,7 +8,6 @@ import Button from '@mui/joy/Button';
 import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
 import Card from '@mui/joy/Card';
 import Typography from '@mui/joy/Typography';
-import Link from '@mui/joy/Link';
 import AspectRatio from '@mui/joy/AspectRatio';
 import './YarnDetails.css';
 
@@ -136,18 +135,7 @@ function YarnDetails() {
         >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  some text
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>some text</Typography>
               <Typography level='body-sm'>some text</Typography>
             </div>
           </Box>
@@ -180,18 +168,7 @@ function YarnDetails() {
         >
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Yarn details
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Yarn details</Typography>
             </div>
             <IconButton
               size='sm'
@@ -205,57 +182,13 @@ function YarnDetails() {
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <div>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Grams in stash
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Grams in stash</Typography>
               <Typography level='body-sm'>{yarnDetails.skeins * yarnDetails.skein_grams}</Typography>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Fiber content
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Fiber content</Typography>
               <Typography level='body-sm'>{yarnDetails.fiber}</Typography>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Yarn weight
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Yarn weight</Typography>
               <Typography level='body-sm'>{yarnDetails.weight}</Typography>
-              <Typography level='title-lg'>
-                <Link
-                  overlay
-                  underline='none'
-                  sx={{
-                    color: 'text.primary',
-                    '&.Mui-focusVisible:after': { outlineOffset: '-4px' },
-                  }}
-                >
-                  Yarn notes
-                </Link>
-              </Typography>
+              <Typography level='title-lg'>Yarn notes</Typography>
               <Typography level='body-sm'>{yarnDetails.notes}</Typography>
             </div>
           </Box>
