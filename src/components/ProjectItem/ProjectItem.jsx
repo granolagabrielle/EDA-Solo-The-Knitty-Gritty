@@ -1,5 +1,4 @@
 import { useHistory } from 'react-router-dom/';
-import * as React from 'react';
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';

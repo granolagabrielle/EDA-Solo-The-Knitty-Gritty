@@ -1,3 +1,12 @@
-Drawer {
-  background-color: bisque;
+.app-name-container {
+  background-color: darkslategray;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start !important;
+}
+
+.app-name {
+  color: white;
+  padding-left: 1rem;
+  text-align: left;
 }

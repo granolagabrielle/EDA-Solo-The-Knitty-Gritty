@@ -1,13 +1,10 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
-import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Autocomplete from '@mui/material/Autocomplete';
 import Box from '@mui/joy/Box';
-import ListItemDecorator from '@mui/joy/ListItemDecorator';
-
 import './YarnInventory.css';
 import YarnItem from '../YarnItem/YarnItem';
 
@@ -26,7 +23,7 @@ function YarnInventory() {
 
   return (
     <>
-      <Box className='yarn-inv-header' height={50} display='flex' alignItems='center' gap={4} p={8} paddingTop={10}>
+      <Box className='yarn-inv-header' height={50} display='flex' alignItems='center' gap={4} p={8}>
         <h1>Yarn Inventory</h1>
         {yarns.length === 0 ? (
           <h4>

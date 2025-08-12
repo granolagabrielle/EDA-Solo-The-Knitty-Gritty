@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory, useParams } from 'react-router-dom/';
 import EditIcon from '@mui/icons-material/Edit';
 import IconButton from '@mui/material/IconButton';
-import * as React from 'react';
 import { DateTime } from 'luxon';
 import { Box, ListDivider } from '@mui/joy';
 import AspectRatio from '@mui/joy/AspectRatio';
@@ -15,7 +14,6 @@ import AddCircleOutlineRoundedIcon from '@mui/icons-material/AddCircleOutlineRou
 import Input from '@mui/joy/Input';
 import List from '@mui/joy/List';
 import Sheet from '@mui/joy/Sheet';
-
 import './ProjectDetails.css';
 
 function ProjectDetails() {

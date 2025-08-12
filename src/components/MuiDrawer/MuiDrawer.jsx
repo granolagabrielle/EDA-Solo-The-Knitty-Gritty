@@ -2,16 +2,10 @@ import * as React from 'react';
 import { styled, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Drawer from '@mui/material/Drawer';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiAppBar from '@mui/material/AppBar';
-import Toolbar from '@mui/material/Toolbar';
 import List from '@mui/material/List';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import IconButton from '@mui/material/IconButton';
-import MenuIcon from '@mui/icons-material/Menu';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
@@ -24,6 +18,7 @@ import BungalowRoundedIcon from '@mui/icons-material/BungalowRounded';
 import LogoutIcon from '@mui/icons-material/Logout';
 import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import './MuiDrawer.css';
 
 const drawerWidth = 240;
 
@@ -72,7 +67,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 export default function PersistentDrawerLeft() {
   const theme = useTheme();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(true);
   const history = useHistory();
   const dispatch = useDispatch();
 
@@ -85,31 +80,31 @@ export default function PersistentDrawerLeft() {
   };
 
   const navToPage = (text) => {
-    console.log('submit clicked');
-    if (text === 'Yarn Stash') {
-      history.push('/yarn');
-      setOpen(false);
-    } else if (text === 'Add Yarn') {
-      history.push('/addyarn');
-      setOpen(false);
-    } else if (text === 'Pattern Library') {
-      history.push('/patterns');
-      setOpen(false);
-    } else if (text === 'Add Pattern') {
-      history.push('/addpattern');
-      setOpen(false);
-    } else if (text === 'Project Tracker') {
-      history.push('/projects');
-      setOpen(false);
-    } else if (text === 'Start New Project') {
-      history.push('/addproject');
-      setOpen(false);
-    } else if (text === 'Log Out') {
-      dispatch({ type: 'LOGOUT' });
-      setOpen(false);
-    } else if (text === 'Home') {
-      history.push('/home');
-      setOpen(false);
+    switch (text) {
+      case 'Yarn Stash':
+        history.push('/yarn');
+        break;
+      case 'Add Yarn':
+        history.push('/addyarn');
+        break;
+      case 'Pattern Library':
+        history.push('/patterns');
+        break;
+      case 'Add Pattern':
+        history.push('/addpattern');
+        break;
+      case 'Project Tracker':
+        history.push('/projects');
+        break;
+      case 'Start New Project':
+        history.push('/addproject');
+        break;
+      case 'Log Out':
+        dispatch({ type: 'LOGOUT' });
+        break;
+      case 'Home':
+        history.push('/home');
+        break;
     }
   };
 
@@ -119,23 +114,6 @@ export default function PersistentDrawerLeft() {
 
   return (
     <Box sx={{ display: 'flex' }}>
-      <CssBaseline />
-      <AppBar position='fixed' open={open} style={{ backgroundColor: 'darkslategrey' }}>
-        <Toolbar>
-          <IconButton
-            color='inherit'
-            aria-label='open drawer'
-            onClick={handleDrawerOpen}
-            edge='start'
-            sx={{ mr: 2, ...(open && { display: 'none' }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant='h6' noWrap component='div' onClick={goHome}>
-            The Knitty Gritty
-          </Typography>
-        </Toolbar>
-      </AppBar>
       <Drawer
         sx={{
           width: drawerWidth,
@@ -149,10 +127,10 @@ export default function PersistentDrawerLeft() {
         anchor='left'
         open={open}
       >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
+        <DrawerHeader className='app-name-container'>
+          <Typography className='app-name' variant='h6' noWrap component='div' onClick={goHome}>
+            The Knitty Gritty
+          </Typography>
         </DrawerHeader>
         <Divider />
         <List>

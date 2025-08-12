@@ -1,8 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
-import * as React from 'react';
 import { useState } from 'react';
-// joy
 import AspectRatio from '@mui/joy/AspectRatio';
 import Card from '@mui/joy/Card';
 import Box from '@mui/joy/Box';
