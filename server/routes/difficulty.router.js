@@ -17,7 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // add new difficulty level
 router.post('/', (req, res) => {
-  // console.log('in difficulty post, check req.body', req.body);
   const queryText = `INSERT INTO "difficulty" 
   ("level") 
   VALUES ($1);`;

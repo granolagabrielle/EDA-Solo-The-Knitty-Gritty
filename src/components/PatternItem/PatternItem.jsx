@@ -98,7 +98,7 @@ function PatternItem({ pattern }) {
               </IconButton>
             </Box>
             <AspectRatio
-              ratio='3/4' // Set the aspect ratio for the phone photo size
+              ratio='3/4'
               sx={{
                 width: '100%',
                 height: 'auto',

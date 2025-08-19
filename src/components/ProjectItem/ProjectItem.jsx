@@ -62,7 +62,7 @@ function ProjectItem({ project }) {
           variant='outlined'
           sx={(theme) => ({
             width: 270,
-            height: 465, // Set the fixed height here
+            height: 465,
             flexDirection: 'column',
             overflow: 'hidden',
             transition: 'transform 0.3s, border 0.3s',
@@ -89,7 +89,7 @@ function ProjectItem({ project }) {
           </Box>
 
           <AspectRatio
-            ratio='3/4' // Set the aspect ratio for the phone photo size
+            ratio='3/4'
             sx={{
               width: '100%',
               height: 'auto',

@@ -17,7 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // post new designer to list
 router.post('/', (req, res) => {
-  // console.log('in designer post, check req.body', req.body);
   const queryText = `INSERT INTO "designer_names" 
   ("name") 
   VALUES ($1);`;

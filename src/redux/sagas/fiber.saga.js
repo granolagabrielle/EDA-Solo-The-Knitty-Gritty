@@ -1,11 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// function to fetch fiber contents
 function* fetchFiberContent() {
   try {
-    const fiberResponse = yield axios.get('/api/fiber');
-    yield put({ type: 'SET_FIBERS', payload: fiberResponse.data });
+    const fibers = yield axios.get('/api/fiber');
+    yield put({ type: 'SET_FIBERS', payload: fibers.data });
   } catch (error) {
     console.log('fetch fibers error', error);
   }

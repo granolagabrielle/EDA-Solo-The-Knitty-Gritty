@@ -163,7 +163,7 @@ function ProjectDetails() {
           variant='outlined'
           sx={(theme) => ({
             width: 270,
-            height: 350, // Set the fixed height here
+            height: 350,
             flexDirection: 'column',
             overflow: 'hidden',
             transition: 'transform 0.3s, border 0.3s',
@@ -207,7 +207,7 @@ function ProjectDetails() {
               variant='outlined'
               sx={(theme) => ({
                 width: 270,
-                height: 350, // Set the fixed height here
+                height: 350,
                 flexDirection: 'column',
                 overflow: 'hidden',
                 transition: 'transform 0.3s, border 0.3s',
@@ -218,7 +218,7 @@ function ProjectDetails() {
               })}
             >
               <AspectRatio
-                ratio='3/4' // Set the aspect ratio for the phone photo size
+                ratio='3/4'
                 sx={{
                   width: '100%',
                   height: 'auto',
@@ -265,7 +265,7 @@ function ProjectDetails() {
             variant='outlined'
             sx={(theme) => ({
               width: 1210,
-              height: 350, // Set the fixed height here
+              height: 350,
               flexDirection: 'column',
               overflow: 'hidden',
               transition: 'transform 0.3s, border 0.3s',
@@ -291,7 +291,6 @@ function ProjectDetails() {
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'left', justifyContent: 'left' }}>
               <Sheet
-                // variant='outlined'
                 sx={{
                   width: 1210,
                   maxHeight: 300,

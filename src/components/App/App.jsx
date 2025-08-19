@@ -17,13 +17,11 @@ import HomePage from '../HomePage/HomePage';
 
 import './App.css';
 import YarnDetails from '../YarnDetails/YarnDetails';
-import PatternDetails from '../PatternDetails/PatternDetails';
 import ProjectDetails from '../ProjectDetails/ProjectDetails';
 import AddYarn from '../AddYarnForm/AddYarnForm';
 import AddPattern from '../AddPatternForm/AddPatternForm';
 import AddProject from '../AddProjectForm/AddProjectForm';
 import EditYarn from '../YarnInventory/EditYarn';
-import EditPattern from '../PatternInventory/EditPattern';
 import EditProject from '../ProjectDetails/EditProject';
 import PersistentDrawerLeft from '../MuiDrawer/MuiDrawer';
 
@@ -43,123 +41,53 @@ function App() {
       <div>
         <PersistentDrawerLeft />
         <Switch>
-          {/* Visiting localhost:5173 will redirect to localhost:5173/home */}
           <Redirect exact from='/' to='/home' />
-          
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path='/home'
-          >
+
+          <ProtectedRoute exact path='/home'>
             <HomePage />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows UserPage else shows LoginPage
-            exact
-            path='/home'
-          >
+          <ProtectedRoute exact path='/home'>
             <HomePage />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/yarn'
-          >
+          <ProtectedRoute exact path='/yarn'>
             <YarnInventory />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/addyarn'
-          >
+          <ProtectedRoute exact path='/addyarn'>
             <AddYarn />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/edit-yarn/:id'
-          >
+          <ProtectedRoute exact path='/edit-yarn/:id'>
             <EditYarn />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/yarn/:id'
-          >
+          <ProtectedRoute exact path='/yarn/:id'>
             <YarnDetails />
           </ProtectedRoute>
-         
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/patterns'
-          >
+
+          <ProtectedRoute exact path='/patterns'>
             <PatternInventory />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/addpattern'
-          >
+          <ProtectedRoute exact path='/addpattern'>
             <AddPattern />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/projects'
-          >
+          <ProtectedRoute exact path='/projects'>
             <ProjectInventory />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/addproject'
-          >
+          <ProtectedRoute exact path='/addproject'>
             <AddProject />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/projects/:id'
-          >
+          <ProtectedRoute exact path='/projects/:id'>
             <ProjectDetails />
           </ProtectedRoute>
-          <ProtectedRoute
-            // logged in shows InfoPage else shows LoginPage
-            exact
-            path='/edit-project/:id'
-          >
+          <ProtectedRoute exact path='/edit-project/:id'>
             <EditProject />
           </ProtectedRoute>
           <Route exact path='/login'>
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect to the /user page
-              <Redirect to='/home' />
-            ) : (
-              // Otherwise, show the login page
-              <LoginPage />
-            )}
+            {user.id ? <Redirect to='/home' /> : <LoginPage />}
           </Route>
           <Route exact path='/registration'>
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to='/home' />
-            ) : (
-              // Otherwise, show the registration page
-              <RegisterPage />
-            )}
+            {user.id ? <Redirect to='/home' /> : <RegisterPage />}
           </Route>
           <Route exact path='/home'>
-            {user.id ? (
-              // If the user is already logged in,
-              // redirect them to the /user page
-              <Redirect to='/home' />
-            ) : (
-              // Otherwise, show the Landing page
-              <LandingPage />
-            )}
+            {user.id ? <Redirect to='/home' /> : <LandingPage />}
           </Route>
           {/* If none of the other routes matched, we will show a 404. */}
           <Route>

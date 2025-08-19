@@ -45,7 +45,6 @@ router.get('/favorites', (req, res) => {
     .query(queryText, [req.user.id])
     .then((result) => {
       res.send(result.rows);
-      console.log('check fav pattern router', result.rows);
     })
     .catch((error) => {
       console.log(error);
@@ -91,7 +90,6 @@ router.put('/unfavorite-pattern/:id', (req, res) => {
 
 // update pattern as favorite in inventory
 router.put('/inventory-fav', (req, res) => {
-  console.log('in inventory favorite put, check req.body.id', req.body.id);
   const queryText = `
   UPDATE "pattern_inventory"
     SET "isFavorite" = TRUE
@@ -110,7 +108,6 @@ router.put('/inventory-fav', (req, res) => {
 
 // remove pattern as favorite in inventory
 router.put('/remove-inventory-fav', (req, res) => {
-  console.log('in inventory favorite put, check req.body.id', req.body.id);
   const queryText = `
   UPDATE "pattern_inventory"
     SET "isFavorite" = FALSE
@@ -155,7 +152,6 @@ router.get('/:id', (req, res) => {
 
 // post new pattern to inventory
 router.post('/', (req, res) => {
-  console.log('in pattern post,check req.body', req.body);
   const queryText = `INSERT INTO "pattern_inventory" 
     ("title", "designer_name", "pattern_type", "difficulty_level", "yarn_weight", "user_id") 
     VALUES ($1, $2, $3, $4, $5, $6);`;

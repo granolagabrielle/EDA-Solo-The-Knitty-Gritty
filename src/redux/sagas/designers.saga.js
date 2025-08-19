@@ -1,11 +1,10 @@
 import { put, takeLatest } from 'redux-saga/effects';
 import axios from 'axios';
 
-// function to fetch pattern designers
 function* fetchDesigners() {
   try {
-    const designersResponse = yield axios.get('/api/designers');
-    yield put({ type: 'SET_DESIGNERS', payload: designersResponse.data });
+    const designers = yield axios.get('/api/designers');
+    yield put({ type: 'SET_DESIGNERS', payload: designers.data });
   } catch (error) {
     console.log('fetch designers error', error);
   }

@@ -16,7 +16,6 @@ function YarnDetails() {
   const dispatch = useDispatch();
   const params = useParams();
   const yarnDetails = useSelector((store) => store.yarns.yarnDetails);
-  // console.log('check multiple pictures', yarnDetails?.image?.substring(2, yarnDetails?.image?.length - 2).split(','));
 
   useEffect(() => {
     dispatch({ type: 'FETCH_YARN_DETAILS', payload: params.id });
@@ -123,7 +122,7 @@ function YarnDetails() {
           variant='outlined'
           sx={(theme) => ({
             width: 270,
-            height: 410, // Set the fixed height here
+            height: 410,
             flexDirection: 'column',
             overflow: 'hidden',
             transition: 'transform 0.3s, border 0.3s',
@@ -141,7 +140,7 @@ function YarnDetails() {
           </Box>
 
           <AspectRatio
-            ratio='3/4' // Set the aspect ratio for the phone photo size
+            ratio='3/4'
             sx={{
               width: '100%',
               height: 'auto',
@@ -156,7 +155,7 @@ function YarnDetails() {
           variant='outlined'
           sx={(theme) => ({
             width: 270,
-            height: 410, // Set the fixed height here
+            height: 410,
             flexDirection: 'column',
             overflow: 'hidden',
             transition: 'transform 0.3s, border 0.3s',

@@ -17,7 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // add new yarn weight
 router.post('/', (req, res) => {
-  // console.log('in yarn weight post, check req.body', req.body);
   const queryText = `INSERT INTO "weights" 
   ("weight") 
   VALUES ($1);`;

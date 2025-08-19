@@ -10,7 +10,7 @@ function AddPattern() {
   const dispatch = useDispatch();
   const designers = useSelector((store) => store.designers);
   const types = useSelector((store) => store.patternTypes);
-  const difficultys = useSelector((store) => store.difficultys);
+  const difficulties = useSelector((store) => store.difficulties);
   const weights = useSelector((store) => store.weights);
 
   useEffect(() => {
@@ -53,7 +53,6 @@ function AddPattern() {
 
   const addPattern = (event) => {
     event.preventDefault();
-    console.log('check newPattern', newPattern);
     dispatch({ type: 'ADD_PATTERN', payload: newPattern });
     dispatch({ type: 'FETCH_PATTERNS' });
     history.push('/patterns');
@@ -151,7 +150,7 @@ function AddPattern() {
                   value={newPattern.difficulty_level}
                   onChange={handleNewPattern}
                 >
-                  {difficultys.map((difficulty) => {
+                  {difficulties.map((difficulty) => {
                     return (
                       <option key={difficulty.id} value={difficulty.id}>
                         {difficulty.level}

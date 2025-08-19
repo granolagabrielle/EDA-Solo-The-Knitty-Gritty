@@ -48,7 +48,7 @@ function HomePage() {
       <section className='yarn-section'>
         <section className='yarn-container-home'>
           {currentYarns.map((yarn) => (
-            <YarnItem key={yarn.id} yarn={yarn} home='home'/>
+            <YarnItem key={yarn.id} yarn={yarn} home='home' />
           ))}
         </section>
         <div className='pagination-btns'>

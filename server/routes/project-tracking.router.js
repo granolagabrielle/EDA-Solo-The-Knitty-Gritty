@@ -56,7 +56,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // post new project for user
 router.post('/', (req, res) => {
-  console.log('in project post, check req.body', req.body);
   const queryText = `INSERT INTO "project_tracking" 
       ("pattern_id", "date_started", "est_grams_needed", "grams_knit", "yarn_id", "user_id", "needle_size") 
       VALUES ($1, $2, $3, $4, $5, $6, $7);`;
@@ -81,7 +80,6 @@ router.post('/', (req, res) => {
 
 // // put to update project details
 router.put('/:id', (req, res) => {
-  console.log('in project put, check req.body', req.body);
   const queryText = `
     UPDATE "project_tracking"
     SET "grams_knit"=$1
@@ -90,11 +88,9 @@ router.put('/:id', (req, res) => {
   const yarnId = req.body.yarn_id;
   // const gramsKnit = req.body.grams_knit;
   const gramsUsed = req.body.grams_used;
-  console.log('Grams used', gramsUsed);
   pool
     .query(queryText, values)
     .then((result) => {
-      console.log('in project PUT, check yarn id', yarnId);
       const updateYarnQuery = `
       UPDATE "yarn_inventory"
       SET "total_grams"="total_grams"-$1
@@ -102,7 +98,6 @@ router.put('/:id', (req, res) => {
       pool
         .query(updateYarnQuery, [gramsUsed, yarnId, req.user.id])
         .then((result) => {
-          console.log('successfully updated yarn inventory');
           res.sendStatus(201);
         })
         .catch((error) => {

@@ -17,7 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // add new fiber content
 router.post('/', (req, res) => {
-  // console.log('in fiber content post, check req.body', req.body);
   const queryText = `INSERT INTO "fibers" 
   ("fiber") 
   VALUES ($1);`;

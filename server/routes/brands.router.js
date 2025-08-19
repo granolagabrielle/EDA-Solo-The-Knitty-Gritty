@@ -17,7 +17,6 @@ router.get('/', rejectUnauthenticated, (req, res) => {
 
 // add new yarn brand
 router.post('/', (req, res) => {
-  console.log('in yarn brand post, check req.body', req.body);
   const queryText = `INSERT INTO "brands" 
   ("name") 
   VALUES ($1);`;

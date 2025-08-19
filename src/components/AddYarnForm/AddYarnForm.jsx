@@ -95,8 +95,6 @@ function AddYarn() {
         .open();
   };
 
-  // console.log('check images', images);
-
   return (
     <>
       <h1 className='header'>Add Yarn</h1>

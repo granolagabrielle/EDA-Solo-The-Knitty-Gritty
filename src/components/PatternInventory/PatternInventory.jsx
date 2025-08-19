@@ -2,7 +2,6 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom/';
 import './PatternInventory.css';
-import * as React from 'react';
 import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/joy/Box';

@@ -42,7 +42,6 @@ router.get('/favorites', (req, res) => {
     .query(queryText, [req.user.id])
     .then((result) => {
       res.send(result.rows);
-      console.log('check fav router', result.rows);
     })
     .catch((error) => {
       console.log(error);
@@ -86,7 +85,6 @@ router.put('/unfavorite-yarn/:id', (req, res) => {
 
 // update yarn as favorite in inventory
 router.put('/inventory-fav', (req, res) => {
-  console.log('in inventory favorite put, check req.body.id', req.body.id);
   const queryText = `
   UPDATE "yarn_inventory"
     SET "isFavorite" = TRUE
@@ -105,7 +103,6 @@ router.put('/inventory-fav', (req, res) => {
 
 // remove yarn as favorite in inventory
 router.put('/remove-inventory-fav', (req, res) => {
-  console.log('in inventory favorite put, check req.body.id', req.body.id);
   const queryText = `
   UPDATE "yarn_inventory"
     SET "isFavorite" = FALSE
@@ -123,8 +120,6 @@ router.put('/remove-inventory-fav', (req, res) => {
 
 // get yarn details for specific user -- pass in id of yarn that was clicked on
 router.get('/:id', rejectUnauthenticated, (req, res) => {
-  console.log('in yarn deets GET, check req.params.id', req.params.id);
-  console.log('in yarn deets GET, check req.user.id', req.user.id);
   const queryText = `
  SELECT "yarn_inventory"."id", "yarn_inventory"."yarn_title", "yarn_inventory"."total_grams", "fibers"."fiber", "brands"."name", "weights"."weight", "yarn_inventory"."dye_lot", "yarn_inventory"."isFavorite", "yarn_inventory"."location"
   FROM "yarn_inventory" 
@@ -179,7 +174,6 @@ router.get('/:id', rejectUnauthenticated, (req, res) => {
 
 // post new yarn to inventory
 router.post('/', rejectUnauthenticated, (req, res) => {
-  console.log('in yarn post, check req.body', req.body);
   const queryText = `INSERT INTO "yarn_inventory" 
   ("brand", "yarn_title", "fiber", "weight", "skeins", "skein_grams", "total_grams", "dye_lot", "user_id", "location") 
   VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10);`;
@@ -207,7 +201,6 @@ router.post('/', rejectUnauthenticated, (req, res) => {
 
 // delete yarn from inventory
 router.delete('/:id', (req, res) => {
-  console.log('in yarn inventory delete router, check req.body.id', req.params.id);
   const queryText = `
   UPDATE "yarn_inventory" 
   SET "isDeleted"=TRUE
@@ -227,7 +220,6 @@ router.delete('/:id', (req, res) => {
 
 // put to update yarn details
 router.put('/:id', (req, res) => {
-  // console.log('in yarn put, check req.body', req.body);
   const queryText = `
     UPDATE "yarn_inventory"
     SET "total_grams" = $1
